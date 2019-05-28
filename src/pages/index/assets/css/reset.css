@@ -1,0 +1,79 @@
+html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,dfn,em,img,strong,sub,sup,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,tbody,tfoot,thead,tr,th,td,section,article{margin:0;padding:0;-webkit-text-size-adjust:none;}
+        *:focus {outline: none;}
+        * { -webkit-tap-highlight-color: transparent; -webkit-appearance: none; border:0}
+        table{border-collapse:collapse; border-spacing:0;}
+        html{width:100%;height: 100%;}
+        body{height:100%;}
+        img{border:none; max-width:100%; vertical-align:middle;}
+        ul,li,ol {list-style:none;}
+        h1,h2,h3,h4,h5,h6{font-weight:normal;font-size:0.24rem;min-height:0rem;}
+        em,cite,dfn{font-style:normal;}
+        .clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+        .clearfix{*display:inline-block; *zoom:100%;}
+        .clear{clear:both; line-height:1px; height:1px; *display:inline; font-size:1px;}
+        .fl{float:left;}
+        .fr{float:right;}
+        .alignL{text-align:left;}
+        .alignC{text-align:center;}
+        .alignR{text-align:right;}
+        .relative{position:relative;}
+        .absolute{position:absolute;}
+        .none{display:none;}
+        .block{display:block;}
+        .overf{overflow:hidden;}
+        .opacity{opacity:0.5;}
+        :focus,a{outline:none; -moz-outline-style:none;}
+        a:visited,a:link{text-decoration:none;}
+        a:hover {text-decoration:none;}
+        .middle{vertical-align: middle;}
+        .font24{font-size:.24rem;}
+        .font26{font-size:.26rem;}
+        .font28{font-size:.28rem;}
+        .font30{font-size:.30rem;}
+        .font32{font-size:.32rem;}
+        .font34{font-size:.34rem;}
+        .font36{font-size:.36rem;}
+        .line_h0{line-height:0px;}
+        .center{margin:0 auto;}
+        .max640{max-width:640px;}
+        .full_screen{width: 100%; height: 100%; overflow: hidden;}
+        body{font:.14rem/1.5 "Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",tahoma,Arial; background: #fff;position: relative;overflow-x: hidden !important;}
+        /* .mint-button {
+          margin-top: 0px !important;
+        } */
+        .comon {
+          background: linear-gradient(to bottom right, #C5E8D5 20%,#fff 40%,  #B1E0C6) !important;
+        }
+        .header {
+          color: #fff;
+          line-height: 30px;
+          padding:2px 2%;
+          font-size: 13px;
+          font-weight: 700;
+          background: #339864;
+          position: fixed;
+          top: 0px;
+          width: 96%;
+          z-index: 100;
+        }
+        .logoImg {
+          display: inline-block;
+          width: 110px;
+          border: 1px solid orange;
+          height: 20px;
+        }
+        .weui-tabbar{
+          background-color: #03764D !important;
+          color: #fff;
+          position: fixed !important;
+        }
+        .weui-tabbar:before {
+          display: none !important;
+        }
+        .weui-tabbar__label {
+          color: #fff !important;
+        }
+        .centerTab {
+          width: 48px;
+          margin-top: -10px;
+        }
