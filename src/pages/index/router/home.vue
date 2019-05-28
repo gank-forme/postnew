@@ -1,11 +1,7 @@
 <template>
   <div id="passport" class="comon">
-    <div class="header clearfix">
-      <span class="fl">你分享我点赞大型系列活动</span>
-      <span class="fr">
-        <img class="logoImg" src="" alt="">
-      </span>
-    </div>
+    <app-header></app-header>
+
     <div class="con">
       <div class="imgBox">
         <div class="loadCon">
@@ -38,29 +34,8 @@
           <h4>请上传指定照片（参照右图），可通过邮储银行APP进入梦乡加邮站主页创建梦乡并找到梦想主页截图上传，目前支持JPG/PNG/JPGE等多种格式</h4>
         </div>
       </div>
-
-
-      <tabbar>
-        <tabbar-item>
-          <img slot="icon" src="../assets/err.png">
-          <span slot="label">活动详情</span>
-        </tabbar-item>
-        <tabbar-item >
-          <img slot="icon" src="../assets/err.png">
-          <span slot="label">发起梦想</span>
-        </tabbar-item>
-        <a href="#" class="centerTab">
-          <img slot="icon" src="../assets/err.png">
-        </a>
-        <tabbar-item selected link="/component/demo">
-          <img slot="icon" src="../assets/err.png">
-          <span slot="label">排行榜</span>
-        </tabbar-item>
-        <tabbar-item >
-          <img slot="icon" src="../assets/err.png">
-          <span slot="label">我的</span>
-        </tabbar-item>
-      </tabbar>
+      
+      <app-footer></app-footer>
     </div>
 
 

@@ -1,20 +1,15 @@
 <template>
   <div id="load" class="comon">
-    <div class="load none">
-      <img class="logo" src="" alt="">
+    <div class="load " v-if='loadIndex==0'>
+      <img class="logo" src="../assets/logo.png" alt="">
       <p class="progress">Loading 34%</p>
     </div>
-    <div class="header clearfix">
-      <span class="fl">你分享我点赞大型系列活动</span>
-      <span class="fr">
-        <img class="logoImg" src="" alt="">
-      </span>
-    </div>
-    <div class="swiperDiv none">
+    <app-header></app-header>
+    <div class="swiperDiv" v-if='loadIndex==1'>
       <swiper :list="demo01_list" :aspect-ratio='2' :show-desc-mask='false' dots-position='center'></swiper>
     </div>
-    <div class="listIndex">
-      <p><img class="logoImg" src="" alt=""> </p>
+    <div class="listIndex" v-if='loadIndex==2'>
+      <p><img class="logoImg" src="../assets/logo.png" alt=""> </p>
       <li v-for='i in listIndex'>
         <img src="" alt="">
         <img class="goBtn" src="" alt="">
@@ -24,44 +19,27 @@
       <h1 class="tipH">请进入您需要查看的详情 </h1>
       <h2 class="tipH">Please enter the details you need to see. </h2>
     </div>
-    <tabbar>
-      <tabbar-item>
-        <img slot="icon" src="../assets/err.png">
-        <span slot="label">活动详情</span>
-      </tabbar-item>
-      <tabbar-item >
-        <img slot="icon" src="../assets/err.png">
-        <span slot="label">发起梦想</span>
-      </tabbar-item>
-      <a href="#" class="centerTab">
-        <img slot="icon" src="../assets/err.png">
-      </a>
-      <tabbar-item selected link="/component/demo">
-        <img slot="icon" src="../assets/err.png">
-        <span slot="label">排行榜</span>
-      </tabbar-item>
-      <tabbar-item >
-        <img slot="icon" src="../assets/err.png">
-        <span slot="label">我的</span>
-      </tabbar-item>
-    </tabbar>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
+import banner1 from '../assets/banner1.png'
+// import banner1 from '../assets/img.png'
 
 export default {
   name: 'app',
   data () {
     return {
+      loadIndex:2,
       demo01_list:[{
           url: 'javascript:',
-          img: 'https://static.vux.li/demo/1.jpg',
+          img: banner1,
         }, {
           url: 'javascript:',
-          img: 'https://static.vux.li/demo/5.jpg',
+          img: banner1,
       }],
       listIndex:[{
         logo:'',
@@ -98,15 +76,13 @@ export default {
   #load .logo {
     display: block;
     margin: 0 auto;
-    border: 1px solid orange;
-    width: 364px;
-    height: 54px;
-    margin-top: 490px;
+    width: 180px;
+    margin-top: 240px;
   }
   #load .progress {
-    font-size:20px;
+    font-size:13px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .header {
     color: #fff;
@@ -119,20 +95,17 @@ export default {
   .logoImg {
     display: inline-block;
     width: 110px;
-    border: 1px solid orange;
-    height: 20px;
   }
   .swiperDiv {
     width: 90%;
     margin:0 auto;
-    background: orange;
+    border: 1px solid orange;
     margin-top: 20px;
   }
   .listIndex {
     width: 94%;
     margin:0 auto;
     margin-top: 45px;
-    border:1px solid #999;
   }
   .listIndex p {
     margin-top: 20px;

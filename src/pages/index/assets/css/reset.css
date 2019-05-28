@@ -18,7 +18,7 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .alignR{text-align:right;}
         .relative{position:relative;}
         .absolute{position:absolute;}
-        .none{display:none;}
+        .none{display:none !important;}
         .block{display:block;}
         .overf{overflow:hidden;}
         .opacity{opacity:0.5;}
@@ -59,8 +59,6 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .logoImg {
           display: inline-block;
           width: 110px;
-          border: 1px solid orange;
-          height: 20px;
         }
         .weui-tabbar{
           background-color: #03764D !important;
@@ -76,4 +74,7 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .centerTab {
           width: 48px;
           margin-top: -10px;
+        }
+        .w90 {
+          width: 80% !important;
         }

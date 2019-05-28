@@ -1,11 +1,6 @@
 <template>
   <div id="result" class="comon">
-    <div class="header clearfix">
-      <span class="fl">你分享我点赞大型系列活动</span>
-      <span class="fr">
-        <img class="logoImg" src="" alt="">
-      </span>
-    </div>
+    <app-header></app-header>
 
     <div class="content">
       <img class="res_logo" src="../assets/suc.png" alt="">

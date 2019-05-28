@@ -5,6 +5,9 @@ import App from './index.vue'
 import './assets/css/reset.css'
 import 'lib-flexible/flexible.js'
 import VueRouter from "vue-router"
+import header from './components/header.vue'
+import footer from './components/footer.vue'
+
 import home from './router/home.vue'
 import login from './router/login.vue'
 import result from './router/result.vue'
@@ -22,6 +25,9 @@ import {Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,Lo
 import 'mint-ui/lib/style.css'
 import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
+
+Vue.component(header.name, header)
+Vue.component(footer.name, footer)
 
 Vue.component('search', Search)
 Vue.component('tabbar', Tabbar)
