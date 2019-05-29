@@ -5,7 +5,7 @@
     <div class="con">
       <div class="imgBox">
         <div class="loadCon">
-          <img src="loadImg" alt="">
+          <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div>
         <image-upload
@@ -23,10 +23,10 @@
 
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
       </div>
-      <h2>请输入您的梦想名称</h2>
-      <textarea id='textarea' name="name" rows="8" cols="80"></textarea>
+      <h2><img src="../assets/write.png" alt="">请输入您的梦想名称</h2>
+      <textarea id='textarea' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name" rows="8" cols="80"></textarea>
       <div class="clearfix bots">
-        <img class="fr" src="" alt="">
+        <img class="fr" src="../assets/down.png" alt="">
         <div class="fl">
           <h1>上传须知</h1>
           <h3>Upload instructions </h3>
@@ -34,7 +34,7 @@
           <h4>请上传指定照片（参照右图），可通过邮储银行APP进入梦乡加邮站主页创建梦乡并找到梦想主页截图上传，目前支持JPG/PNG/JPGE等多种格式</h4>
         </div>
       </div>
-      
+
       <app-footer></app-footer>
     </div>
 
@@ -371,11 +371,10 @@ export default {
   width: 100%;
 }
 #passport .loadCon img{
-  width: 50px;
-  height: 50px;
-  background: #eee;
+  width: 25px;
   display: block;
   margin: 0 auto;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 #passport .loadCon p{
@@ -397,6 +396,10 @@ export default {
   padding: 10px;
   background: #03764D;
   margin:2px 0;
+}
+#passport .con h2 img {
+  width: 15px;
+  margin-right: 8px;
 }
 #passport #textarea {
   background: #fff;
@@ -436,4 +439,8 @@ export default {
 
 }
 
+textarea::-webkit-textarea-placeholder {
+    /* placeholder颜色  */
+  color: #fff;
+}
 </style>

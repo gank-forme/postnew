@@ -6,20 +6,21 @@
     </div>
     <app-header></app-header>
     <div class="swiperDiv" v-if='loadIndex==1'>
-      <swiper :list="demo01_list" :aspect-ratio='2' :show-desc-mask='false' dots-position='center'></swiper>
+      <swiper :list="demo01_list" height='600px' :show-desc-mask='false' dots-position='center'></swiper>
     </div>
     <div class="listIndex" v-if='loadIndex==2'>
       <p><img class="logoImg" src="../assets/logo.png" alt=""> </p>
-      <li v-for='i in listIndex'>
-        <img src="" alt="">
+      <li v-for='(i,index) in listIndex' :key='index'>
+        <img :src='i' alt="">
+        <!-- <img src="" alt="">
         <img class="goBtn" src="" alt="">
         <h1>{{i.tit}}</h1>
-        <h2>{{i.dec}}</h2>
+        <h2>{{i.dec}}</h2> -->
       </li>
       <h1 class="tipH">请进入您需要查看的详情 </h1>
       <h2 class="tipH">Please enter the details you need to see. </h2>
     </div>
-    <app-footer></app-footer>
+    <app-footer v-if='loadIndex==2'></app-footer>
   </div>
 </template>
 
@@ -27,7 +28,10 @@
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 import banner1 from '../assets/banner1.png'
-// import banner1 from '../assets/img.png'
+import banner2 from '../assets/banner2.png'
+import list1 from '../assets/list1.png'
+import list2 from '../assets/list2.png'
+import list3 from '../assets/list3.png'
 
 export default {
   name: 'app',
@@ -39,21 +43,9 @@ export default {
           img: banner1,
         }, {
           url: 'javascript:',
-          img: banner1,
+          img: banner2,
       }],
-      listIndex:[{
-        logo:'',
-        tit:'梦想加邮站系列活动详情',
-        dec:'Details of the series of activities',
-      },{
-        logo:'',
-        tit:'梦想加邮站发起流程',
-        dec:'Dream Plus Post Station Initiation Process',
-      },{
-        logo:'',
-        tit:'你分享我点赞活动奖品设置',
-        dec:'You share my compliments on the prize settings for the event',
-      }]
+      listIndex:[list1,list2,list3]
     }
   },
   methods: {
@@ -99,8 +91,11 @@ export default {
   .swiperDiv {
     width: 90%;
     margin:0 auto;
-    border: 1px solid orange;
-    margin-top: 20px;
+    margin-top: 60px;
+  }
+  .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-img{
+    background-position: top !important;
+    background-size: 100% !important;
   }
   .listIndex {
     width: 94%;
@@ -116,19 +111,19 @@ export default {
     width: 94%;
     margin: 0 auto;
     margin-top: 10px;
-    background: #339864;
     height: 115px;
     text-align: center;
     color: #fff;
     position: relative;
   }
   .listIndex li img {
-    width: 33px;
+    width: 100%;
+    /* width: 33px;
     height: 33px;
     display: inline-block;
     background: #999;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
   }
   .listIndex li h1{
     font-size: 13px;

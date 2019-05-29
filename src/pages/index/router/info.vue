@@ -11,9 +11,9 @@
           <h2>Dream Show Window Page </h2>
           <img src="" alt="">
         </div>
-        <h3>当前票数 9122</h3>
-        <h3>当前排名 192（国） 12（省）</h3>
-        <img class="next" src="" alt="">
+        <h3><img src="../assets/zan.png" alt="">当前票数 9122</h3>
+        <h3><img src="../assets/rank.png" alt="">当前排名 192（国） 12（省）</h3>
+        <img class="next" src="../assets/bot.png" alt="">
         <h4>梦想详情</h4>
       </div>
     </div>
@@ -63,7 +63,9 @@ export default {
   margin:0 auto;
   margin-top: 5px;
   padding-bottom: 80px;
-  background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
+  background: url('../assets/infoBg.png') no-repeat center;
+  background-size: 100% 100%;
+  /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #info .headImg {
   width: 53px;
@@ -80,11 +82,9 @@ export default {
 }
 #info .infoBox h1{
   font-size: 15px;
-  font-weight: 600;
 }
 #info .infoBox h2{
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
 }
 #info .infoBox img{
   width: 100%;
@@ -102,22 +102,25 @@ export default {
   padding: 10px 0;
   margin-top: 10px;
   text-align: left;
-  text-indent: 30px;
+}
+#info .userBox h3 img {
+  width: 18px;
+  margin: 0 10px;
 }
 #info .userBox img.next{
-  width: 50px;
+  width: 22px;
   display: block;
-  height: 20px;
-  background: orange;
   margin: 10px auto;
 }
 #info .userBox h4{
   font-size: 14px;
+  color: #fff;
 }
 #info .userBox p{
   font-size: 13px;
   margin-top: 10px;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 #info .userBox .subBtn{

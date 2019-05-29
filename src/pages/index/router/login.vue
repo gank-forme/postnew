@@ -50,11 +50,11 @@ export default {
   margin: 0 auto;
   margin-top: 40px;
 }
-.registBox h1 {
+#login .registBox h1 {
   background: #03764D;
   padding: 5px 10px;
 }
-.registBox span {
+#login .registBox span {
   font-size: 17px;
   margin-top: -5px;
 }
@@ -99,5 +99,17 @@ export default {
   background: #03764D;
   color: #fff;
   margin-top: 30px;
+}
+#name {
+  background:#03764D url('../assets/nav5.png') no-repeat 5px center;
+  background-size: 18px;
+}
+#number {
+  background:#03764D url('../assets/phone.png') no-repeat 5px center;
+  background-size: 18px;
+}
+#login input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+  color: #fff;
 }
 </style>

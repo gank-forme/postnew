@@ -14,21 +14,21 @@
           <img src="" alt="">
         </div>
         <h3>
-          梦想详情
+          <span>梦想详情</span>
           <p>你的一份微薄之力，也许拯救了孩子的一生。他们不需要名牌的衣服、鞋子和书包，只需要干净整洁的衣服、鞋子和书包。他们没有大把的文具</p>
         </h3>
         <h4>当前点赞票数</h4>
-        <h4>1233</h4>
+        <h4><img src="../assets/zan1.png" alt="">1233</h4>
         <h4>当前票数排名 </h4>
-        <h4>23</h4>
+        <h4><img src="../assets/nav4.png" alt="">23</h4>
 
         <div class="shareBtn">
-          <img src="" alt="">
+          <img src="../assets/share.png" alt="">
           <p>号召助力</p>
         </div>
       </div>
     </div>
-    
+
     <app-footer></app-footer>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
   width: 94%;
   margin: 0 auto;
   margin-top: 40px;
+
 }
 #detail .userBox {
   color: #03764D;
@@ -73,7 +74,9 @@ export default {
   margin:0 auto;
   margin-top: 5px;
   padding-bottom: 30px;
-  background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
+  background: url('../assets/infoBg.png') no-repeat center;
+  background-size: 100% 100%;
+  /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #detail .headImg {
   width: 53px;
@@ -84,15 +87,15 @@ export default {
 }
 #detail .clearfix .p1 {
   position: absolute;
-  top: 55px;
-  left: 100px;
+  top: 25px;
+  left: 90px;
   font-size: 15px;
   color: #fff;
 }
 #detail .clearfix .p2{
   position: absolute;
-  top: 75px;
-  left: 100px;
+  top: 45px;
+  left: 90px;
   font-size: 15px;
   color: #fff;
 }
@@ -128,6 +131,9 @@ export default {
   text-align: left;
   margin-bottom: 20px;
 }
+#detail .userBox h3 p{
+  font-size: 12px;
+}
 #detail .userBox img.next{
   width: 50px;
   display: block;
@@ -139,6 +145,11 @@ export default {
   font-size: 15px;
   color: #fff;
   margin-top: 5px;
+}
+#detail .userBox h4 img{
+  width: 15px;
+  margin-right: 5px;
+  margin-top: -5px;
 }
 #detail .userBox .subBtn{
   margin: 0 auto;
@@ -164,7 +175,6 @@ export default {
   display: block;
   width: 50px;
   height: 50px;
-  background: #eee;
   margin-bottom: 5px;
 }
 </style>
