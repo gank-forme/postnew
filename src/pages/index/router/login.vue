@@ -2,7 +2,7 @@
   <div id="login" class='comon'>
     <app-header></app-header>
     <div class="registBox">
-      <h1><span class="fl">x</span>注册页面</h1>
+      <h1><span class="fl"><img src="../assets/close.png" alt=""></span>注册页面</h1>
       <div class="userBox">
         <img class="headImg" src="../assets/suc.png" alt="">
         <p>请您根据提示完善注册流程 </p>
@@ -42,54 +42,54 @@ export default {
   clear: both;
   overflow: hidden;
 }
-.registBox {
+#login .registBox {
   text-align: center;
   font-size: 13px;
   color: #fff;
   width: 94%;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 45px;
 }
 #login .registBox h1 {
   background: #03764D;
-  padding: 5px 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+#login .registBox h1 img {
+  width: 12px;
 }
 #login .registBox span {
   font-size: 17px;
   margin-top: -5px;
 }
-.userBox {
+#login .headImg {
+  width: 40px;
+  margin-top: 30px;
+}
+#login .userBox {
   color: #03764D;
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
   padding-bottom: 200px;
-  background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
-  /* background: url("../assets/bgCen.png") no-repeat center; */
-
+  background: url('../assets/logBg.png') no-repeat center;
+  background-size: 100% 100%;
+  /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
-.headImg {
-  width: 53px;
-  height: 53px;
-  border: 1px solid #fff;
-  border-radius: 53px;
-  margin-top: 40px;
-}
-.userBox p{
+#login .userBox p{
   font-size: 13px;
   margin-top: 10px;
   margin-bottom: 40px;
 }
-.userBox input{
+#login .userBox input{
   font-size: 13px;
   width: 250px;
   height: 30px;
-  background: #03764D;
   color: #fff;
   text-indent: 30px;
   margin-bottom: 10px;
 }
-.userBox .subBtn{
+#login .userBox .subBtn{
   margin: 0 auto;
   text-align: center;
   line-height: 30px;
@@ -100,13 +100,18 @@ export default {
   color: #fff;
   margin-top: 30px;
 }
+#login input {
+  padding: 0;
+}
 #name {
   background:#03764D url('../assets/nav5.png') no-repeat 5px center;
   background-size: 18px;
+  border-radius: 0;
 }
 #number {
   background:#03764D url('../assets/phone.png') no-repeat 5px center;
   background-size: 18px;
+  border-radius: 0;
 }
 #login input::-webkit-input-placeholder {
     /* placeholder颜色  */

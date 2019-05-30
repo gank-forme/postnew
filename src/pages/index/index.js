@@ -15,6 +15,8 @@ import list from './router/list.vue'
 import info from './router/info.vue'
 import detail from './router/detail.vue'
 import load from './router/load.vue'
+import content from './router/content.vue'
+
 
 
 
@@ -72,6 +74,7 @@ const router = new VueRouter({
     { path: '/detail', component: detail,name:'detail' ,meta: { title: "境外人员住宿申报" }},
     { path: '/result', component: result,name:'result' ,meta: { title: "境外人员住宿登记" }},
     { path: '/list', component: list,name:'list' ,meta: { title: "境外人员住宿登记" }},
+    { path: '/content', component: content,name:'content',meta: { title: "设施审批" }},
     { path: '/info', component: info,name:'info' ,meta: { title: "境外人员住宿登记" }},
     { path: '/login', component: login,name:'login',meta: { title: "设施审批" }}
 

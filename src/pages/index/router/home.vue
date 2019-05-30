@@ -2,7 +2,7 @@
   <div id="passport" class="comon">
     <app-header></app-header>
 
-    <div class="con">
+    <div class="con relative">
       <div class="imgBox">
         <div class="loadCon">
           <img src="../assets/down.png" alt="">
@@ -354,13 +354,12 @@ export default {
   min-height: 100%;
   clear: both;
   overflow: hidden;
-  margin-top: 33px;
 }
-#passport .con {
+#passport .con  {
   width: 96%;
   height: 214px;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 45px;
   background: linear-gradient(to bottom right, #79CA9E 6%,#b0e0c6, #79CA9E);
 }
 #passport .addBtn {

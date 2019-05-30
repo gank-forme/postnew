@@ -2,7 +2,7 @@
   <div id="load" class="comon">
     <div class="load " v-if='loadIndex==0'>
       <img class="logo" src="../assets/logo.png" alt="">
-      <p class="progress">Loading 34%</p>
+      <p class="progress">Loading {{num}}%</p>
     </div>
     <app-header></app-header>
     <div class="swiperDiv" v-if='loadIndex==1'>
@@ -10,12 +10,8 @@
     </div>
     <div class="listIndex" v-if='loadIndex==2'>
       <p><img class="logoImg" src="../assets/logo.png" alt=""> </p>
-      <li v-for='(i,index) in listIndex' :key='index'>
+      <li v-for='(i,index) in listIndex' :key='index' @click='toCon(index)'>
         <img :src='i' alt="">
-        <!-- <img src="" alt="">
-        <img class="goBtn" src="" alt="">
-        <h1>{{i.tit}}</h1>
-        <h2>{{i.dec}}</h2> -->
       </li>
       <h1 class="tipH">请进入您需要查看的详情 </h1>
       <h2 class="tipH">Please enter the details you need to see. </h2>
@@ -37,7 +33,8 @@ export default {
   name: 'app',
   data () {
     return {
-      loadIndex:1,
+      loadIndex:2,
+      num:0,
       demo01_list:[{
           url: 'javascript:',
           img: banner1,
@@ -49,10 +46,36 @@ export default {
     }
   },
   methods: {
+    numFun(){
+      let that =this;
+      let timer = setInterval(function(){
+        that.num++;
+        console.log(that.num);
+        if(that.num >=10){
+          that.num =100;
+          clearInterval(timer);
+          timer = null;
+          setTimeout(function(){
+            that.loadIndex=2;
+          },1000);
+        }
+      },80);
+    },
+    toCon(e){
+      store.commit('infoFun',e);
+      this.$router.push({
+        name:'content'
+      })
+    }
 
   },
   created:function(){
+    if(this.loadIndex==0){
+      this.numFun();
+    }
+  
     Indicator.close();
+
   }
 }
 </script>
@@ -75,14 +98,6 @@ export default {
     font-size:13px;
     text-align: center;
     margin-top: 10px;
-  }
-  .header {
-    color: #fff;
-    line-height: 30px;
-    padding:2px 10px;
-    font-size: 13px;
-    font-weight: 700;
-    background: #339864;
   }
   .logoImg {
     display: inline-block;

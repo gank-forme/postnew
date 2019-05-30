@@ -1,0 +1,2 @@
+webpackJsonp([3],{s7rc:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=n("7+uW"),s=n("NYxO");o.default.use(s.a);t.default=new s.a.Store({state:{infoIndex:""},mutations:{infoFun:function(e,t){e.infoIndex=t}},actions:{},getters:{},modules:{}})}},["s7rc"]);
+//# sourceMappingURL=store.5921b5e5f1718dcc6d50.js.map

@@ -6,13 +6,13 @@
       <search
       @result-click="resultClick"
       @on-change="getResult"
-      :results="results"
+
       v-model="value"
       position="absolute"
       auto-scroll-to-top
       ref="search"></search>
       <div class="listBox">
-        <div v-for='i in 10' class="listItem clearfix">
+        <div v-for='i in 10' class="listItem clearfix" @click='toInfo'>
           <img class="fl peo" src="../assets/suc.png" alt="">
           <div class="fl itemInfo">
             <h1 class="clearfix">
@@ -52,6 +52,11 @@ export default {
     },
     resultClick(){
 
+    },
+    toInfo(){
+      this.$router.push({
+        name:'info'
+      })
     }
 
   },
@@ -73,7 +78,7 @@ function getResult (val) {
 #list {
   margin-top: 33px;
   background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
-  height: 100%;
+  min-height: 100%;
 }
 .weui-search-bar__form,.weui-search-bar__box,.weui-search-bar__label {
   background: #03764D !important;
@@ -92,16 +97,19 @@ function getResult (val) {
   position: fixed !important;
   z-index: 100;
   left: 0px;
+  top:40px;
   background: #fff;
 }
 .vux-search-fixed {
-  top: 33px !important;
+  top: 40px !important;
 }
-.listBox {
-  position: absolute;
-  top: 50px;
+#list .weui-search-bar__box .weui-icon-search{
+  top: 1px;
+}
+#list .listBox {
   width: 96%;
-  padding: 2%;
+  margin: 0 auto;
+  padding-top: 60px;
   padding-bottom: 60px;
   background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
 }

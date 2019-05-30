@@ -3,14 +3,14 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  userId:''
+  infoIndex:''
 }
 const actions={
 
 }
 const mutations ={
-  formFun (state,data){
-    state.userId=data
+  infoFun (state,data){
+    state.infoIndex=data
   }
 }
 const getters = {
