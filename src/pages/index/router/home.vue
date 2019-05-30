@@ -35,7 +35,6 @@
         </div>
       </div>
 
-      <app-footer></app-footer>
     </div>
 
 
@@ -48,6 +47,8 @@
       :deleteIsShow="false"
       @click.native='bingtap_hiddenImg()'
     />
+    <app-footer></app-footer>
+
   </div>
 </template>
 <script>
@@ -349,6 +350,7 @@ export default {
 </script>
 <style>
 #passport {
+  width: 100%;
   min-height: 100%;
   clear: both;
   overflow: hidden;

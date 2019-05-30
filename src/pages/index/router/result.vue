@@ -55,7 +55,7 @@ export default {
   clear: both;
   overflow: hidden;
   height: 100%;
-  background: url('../assets/resultBg.png') no-repeat center;
+  background: url('../assets/logBg.png') no-repeat center;
   background-size: 100% 100%;
 }
 #result .content .res_logo{

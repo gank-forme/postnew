@@ -17,11 +17,11 @@
           <div class="fl itemInfo">
             <h1 class="clearfix">
               <span class="fl">Mark chat</span>
-              <span class="fr">1233</span>
+              <span class="fr"><img src="../assets/zan.png" alt="">1233</span>
             </h1>
             <h1 class="clearfix">
-              <span class="fl">Hangzhou</span>
-              <span class="fr">12</span>
+              <span class="fl"><img src="../assets/location.png" alt="">Hangzhou</span>
+              <span class="fr"><img src="../assets/nav4.png" alt="">12</span>
             </h1>
           </div>
         </div>
@@ -106,7 +106,7 @@ function getResult (val) {
   background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
 }
 .listItem {
-  background: #03764D;
+  background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864);
   color: #fff;
   padding: 10px;
   margin-bottom: 10px;
@@ -125,6 +125,10 @@ function getResult (val) {
   min-width: 50px;
   text-align: left;
   font-size: 13px;
+}
+.listItem .itemInfo span img{
+  width: 10px;
+  margin-right: 5px;
 }
 .content {
   width: 94%;

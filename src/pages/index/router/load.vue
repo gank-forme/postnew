@@ -27,17 +27,17 @@
 <script>
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
-import banner1 from '../assets/banner1.png'
-import banner2 from '../assets/banner2.png'
-import list1 from '../assets/list1.png'
-import list2 from '../assets/list2.png'
-import list3 from '../assets/list3.png'
+import banner2 from '../assets/banner1_03.jpg'
+import banner1 from '../assets/banner2_03.jpg'
+import list1 from '../assets/list1_03.jpg'
+import list2 from '../assets/list2_06.jpg'
+import list3 from '../assets/list3_08.jpg'
 
 export default {
   name: 'app',
   data () {
     return {
-      loadIndex:2,
+      loadIndex:1,
       demo01_list:[{
           url: 'javascript:',
           img: banner1,

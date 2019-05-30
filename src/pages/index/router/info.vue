@@ -11,9 +11,9 @@
           <h2>Dream Show Window Page </h2>
           <img src="" alt="">
         </div>
-        <h3><img src="../assets/zan.png" alt="">当前票数 9122</h3>
-        <h3><img src="../assets/rank.png" alt="">当前排名 192（国） 12（省）</h3>
-        <img class="next" src="../assets/bot.png" alt="">
+        <h3><img src="../assets/zan1.png" alt="">当前票数 9122</h3>
+        <h3><img src="../assets/rank1.png" alt="">当前排名 192（国） 12（省）</h3>
+        <img class="next" src="../assets/bottom.png" alt="">
         <h4>梦想详情</h4>
       </div>
     </div>
