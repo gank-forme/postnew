@@ -4,7 +4,7 @@
 
     <div class="con relative">
       <div class="imgBox">
-        <div class="loadCon">
+        <div class="loadCon" v-if='uploadData["images0"].length==0'>
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div>
@@ -20,23 +20,49 @@
           @chooseImages='bindtap_chooseImages'
           @click.native='picFun(0)'
         />
-
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
       </div>
       <h2><img src="../assets/write.png" alt="">请输入您的梦想名称</h2>
-      <textarea id='textarea' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name" rows="8" cols="80"></textarea>
-      <div class="clearfix bots">
-        <img class="fr" src="../assets/down.png" alt="">
+      <div class="textareaBox">
+        <textarea id='textarea' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name" rows="8" cols="80"></textarea>
+        <div class="" @click='xLog1'>
+          确认提交
+        </div>
+      </div>
+      <div class="clearfix bots relative">
+        <div class="fr">
+          <img src="../assets/ex.png" alt="">
+        </div>
         <div class="fl">
           <h1>上传须知</h1>
           <h3>Upload instructions </h3>
           <h4>请勿上传非法图片（涉及暴力、色情、政治政策、负面性社会舆论的照片均不会通过审核）</h4>
           <h4>请上传指定照片（参照右图），可通过邮储银行APP进入梦乡加邮站主页创建梦乡并找到梦想主页截图上传，目前支持JPG/PNG/JPGE等多种格式</h4>
         </div>
+        <img class="bigLook absolute" @click='xLog2' src="../assets/bigLook.png" alt="">
       </div>
 
     </div>
 
+    <div v-transfer-dom>
+      <x-dialog v-model="show1" class="dialog-demo" :hide-on-blur='true'>
+        <div class="preImg" @click = 'xLog1'>
+          <img src="../assets/suc.png" alt="">
+          <h1>您已成功上传过梦想</h1>
+          <p>You have successfully <br>uploaded the dream</p>
+        </div>
+      </x-dialog>
+    </div>
+
+    <div v-transfer-dom>
+      <x-dialog v-model="show2" class="dialog-demo2">
+        <img class="img1" src="../assets/ex1.png" alt="">
+        <div class="img2">
+          <img @click = 'xLog2' src="../assets/gb1.png" alt="">
+
+        </div>
+      </x-dialog>
+    </div>
 
     <!-- 图片预览 -->
     <image-preview
@@ -54,123 +80,42 @@
 <script>
 import qs from 'qs'
 import axios from 'axios'
-import { XAddress,ChinaAddressV4Data} from 'vux'
+import {TransferDomDirective as TransferDom} from 'vux'
 
-
-var Bucket = 'cos-1253286164';
-var Region = 'ap-shanghai';
 var cos;
 export default {
+  directives: {
+    TransferDom
+  },
   name: 'app',
   components: {
-    XAddress
+
   },
   data () {
     return {
+      show1:false,
+      show2:false,
       popupVisible:false,
       pVisible:false,
       subFlag:false,
       isDone:1,
-      values1:['杭州滨江区分局1'],
-      list:[[
-        '杭州滨江区分局1',
-        '杭州滨江区分局2',
-        '杭州滨江区分局3',
-        '杭州滨江区分局4',
-        '杭州滨江区分局5',
-        '杭州滨江区分局6',
-        '杭州滨江区分局7',
-        '杭州滨江区分局'
-      ]],
-      // value:['浙江省', '杭州市', '滨江区'],
-      addValue:[],
-      addressData: ChinaAddressV4Data,
 
       values_index:0,
       values:{
         values0:"",
         values1:""
       },
-      label:{
-        label0:'请选择',
-        label1:'请选择'
-      },
-      selType:{
-        selType1:'',
-        selType2:''
-      },
-      options: {
-        tit:'',
-        arr:[]
-      },
-      options0: {
-        tit:'请选择居留类型',
-        arr:[
-          {
-            label: '新建',
-            value: '1'
-          },
-          {
-            label: '改建',
-            value: '2'
-          }
 
-        ]
-      },
-      options1: {
-        tit:'请选择关系  Ralationship',
-        arr:[
-          {
-            label: '营业场所',
-            value: '1'
-          },
-          {
-            label: '自助银行',
-            value: '2'
-          },
-          {
-            label: '自助机具',
-            value: '3'
-          },
-          {
-            label: '金库',
-            value: '4'
-          }
-        ]
-      },
       picFunIndex:0,
       images:[],
       index:-1,
       uploadData:{
         images0:[],
         index0:-1,
-
-        images1:[],
-        index1:-1,
-
-        images2:[],
-        index2:-1,
-
-        images3:[],
-        index3:-1,
-
-        images4:[],
-        index4:-1,
-
-        images5:[],
-        index5:-1,
-
-        images6:[],
-        index6:-1,
-
-        images7:[],
-        index7:-1
       },
       imgSrc:{
         passport_img1:'',
-        passport_img2:'',
-        passport_img3:'',
-        passport_img4:'',
+
       },
     }
   },
@@ -237,45 +182,12 @@ export default {
        if (Array.isArray(e)) {
          let file = e[0].file
          console.log(file);
-         that.$vux.loading.show({
-           text: '加载中...'
-          })
-         cos.sliceUploadFile({
-              Bucket: Bucket,
-              Region: Region,
-              Key: 'alarm/foreigner/'+(new Date()).getTime()+'.jpg',
-              Body: file,
-              TaskReady: function(taskId) {                   /* 非必须 */
-                  //console.log("11111"+taskId);
-              },
-              onHashProgress: function (progressData) {       /* 非必须 */
-                  //console.log("11112"+JSON.stringify(progressData));
-              },
-              onProgress: function (progressData) {           /* 非必须 */
-                  //console.log("11113"+JSON.stringify(progressData));
-              }
-          }, function (err, data) {
+         that.uploadData['images'+that.picFunIndex] = that.uploadData['images'+that.picFunIndex].concat(e);
 
-            if(data.statusCode==200){
-              that.$vux.loading.hide();
-              that.uploadData['images'+that.picFunIndex] = that.uploadData['images'+that.picFunIndex].concat(e);
+         // that.$vux.loading.show({
+         //   text: '加载中...'
+         //  })
 
-              if(that.picFunIndex<4){
-                that.imgSrc['passport_img'+(that.picFunIndex+1)]="https://"+data.Location;
-                //that.uploadData['images'+that.picFunIndex].push("https://"+data.Location);
-              //  console.log(that.uploadData['images'+that.picFunIndex]);
-              }else{
-                console.log(that.lease);
-                that.lease.push("https://"+data.Location);
-              }
-              // that.checkForm();
-            }else {
-              Toast({
-                message: '上传失败',
-                duration: 1500
-              });
-            }
-          });
 
        }else {
          console.log(res);
@@ -312,38 +224,26 @@ export default {
          this.imgSrc['passport_img'+(this.picFunIndex+1)]='';
        }else{
          this.lease = this.lease.splice(1,1);
-       }
+       };
        this.delFlag = false;
        this.uploadData['index'+this.picFunIndex] = -1;
        this.uploadData['images'+this.picFunIndex]=[];
        // this.checkForm();
      },
+     lookFun(){
+
+     },
+     xLog1(){
+       //this.show1=!this.show1;
+       this.$router.push({
+         name:"detail"
+       })
+     },
+     xLog2(){
+       this.show2=!this.show2;
+     }
   },
   created:function(){
-    let that = this;
-    cos = new COS({
-        getAuthorization: function (options, callback) {
-            // 异步获取临时密钥
-            that.axios({
-               method: 'get',
-               url: '/upload/cos/auth',
-               headers:{
-                 'uid':that.uid,
-                 "token":that.token
-               },
-               //data: qs.stringify(data)
-             }).then(function (res) {
-               that.$vux.loading.hide()
-               let data = res.data;
-               callback({
-                    TmpSecretId: data.credentials.tmpSecretId,
-                    TmpSecretKey: data.credentials.tmpSecretKey,
-                    XCosSecurityToken: data.credentials.sessionToken,
-                    ExpiredTime: data.expiredTime,
-               });
-             })
-        }
-    });
 
   }
 }
@@ -357,9 +257,13 @@ export default {
 }
 #passport .con  {
   width: 96%;
-  height: 214px;
-  margin: 0 auto;
-  margin-top: 45px;
+  position: absolute;
+  left: 50%;
+  margin-left: -48%;
+  top: 45px;
+  bottom: 60px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: linear-gradient(to bottom right, #79CA9E 6%,#b0e0c6, #79CA9E);
 }
 #passport .addBtn {
@@ -402,34 +306,52 @@ export default {
   width: 15px;
   margin-right: 8px;
 }
+#passport .textareaBox {
+  background: #fff;
+  height: 150px;
+  box-shadow:0px 8px 17px 1px rgba(6,6,6,0.13);
+}
+#passport .textareaBox div {
+  color: #fff;
+  background: #03764D;
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 auto;
+}
 #passport #textarea {
   background: #fff;
   width: 96%;
-  height: 150px;
+  height: 90px;
   display: block;
   padding: 2%;
   margin-top: 5px;
   font-size: 13px;
   color: #03764D;
-  box-shadow:0px 8px 17px 1px rgba(6,6,6,0.13);
+  border-radius: 0px;
 }
 #passport .bots {
   color: #03764D;
   font-size: 10px;
   padding: 20px 0 10px 10px;
+  margin-bottom: 40px;
 }
-#passport .bots div {
-  width: 75%;
+#passport .bots div.fl {
+  width: 65%;
   position: absolute;
-  transform:scale(0.8);
-  margin-left: -25px;
+  /* transform:scale(0.9); */
+  /* margin-left: -20px; */
 }
-#passport .bots img{
-  width:113px;
-  height: 140px;
+#passport .bots div.fr{
+  width:73px;
   display: block;
   background: #03764D;
   margin-left: 10px;
+  padding: 20px;
+}
+#passport .bots img{
+  display: block;
 }
 #passport .bots h1 {
   font-size: 13px;
@@ -437,11 +359,58 @@ export default {
 }
 #passport .bots h4 {
   margin-top: 5px;
-
 }
-
+#passport .bigLook {
+  display: block;
+  width: 25px;
+  right: 10px;
+  bottom: 20px;
+}
 textarea::-webkit-textarea-placeholder {
     /* placeholder颜色  */
   color: #fff;
+}
+.preImg {
+  position: fixed;
+  width: 70%;
+  background: #fff;
+  padding: 2%;
+  text-align: center;
+  top: 25%;
+  left: 50%;
+  margin-left: -37%;
+  color: #03764D;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+ .preImg img{
+  width: 40px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+ .preImg h1{
+  font-weight: 700;
+  font-size: 16px;
+}
+ .preImg p{
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+.dialog-demo2 .img1 {
+  width: 70%;
+}
+.dialog-demo2 .weui-dialog{
+  background: none;
+}
+.dialog-demo2 .img2 {
+  text-align: center;
+  margin-top: 50px;
+}
+.dialog-demo2 .img2 img {
+  width: 40px;
+}
+.upload-button input {
+  bottom: 0;
 }
 </style>

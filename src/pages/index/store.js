@@ -3,15 +3,23 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  infoIndex:''
+  infoIndex:'',
+  infoData:'',
+  deatilData:''
 }
 const actions={
 
 }
 const mutations ={
-  infoFun (state,data){
+  infoFun1 (state,data){
     state.infoIndex=data
-  }
+  },
+  infoFun2 (state,data){
+    state.infoData=data
+  },
+  detailFun (state,data){
+    state.deatilData=data
+  },
 }
 const getters = {
 

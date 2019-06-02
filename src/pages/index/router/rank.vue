@@ -1,8 +1,8 @@
 <template>
 
-  <div class="list">
+  <div :class="list==1?'list':'rank'">
     <app-header></app-header>
-    <div class="content relative">
+    <div v-if='list==1' class="content relative">
       <search
       @on-change="getResult"
 
@@ -26,7 +26,27 @@
         </div>
       </div>
     </div>
-
+    <div v-else class="content relative">
+      <search
+      @on-change="getResult"
+      v-model="value"
+      position="absolute"
+      auto-scroll-to-top
+      ref="search"></search>
+      <div class="listBox">
+        <div v-for='(i,index) in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.dream_id,i.icon)'>
+          <em class="index fl">{{index<9?'0':''}}{{index+1}}</em>
+          <img class="fl peo" :src="i.icon" alt="">
+          <div class="fl itemInfo">
+            <h1 class="clearfix">
+              <span class="fl">{{i.name}}</span>
+              <span class="fr"><img src="../assets/zan.png" alt="">{{i.hits}}</span>
+            </h1>
+          </div>
+          <img v-if='index<3' class="top" src="../assets/top.png" alt="">
+        </div>
+      </div>
+    </div>
     <app-footer></app-footer>
   </div>
 </template>
@@ -39,7 +59,7 @@ export default {
   name: 'app',
   data () {
     return {
-      list:sessionStorage.listCli,
+      list:2,
       results:[],
       value: '',
       listArr:[
@@ -74,11 +94,108 @@ export default {
     			"name": "hellouu3",
     			"city": "shanghai",
     			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
+        },
+  			{
+    			"dream_id": 10,
+    			"hits": 35,
+    			"rownum": "2",
+    			"name": "hellouu3",
+    			"city": "shanghai",
+    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
         }
       ]
     }
   },
   created:function(){
+    console.log(sessionStorage.listCli);
     let that =this;
     // this.axios({
     //    method: 'get',
@@ -101,7 +218,7 @@ export default {
     getResult (val) {
       let that =this;
       console.log(this.value);
-      //Indicator.open('加载中');
+      // Indicator.open('加载中');
       // this.axios({
       //    method: 'get',
       //    url: '/api/search?keyword='+that.value,
@@ -124,7 +241,7 @@ export default {
     toInfo(m,n){
       let that =this;
       console.log(this.value);
-    //  Indicator.open('加载中');
+      //Indicator.open('加载中');
       sessionStorage.userImg=n;
       that.$router.push({
         name:'info'
@@ -137,6 +254,7 @@ export default {
       //    Indicator.close();
       //    if(res.data.code==1){
       //      store.commit('infoData',res.data.data);
+      //      sessionStorage.userImg=n;
       //      that.$router.push({
       //        name:'info'
       //      })
@@ -165,12 +283,6 @@ function getResult (val) {
 </script>
 
 <style>
-.list {
-  background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
-  min-height: 100%;
-  clear: both;
-  overflow: hidden;
-}
 .weui-search-bar__form,.weui-search-bar__box,.weui-search-bar__label {
   background: #03764D !important;
   color: #fff !important;
@@ -228,7 +340,7 @@ function getResult (val) {
   width: 10px;
   margin-right: 5px;
 }
-.list .content {
+.list .content,.rank .content {
   width: 94%;
   position: absolute;
   left: 50%;
@@ -237,6 +349,73 @@ function getResult (val) {
   bottom: 65px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3);
+}
+.rank,.list {
+  background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
+  min-height: 100%;
+  clear: both;
+  overflow: hidden;
+}
+.rank .weui-search-bar__box .weui-icon-search{
+  top: 1px;
+}
+.rank .listBox {
+  width: 97%;
+  margin: 0 auto;
+  padding: 3% 3% 3% 0;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  clear: both;
+  overflow: hidden;
+  /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
+  background: #03764D;
+}
+.rank .listItem {
+  background: url('../assets/listBg1.png') no-repeat center;
+  background-size: 100% 100%;
+  /* background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864); */
+  color: #fff;
+  width: 84%;
+  float: right;
+  padding: 10px 3%;
+  margin-bottom: 10px;
+  position: relative;
+}
+.rank .listItem .peo {
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  border:1px solid #fff;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.rank .listItem .itemInfo {
+  width: 77%;
+  margin-top: 6px;
+}
+.rank .listItem .itemInfo span {
+  min-width: 50px;
+  text-align: left;
+  font-size: 13px;
+}
+.rank .listItem .itemInfo span img{
+  width: 10px;
+  margin-right: 5px;
+  margin-top: -3px;
+}
+.rank .index {
+  position: absolute;
+  left: -10%;
+  top: 0px;
+  width: 10%;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+}
+.rank .top {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
 }
 </style>

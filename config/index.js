@@ -6,40 +6,17 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/intranet_uploadBase64': {
-        target: 'http://182.254.36.227:19000',  //目标接口域名
+      '/api': {
+        target: 'http://postbank.com',  //目标接口域名
         changeOrigin: true,  //是否跨域
         pathRewrite: {
-          '^/intranet_uploadBase64': '/intranet_uploadBase64'
+          '^/api': '/api'
         }
       },
-      '/foreignersDwell': {
-        target: 'https://devcallpolice.quanmin110.com',  //流管员
-        changeOrigin: true,  //是否跨域
-        pathRewrite: {
-          '^/foreignersDwell': '/foreignersDwell'
-        }
-      },
-      '/upload': {
-        target: 'https://devcallpolice.quanmin110.com',  //流管员
-        changeOrigin: true,  //是否跨域
-        pathRewrite: {
-          '^/upload': '/upload'
-        }
-      },
-      '/foreigner': {
-        target: 'http://dev.quanmin110.com',  //目标接口域名
-        changeOrigin: true,  //是否跨域
-        pathRewrite: {
-          '^/foreigner': '/foreigner'
-        }
-      },
-
     },
 
     // Various Dev Server settings

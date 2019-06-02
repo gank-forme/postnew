@@ -5,47 +5,79 @@
     <div class="registBox relative">
       <div class="userBox ">
         <div class="clearfix">
-          <img class="headImg fl" src="../assets/suc.png" alt="">
-          <p class="fl p1">水电费2</p>
-          <p class="fl p2">水电费1</p>
+          <img class="headImg fl" :src="userImg" alt="">
+          <p class="fl p1">{{deatilData.name}}</p>
+          <p class="fl p2">您已发起梦想</p>
         </div>
         <div class="infoBox">
-          <h1>梦想主页 </h1>
-          <img src="" alt="">
+          <h1>梦想主页</h1>
+          <img :src="deatilData.image" alt="">
         </div>
         <h3>
           <span>梦想详情</span>
-          <p>你的一份微薄之力，也许拯救了孩子的一生。他们不需要名牌的衣服、鞋子和书包，只需要干净整洁的衣服、鞋子和书包。他们没有大把的文具</p>
+          <p>{{deatilData.detail}}</p>
         </h3>
         <h4>当前点赞票数</h4>
-        <h4><img src="../assets/zan.png" alt="">1233</h4>
+        <h4><img src="../assets/zan.png" alt="">{{deatilData.hits}}</h4>
         <h4>当前票数排名 </h4>
-        <h4><img src="../assets/nav4.png" alt="">23</h4>
+        <h4><img src="../assets/nav4.png" alt="">{{deatilData.rank}}</h4>
 
-        <div class="shareBtn">
+        <div class="shareBtn" @click='xLog2'>
           <img src="../assets/share.png" alt="">
           <p>号召助力</p>
         </div>
       </div>
     </div>
 
+    <div v-transfer-dom>
+      <x-dialog v-model="show2" class="dialog-demo3">
+        <div class="img0">
+          <img src="../assets/more.png" alt="">
+        </div>
+        <div class="img1">
+          <img src="../assets/guide.png" alt="">
+        </div>
+        <p>将梦想分享给更多的人<br>Share your dreams with more people </p>
+        <div class="img2">
+          <img @click = 'xLog2' src="../assets/gb1.png" alt="">
+        </div>
+      </x-dialog>
+    </div>
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import store from '../store.js'
-import { MessageBox,Toast,Indicator } from 'mint-ui'
+import { MessageBox,Toast,Indicator,TransferDomDirective as TransferDom} from 'mint-ui'
 
 export default {
+  directives: {
+    TransferDom
+  },
   name: 'app',
   data () {
     return {
-
+      show2:false,
+      //deatilData:store.state.infoData
+      userImg:sessionStorage.userImg,
+      deatilData:{
+        "id": 5,
+        "user_id": 5,
+        "name": "hello5",
+        "detail": "梦想detail15",
+        "image": "https://small.pngfans.com/20190518/ge/royalty-free-png-royalty-payment-clipart-b3a719b4eea401ff.jpg",
+        "status": 1,
+        "create_time": "2019-06-02 05:42:06",
+        "hits": 28,
+        "rank": "3",
+      }
     }
   },
   methods: {
-
+    xLog2(){
+      this.show2=!this.show2
+    }
   },
   created:function(){
 
@@ -63,19 +95,24 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-  width: 94%;
-  margin: 0 auto;
-  margin-top: 40px;
 
+  width: 94%;
+  position: absolute;
+  left: 50%;
+  margin-left: -47%;
+  top: 45px;
+  bottom: 25px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: url('../assets/infoBg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #detail .userBox {
   color: #03764D;
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
-  padding-bottom: 30px;
-  background: url('../assets/infoBg.png') no-repeat center;
-  background-size: 100% 100%;
+  margin-bottom: 50px;
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #detail .headImg {
@@ -116,7 +153,7 @@ export default {
 #detail .infoBox img{
   width: 100%;
   display: block;
-  height: 180px;
+  height: 250px;
   background: orange;
   margin-top: 10px;
 }
@@ -163,9 +200,9 @@ export default {
   margin-top: 30px;
 }
 #detail .shareBtn {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
   font-size: 13px;
   text-align: center;
   color: #fff;
@@ -177,4 +214,28 @@ export default {
   height: 50px;
   margin-bottom: 5px;
 }
+.dialog-demo3 .weui-dialog{
+  background: none;
+  color: #fff;
+  font-size: 13px;
+}
+#detail .img0 {
+  text-align: right;
+}
+#detail .img1 {
+  text-align: right;
+}
+#detail .img1 img{
+  width: 60%;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+#detail .img2 {
+  text-align: center;
+  margin-top: 150px;
+}
+#detail .img2 img {
+  width: 40px;
+}
+
 </style>

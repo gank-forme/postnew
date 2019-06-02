@@ -2,13 +2,13 @@
   <div id="login" class='comon'>
     <app-header></app-header>
     <div class="registBox">
-      <h1><span class="fl"><img src="../assets/close.png" alt=""></span>注册页面</h1>
+      <h1><span class="fl" @click='close'><img src="../assets/close.png" alt=""></span>注册页面</h1>
       <div class="userBox">
         <img class="headImg" src="../assets/suc.png" alt="">
         <p>请您根据提示完善注册流程 </p>
         <input id="name" type="text" placeholder="请输入您的名称" name="" value="">
         <input id="number" type="text" placeholder="请输入您的电话" name="" value="">
-        <div class="subBtn">确认提交</div>
+        <div class="subBtn" @click='goHome'>确认提交</div>
       </div>
     </div>
 
@@ -28,7 +28,14 @@ export default {
     }
   },
   methods: {
-
+    goHome(){
+      this.$router.push({
+        name:'home'
+      })
+    },
+    close(){
+      history.go(-1)
+    }
   },
   created:function(){
 
@@ -46,9 +53,17 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-  width: 94%;
-  margin: 0 auto;
-  margin-top: 45px;
+
+  width: 96%;
+  position: absolute;
+  left: 50%;
+  margin-left: -48%;
+  top: 45px;
+  bottom: 60px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: url('../assets/logBg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #login .registBox h1 {
   background: #03764D;
@@ -71,9 +86,7 @@ export default {
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
-  padding-bottom: 200px;
-  background: url('../assets/logBg.png') no-repeat center;
-  background-size: 100% 100%;
+
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #login .userBox p{

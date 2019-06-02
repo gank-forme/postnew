@@ -1,12 +1,13 @@
 <template>
   <div id="load" class="comon">
+    <app-header v-if='loadIndex!=0'></app-header>
     <div class="load " v-if='loadIndex==0'>
       <img class="logo" src="../assets/logo.png" alt="">
       <p class="progress">Loading {{num}}%</p>
     </div>
-    <app-header></app-header>
+
     <div class="swiperDiv" v-if='loadIndex==1'>
-      <swiper :list="demo01_list" height='600px' :show-desc-mask='false' dots-position='center'></swiper>
+      <swiper :auto='true' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='600px' :show-desc-mask='false' dots-position='center'></swiper>
     </div>
     <div class="listIndex" v-if='loadIndex==2'>
       <p><img class="logoImg" src="../assets/logo.png" alt=""> </p>
@@ -33,7 +34,8 @@ export default {
   name: 'app',
   data () {
     return {
-      loadIndex:2,
+      loadIndex:0,
+      index:0,
       num:0,
       demo01_list:[{
           url: 'javascript:',
@@ -51,29 +53,43 @@ export default {
       let timer = setInterval(function(){
         that.num++;
         console.log(that.num);
-        if(that.num >=10){
+        if(that.num >=100){
           that.num =100;
           clearInterval(timer);
           timer = null;
           setTimeout(function(){
-            that.loadIndex=2;
+            that.loadIndex=1;
           },1000);
         }
-      },80);
+      },50);
     },
     toCon(e){
-      store.commit('infoFun',e);
+      store.commit('infoFun1',e);
       this.$router.push({
         name:'content'
       })
+    },
+    swiperFun(){
+      let that = this;
+      if(this.index==0){
+        setTimeout(function(){
+          sessionStorage.firstFlag=1;
+          that.loadIndex=2
+        },700);
+
+      }
     }
 
   },
   created:function(){
-    if(this.loadIndex==0){
-      this.numFun();
+    if(sessionStorage.firstFlag==1){
+      this.loadIndex=2
+    }else {
+      if(this.loadIndex==0){
+        this.numFun();
+      }
     }
-  
+
     Indicator.close();
 
   }

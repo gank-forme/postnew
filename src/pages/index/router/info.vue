@@ -4,21 +4,21 @@
 
     <div class="registBox">
       <div class="userBox">
-        <img class="headImg" src="../assets/suc.png" alt="">
-        <p>水电费</p>
+        <img class="headImg" :src="userImg" alt="">
+        <p>{{infoData.name}}</p>
         <div class="infoBox">
-          <h1>梦想展示窗口页 </h1>
+          <h1>梦想展示窗口页</h1>
           <h2>Dream Show Window Page </h2>
-          <img src="" alt="">
+          <img :src="infoData.image" alt="">
         </div>
-        <h3><img src="../assets/zan1.png" alt="">当前票数 9122</h3>
-        <h3><img src="../assets/rank1.png" alt="">当前排名 192（国） 12（省）</h3>
-        <img class="next" src="../assets/bottom.png" alt="">
-        <h4>梦想详情</h4>
+        <h3><img src="../assets/zan1.png" alt="">当前票数 {{infoData.hits}}</h3>
+        <h3><img src="../assets/rank1.png" alt="">当前排名 {{infoData.rank}}</h3>
+        <img @click='toDetail' class="next none" src="../assets/bottom.png" alt="">
+        <h4 class="none" @click='toDetail'>梦想详情</h4>
       </div>
     </div>
 
-    <app-footer></app-footer>
+    <app-footer message='zan'></app-footer>
 
   </div>
 </template>
@@ -31,11 +31,46 @@ export default {
   name: 'app',
   data () {
     return {
-
+      //infoData:store.state.infoData
+      userImg:sessionStorage.userImg,
+      infoData:{
+      	"id": 5,
+      	"user_id": 5,
+      	"name": "hello5",
+      	"detail": "梦想detail15",
+      	"image": "https://small.pngfans.com/20190518/ge/royalty-free-png-royalty-payment-clipart-b3a719b4eea401ff.jpg",
+      	"status": 1,
+      	"create_time": "2019-06-02 05:42:06",
+      	"hits": 28,
+      	"rank": "3",
+      }
     }
   },
   methods: {
-
+    toDetail(e){
+      let that =this;
+      console.log(this.value);
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/getdreambyuser?user_id='+e,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           store.commit('deatilData',res.data.data);
+           that.$router.push({
+             name:'detail'
+           })
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    }
   },
   created:function(){
 
@@ -53,18 +88,24 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
+
   width: 94%;
-  margin: 0 auto;
-  margin-top: 40px;
+  position: absolute;
+  left: 50%;
+  margin-left: -47%;
+  top: 45px;
+  bottom: 60px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: url('../assets/infoBg.png') no-repeat center;
+  background-size: 100% 100%;
+  padding-bottom: 30px;
 }
 #info .userBox {
   color: #03764D;
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
-  padding-bottom: 80px;
-  background: url('../assets/infoBg.png') no-repeat center;
-  background-size: 100% 100%;
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #info .headImg {
@@ -89,7 +130,7 @@ export default {
 #info .infoBox img{
   width: 100%;
   display: block;
-  height: 300px;
+  height: 250px;
   background: orange;
   margin-top: 10px;
 }

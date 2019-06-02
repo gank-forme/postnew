@@ -16,6 +16,9 @@ import info from './router/info.vue'
 import detail from './router/detail.vue'
 import load from './router/load.vue'
 import content from './router/content.vue'
+import rank from './router/rank.vue'
+
+
 
 
 
@@ -23,7 +26,7 @@ import content from './router/content.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {ImageUpload , ImagePreview} from 'vue-image-upload-preview'
-import {Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker} from 'vux'
+import {XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker} from 'vux'
 import 'mint-ui/lib/style.css'
 import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
@@ -31,6 +34,7 @@ Vue.config.productionTip = false
 Vue.component(header.name, header)
 Vue.component(footer.name, footer)
 
+Vue.component('x-dialog', XDialog)
 Vue.component('search', Search)
 Vue.component('tabbar', Tabbar)
 Vue.component('tabbar-item', TabbarItem)
@@ -69,15 +73,15 @@ Vue.use(VueAxios, axios)
 const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
-    { path: '/home', component: home,name:'home' ,meta: { title: "境外人员住宿申报" }},
-    { path: '/load', component: load,name:'load' ,meta: { title: "境外人员住宿申报" }},
-    { path: '/detail', component: detail,name:'detail' ,meta: { title: "境外人员住宿申报" }},
-    { path: '/result', component: result,name:'result' ,meta: { title: "境外人员住宿登记" }},
-    { path: '/list', component: list,name:'list' ,meta: { title: "境外人员住宿登记" }},
-    { path: '/content', component: content,name:'content',meta: { title: "设施审批" }},
-    { path: '/info', component: info,name:'info' ,meta: { title: "境外人员住宿登记" }},
-    { path: '/login', component: login,name:'login',meta: { title: "设施审批" }}
-
+    { path: '/home', component: home,name:'home' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/load', component: load,name:'load' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/detail', component: detail,name:'detail' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/result', component: result,name:'result' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/list', component: list,name:'list' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/content', component: content,name:'content',meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/info', component: info,name:'info' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/rank', component: rank,name:'rank' ,meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/login', component: login,name:'login',meta: { title: "你分享我点赞大型系列活动" }},
   ]
 })
 router.beforeEach((to, from, next) => {//beforeEach是router的钩子函数，在进入路由前执行
