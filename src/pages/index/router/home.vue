@@ -24,7 +24,7 @@
       </div>
       <h2><img src="../assets/write.png" alt="">请输入您的梦想名称</h2>
       <div class="textareaBox">
-        <textarea id='textarea' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name" rows="8" cols="80"></textarea>
+        <textarea id='textarea' v-model='txt1' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name"></textarea>
         <div class="" @click='xLog1'>
           确认提交
         </div>
@@ -80,6 +80,7 @@
 <script>
 import qs from 'qs'
 import axios from 'axios'
+import { MessageBox,Toast,Indicator } from 'mint-ui'
 import {TransferDomDirective as TransferDom} from 'vux'
 
 var cos;
@@ -93,6 +94,7 @@ export default {
   },
   data () {
     return {
+      txt1:'',
       show1:false,
       show2:false,
       popupVisible:false,
@@ -235,9 +237,26 @@ export default {
      },
      xLog1(){
        //this.show1=!this.show1;
-       this.$router.push({
-         name:"detail"
-       })
+       let that =this;
+       Indicator.open('加载中');
+       this.axios({
+          method: 'get',
+          url: '/api/createdream?user_id='+sessionStorage.user_id+'&detail='+that.txt1+'&image=1223.png',
+          //data: qs.stringify(data)
+        }).then(function (res) {
+          Indicator.close();
+          if(res.data.code==1){
+            that.$router.push({
+              name:"detail"
+            })
+           }else {
+             Indicator.close();
+             Toast({
+               message: res.data.msg,
+               duration: 1500
+             });
+           }
+        })
      },
      xLog2(){
        this.show2=!this.show2;

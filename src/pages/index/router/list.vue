@@ -11,7 +11,7 @@
       auto-scroll-to-top
       ref="search"></search>
       <div class="listBox">
-        <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.dream_id,i.icon)'>
+        <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(2,i.icon)'>
           <img class="fl peo" :src="i.icon" alt="">
           <div class="fl itemInfo">
             <h1 class="clearfix">
@@ -80,74 +80,70 @@ export default {
   },
   created:function(){
     let that =this;
-    // this.axios({
-    //    method: 'get',
-    //    url: '/api/list?page=10',
-    //    //data: qs.stringify(data)
-    //  }).then(function (res) {
-    //    Indicator.close();
-    //    if(res.data.code==1){
-    //      that.listArr = res.data.data;
-    //     }else {
-    //       Indicator.close();
-    //       Toast({
-    //         message: res.data.msg,
-    //         duration: 1500
-    //       });
-    //     }
-    //  })
+    this.axios({
+       method: 'get',
+       url: '/api/list?page=10',
+       //data: qs.stringify(data)
+     }).then(function (res) {
+       Indicator.close();
+       if(res.data.code==1){
+         that.listArr = res.data.data;
+        }else {
+          Indicator.close();
+          Toast({
+            message: res.data.msg,
+            duration: 1500
+          });
+        }
+     })
   },
   methods:{
     getResult (val) {
       let that =this;
       console.log(this.value);
-      //Indicator.open('加载中');
-      // this.axios({
-      //    method: 'get',
-      //    url: '/api/search?keyword='+that.value,
-      //    //data: qs.stringify(data)
-      //  }).then(function (res) {
-      //    Indicator.close();
-      //    if(res.data.code==1){
-      //      that.listArr = res.data.data;
-      //     }else {
-      //       Indicator.close();
-      //       Toast({
-      //         message: res.data.msg,
-      //         duration: 1500
-      //       });
-      //     }
-      //  })
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/search?keyword='+that.value,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.listArr = res.data.data;          
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
       // console.log('on-change', val)
       // this.results = val ? getResult(this.value) : []
     },
     toInfo(m,n){
       let that =this;
-      console.log(this.value);
-    //  Indicator.open('加载中');
+      Indicator.open('加载中');
       sessionStorage.userImg=n;
-      that.$router.push({
-        name:'info'
-      })
-      // this.axios({
-      //    method: 'get',
-      //    url: '/api/getdreambyuser?user_id='+m,
-      //    //data: qs.stringify(data)
-      //  }).then(function (res) {
-      //    Indicator.close();
-      //    if(res.data.code==1){
-      //      store.commit('infoData',res.data.data);
-      //      that.$router.push({
-      //        name:'info'
-      //      })
-      //     }else {
-      //       Indicator.close();
-      //       Toast({
-      //         message: res.data.msg,
-      //         duration: 1500
-      //       });
-      //     }
-      //  })
+      this.axios({
+         method: 'get',
+         url: '/api/getdreambyuser?user_id='+m,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           store.commit('infoFun2',res.data.data);
+           that.$router.push({
+             name:'info'
+           })
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
 

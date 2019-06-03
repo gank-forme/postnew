@@ -38,9 +38,27 @@ export default {
     nav3Fun(){
       if(this.nav3){
         // Indicator.open('jia');
-        this.$router.push({
-          name:'result'
-        })
+        let that =this;
+        console.log(this.value);
+        Indicator.open('加载中');
+        this.axios({
+           method: 'get',
+           url: '/api/dreamhits?id='+sessionStorage.id+'&user_id='+sessionStorage.user_id,
+           //data: qs.stringify(data)
+         }).then(function (res) {
+           Indicator.close();
+           if(res.data.code==1){
+             that.$router.push({
+               name:'result'
+             })
+            }else {
+              Indicator.close();
+              Toast({
+                message: res.data.msg,
+                duration: 1500
+              });
+            }
+         })
       }else{
         this.$router.push({
           name:'list'

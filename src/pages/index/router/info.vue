@@ -31,49 +31,40 @@ export default {
   name: 'app',
   data () {
     return {
-      //infoData:store.state.infoData
+      infoData:store.state.infoData,
       userImg:sessionStorage.userImg,
-      infoData:{
-      	"id": 5,
-      	"user_id": 5,
-      	"name": "hello5",
-      	"detail": "梦想detail15",
-      	"image": "https://small.pngfans.com/20190518/ge/royalty-free-png-royalty-payment-clipart-b3a719b4eea401ff.jpg",
-      	"status": 1,
-      	"create_time": "2019-06-02 05:42:06",
-      	"hits": 28,
-      	"rank": "3",
-      }
+      //infoData:''
     }
   },
   methods: {
     toDetail(e){
-      let that =this;
-      console.log(this.value);
-      Indicator.open('加载中');
-      this.axios({
-         method: 'get',
-         url: '/api/getdreambyuser?user_id='+e,
-         //data: qs.stringify(data)
-       }).then(function (res) {
-         Indicator.close();
-         if(res.data.code==1){
-           store.commit('deatilData',res.data.data);
-           that.$router.push({
-             name:'detail'
-           })
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
+      // let that =this;
+      // console.log(this.value);
+      // Indicator.open('加载中');
+      // this.axios({
+      //    method: 'get',
+      //    url: '/api/getdreambyuser?user_id='+e,
+      //    //data: qs.stringify(data)
+      //  }).then(function (res) {
+      //    Indicator.close();
+      //    if(res.data.code==1){
+      //      store.commit('deatilData',res.data.data);
+      //      that.$router.push({
+      //        name:'detail'
+      //      })
+      //     }else {
+      //       Indicator.close();
+      //       Toast({
+      //         message: res.data.msg,
+      //         duration: 1500
+      //       });
+      //     }
+      //  })
     }
   },
   created:function(){
-
+    sessionStorage.id=store.state.infoData.id;
+    sessionStorage.user_id=store.state.infoData.user_id;
   }
 }
 </script>
