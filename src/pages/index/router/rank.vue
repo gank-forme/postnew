@@ -283,6 +283,9 @@ function getResult (val) {
 </script>
 
 <style>
+.weui-search-bar__cancel-btn {
+  display: none !important;
+}
 .weui-search-bar__form,.weui-search-bar__box,.weui-search-bar__label {
   background: #03764D !important;
   color: #fff !important;

@@ -11,7 +11,7 @@
       auto-scroll-to-top
       ref="search"></search>
       <div class="listBox">
-        <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(2,i.icon)'>
+        <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.user_id,i.icon)'>
           <img class="fl peo" :src="i.icon" alt="">
           <div class="fl itemInfo">
             <h1 class="clearfix">
@@ -43,46 +43,16 @@ export default {
       results:[],
       value: '',
       listArr:[
-        {
-    			"dream_id": 11,
-    			"hits": 85,
-    			"rownum": "1",
-    			"name": "hellouu4",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-    		},
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        }
+
       ]
     }
   },
   created:function(){
     let that =this;
+    Indicator.open('加载中');
     this.axios({
        method: 'get',
-       url: '/api/list?page=10',
+       url: '/api/list?page=1',
        //data: qs.stringify(data)
      }).then(function (res) {
        Indicator.close();
@@ -100,7 +70,6 @@ export default {
   methods:{
     getResult (val) {
       let that =this;
-      console.log(this.value);
       Indicator.open('加载中');
       this.axios({
          method: 'get',
@@ -109,7 +78,7 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.listArr = res.data.data;          
+           that.listArr = res.data.data;
           }else {
             Indicator.close();
             Toast({
@@ -161,6 +130,9 @@ function getResult (val) {
 </script>
 
 <style>
+.weui-search-bar__cancel-btn {
+  display: none !important;
+}
 .list {
   background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
   min-height: 100%;

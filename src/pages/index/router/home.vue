@@ -24,7 +24,7 @@
       </div>
       <h2><img src="../assets/write.png" alt="">请输入您的梦想名称</h2>
       <div class="textareaBox">
-        <textarea id='textarea' v-model='txt1' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name"></textarea>
+        <textarea @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name"></textarea>
         <div class="" @click='xLog1'>
           确认提交
         </div>
@@ -109,7 +109,7 @@ export default {
       },
 
       picFunIndex:0,
-      images:[],
+      images:'',
       index:-1,
       uploadData:{
         images0:[],
@@ -128,6 +128,9 @@ export default {
     },
   },
   methods:{
+    inputBlur(){
+      window.scrollTo(0, 0)
+    },
     htmlScroll(){
       this.timer = setTimeout(() => {
         window.scrollTo(0,0)
@@ -184,6 +187,7 @@ export default {
        if (Array.isArray(e)) {
          let file = e[0].file
          console.log(file);
+         that.images=file;
          that.uploadData['images'+that.picFunIndex] = that.uploadData['images'+that.picFunIndex].concat(e);
 
          // that.$vux.loading.show({
@@ -239,10 +243,15 @@ export default {
        //this.show1=!this.show1;
        let that =this;
        Indicator.open('加载中');
+       let data = {
+         user_id:20,
+         detail:that.txt1,
+         image:that.images
+       };
        this.axios({
-          method: 'get',
-          url: '/api/createdream?user_id='+sessionStorage.user_id+'&detail='+that.txt1+'&image=1223.png',
-          //data: qs.stringify(data)
+          method: 'post',
+          url: '/api/createdream',
+          data: qs.stringify(data)
         }).then(function (res) {
           Indicator.close();
           if(res.data.code==1){
@@ -288,6 +297,9 @@ export default {
 #passport .addBtn {
   width: 100%;
   height: 214px;
+}
+#passport img.addBtn {
+  object-fit:cover;
 }
 #passport .loadCon {
   position: absolute;

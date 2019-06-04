@@ -6,8 +6,8 @@
       <div class="userBox">
         <img class="headImg" src="../assets/suc.png" alt="">
         <p>请您根据提示完善注册流程 </p>
-        <input id="name" type="text" placeholder="请输入您的名称" name="" value="">
-        <input id="number" type="text" placeholder="请输入您的电话" name="" value="">
+        <input @blur='inputBlur' id="name" type="text" placeholder="请输入您的名称" name="" value="">
+        <input @blur='inputBlur' id="number" type="text" placeholder="请输入您的电话" name="" value="">
         <div class="subBtn" @click='goHome'>确认提交</div>
       </div>
     </div>
@@ -35,6 +35,9 @@ export default {
     },
     close(){
       history.go(-1)
+    },
+    inputBlur(){
+      window.scrollTo(0, 0)
     }
   },
   created:function(){
