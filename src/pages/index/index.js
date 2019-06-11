@@ -17,6 +17,7 @@ import detail from './router/detail.vue'
 import load from './router/load.vue'
 import content from './router/content.vue'
 import rank from './router/rank.vue'
+import before from './router/before.vue'
 
 
 
@@ -82,6 +83,8 @@ const router = new VueRouter({
     { path: '/info', component: info,name:'info' ,meta: { title: "你分享我点赞大型系列活动" }},
     { path: '/rank', component: rank,name:'rank' ,meta: { title: "你分享我点赞大型系列活动" }},
     { path: '/login', component: login,name:'login',meta: { title: "你分享我点赞大型系列活动" }},
+    { path: '/before', component: before,name:'before',meta: { title: "你分享我点赞大型系列活动" }}
+
   ]
 })
 router.beforeEach((to, from, next) => {//beforeEach是router的钩子函数，在进入路由前执行
@@ -111,6 +114,7 @@ Vue.directive('roll', {
     }
   }
 });
+
 
 /* eslint-disable no-new */
 new Vue({

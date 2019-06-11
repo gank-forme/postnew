@@ -32,8 +32,9 @@
 </template>
 <script>
 import { MessageBox,Toast,Indicator } from 'mint-ui'
-import qs from 'qs'
 import store from '../store.js'
+import qs from 'qs'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -96,7 +97,7 @@ export default {
       sessionStorage.userImg=n;
       this.axios({
          method: 'get',
-         url: '/api/getdreambyuser?user_id='+m,
+         url: '/api/getdreambyid?user_id='+m,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

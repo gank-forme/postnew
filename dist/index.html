@@ -1,1 +1,56 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.cfce6ec5796545021981b0cde132bc95.css rel=stylesheet></head><script src=/static/cos-js-sdk-v5.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.13d5d2a920afd08ec9a0.js></script><script type=text/javascript src=/static/js/vendor.3f1e1eeafc2112276084.js></script><script type=text/javascript src=/static/js/index.dda5ec2e2be4fc09f83d.js></script></body></html>
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.54c89d688876fd7db1cde35c73ac082d.css rel=stylesheet></head><script type=text/javascript src=//s.quanmin110.com/s/js/vconsole.min.js></script><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.13d5d2a920afd08ec9a0.js></script><script type=text/javascript src=/static/js/vendor.b4947c160edf89b11599.js></script><script type=text/javascript src=/static/js/index.2bb65bb0c50ad677c01a.js></script></body><script type=text/javascript>function getWx(){
+    //var urls = encodeURIComponent(window.location.href.split('#')[0]);
+    var urls = encodeURIComponent(window.location.href.split('#')[0]);
+
+    var url = "/api/getsign";
+    $.ajax({
+        url:url,
+        type: "POST",
+        timeout: 15000,
+        contentType:"application/x-www-form-urlencoded",
+        data: {url:urls},
+        success:function (res) {
+
+          //location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+res.data.appId+'&redirect_uri='+window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
+
+          wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: res.data.appId, // 必填，公众号的唯一标识
+            timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+            nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+            signature: res.data.signature,// 必填，签名
+            jsApiList: [
+               //'updateAppMessageShareData',
+               //'updateTimelineShareData',
+               'onMenuShareAppMessage',
+               'onMenuShareTimeline',
+               'onMenuShareQQ',
+               'onMenuShareQZone',
+             ] // 必填，需要使用的JS接口列表
+           });
+          wx.ready(function(){
+
+            let shareUrl = window.location.protocol+'//'+window.location.host+'/static/index.html';
+            //alert(shareUrl);
+            wx.onMenuShareAppMessage({
+                title: res.data.title, // 分享标题
+                desc: res.data.content, // 分享描述
+                link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: res.data.image, // 分享图标
+                success: function () {
+                  // 设置成功
+                }
+            });
+
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+          });
+        },
+        error: function (res) {
+
+        }
+    });
+  };
+
+  $(function(){
+    getWx();
+  })</script></html>

@@ -22,7 +22,7 @@
         />
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
       </div>
-      <h2><img src="../assets/write.png" alt="">请输入您的梦想名称</h2>
+      <h2><img src="../assets/write.png" alt=""><input type="text" v-model='title' placeholder='请输入您的梦想标题' name="" value="">  </h2>
       <div class="textareaBox">
         <textarea @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name"></textarea>
         <div class="" @click='xLog1'>
@@ -78,6 +78,7 @@
   </div>
 </template>
 <script>
+import store from '../store.js'
 import qs from 'qs'
 import axios from 'axios'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
@@ -94,6 +95,7 @@ export default {
   },
   data () {
     return {
+      imgUrl:'',
       txt1:'',
       show1:false,
       show2:false,
@@ -101,7 +103,7 @@ export default {
       pVisible:false,
       subFlag:false,
       isDone:1,
-
+      title:'',
       values_index:0,
       values:{
         values0:"",
@@ -178,6 +180,35 @@ export default {
       this.picFunIndex=e;
       this.images=this.uploadData['images'+this.picFunIndex];
     },
+
+    fileupload(){
+      let that =this;
+      Indicator.open('加载中');
+      console.log(that.images);
+      let data = new FormData()
+      //data.append("openid",localStorage.openid);
+      data.append("openid",localStorage.openid);
+      data.append("image",that.images);
+      this.axios({
+         method: 'post',
+         url: '/api/fileupload',
+         headers: { 'content-type': 'multipart/form-data' },
+         data: data
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.imgUrl=res.data.data.image;
+           that.s_imgUrl=res.data.data.s_image;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
+
     /**
      *  绑定函数 -- 选择图片
      */
@@ -186,15 +217,13 @@ export default {
        // this.checkForm();
        if (Array.isArray(e)) {
          let file = e[0].file
-         console.log(file);
+         console.log(e[0]);
          that.images=file;
          that.uploadData['images'+that.picFunIndex] = that.uploadData['images'+that.picFunIndex].concat(e);
-
+         that.fileupload();
          // that.$vux.loading.show({
          //   text: '加载中...'
          //  })
-
-
        }else {
          console.log(res);
        }
@@ -243,21 +272,26 @@ export default {
        //this.show1=!this.show1;
        let that =this;
        Indicator.open('加载中');
-       let data = {
-         user_id:20,
-         detail:that.txt1,
-         image:that.images
-       };
+       console.log(that.images);
+       let data = new FormData()
+       data.append("openid",localStorage.openid);
+       data.append("title",that.title);
+       data.append("detail",that.txt1);
+       data.append("image",that.imgUrl);
+       data.append("s_image",that.s_imgUrl);
+
        this.axios({
           method: 'post',
           url: '/api/createdream',
-          data: qs.stringify(data)
+          headers: { 'content-type': 'multipart/form-data' },
+          data: data
         }).then(function (res) {
           Indicator.close();
           if(res.data.code==1){
             that.$router.push({
-              name:"detail"
-            })
+              name:"result"
+            });
+            sessionStorage.res=1;
            }else {
              Indicator.close();
              Toast({
@@ -337,6 +371,11 @@ export default {
   width: 15px;
   margin-right: 8px;
 }
+#passport .con h2 input {
+  color: #fff;
+  font-size: 13px;
+  background: none;
+}
 #passport .textareaBox {
   background: #fff;
   height: 150px;
@@ -397,8 +436,7 @@ export default {
   right: 10px;
   bottom: 20px;
 }
-textarea::-webkit-textarea-placeholder {
-    /* placeholder颜色  */
+input::-webkit-input-placeholder {
   color: #fff;
 }
 .preImg {

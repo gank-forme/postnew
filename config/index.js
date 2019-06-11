@@ -17,6 +17,13 @@ module.exports = {
           '^/api': '/api'
         }
       },
+      '/Uploads': {
+        target: 'http://www.kaiweihudong.com/admin.php/resources',  //目标接口域名
+        changeOrigin: true,  //是否跨域
+        pathRewrite: {
+          '^/Uploads': '/Uploads'
+        }
+      },
     },
 
     // Various Dev Server settings

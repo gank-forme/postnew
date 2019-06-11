@@ -6,8 +6,8 @@
       <div class="userBox">
         <img class="headImg" src="../assets/suc.png" alt="">
         <p>请您根据提示完善注册流程 </p>
-        <input @blur='inputBlur' id="name" type="text" placeholder="请输入您的名称" name="" value="">
-        <input @blur='inputBlur' id="number" type="text" placeholder="请输入您的电话" name="" value="">
+        <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的名称" name="" value="">
+        <input @blur='inputBlur' v-model='usernum' id="number" type="text" placeholder="请输入您的电话" name="" value="">
         <div class="subBtn" @click='goHome'>确认提交</div>
       </div>
     </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import qs from 'qs'
+import axios from 'axios'
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 
@@ -24,14 +26,35 @@ export default {
   name: 'app',
   data () {
     return {
-
+      usernum:'',
+      username:''
     }
   },
   methods: {
+
     goHome(){
-      this.$router.push({
-        name:'home'
-      })
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'POST',
+         url: '/api/userupdate',
+         headers: { 'content-type': 'application/x-www-form-urlencoded' },
+         data: qs.stringify({name:that.username,phone:that.usernum,openid:localStorage.openid})
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){//无绑定
+           that.$router.push({
+             name:'home'
+           })
+         }else {
+           Indicator.close();
+           Toast({
+             message: res.data.msg,
+             duration: 1500
+           });
+          }
+       })
+
     },
     close(){
       history.go(-1)

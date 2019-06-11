@@ -2,15 +2,25 @@
 
   <div :class="list==1?'list':'rank'">
     <app-header></app-header>
+    <div v-if='searchFlag' class="clearfix navBox">
+      <div @click='getList(1)' :class="act1">
+        总排行
+      </div>
+      <div @click='getList(2)' :class="act2">
+        我的点赞
+      </div>
+    </div>
+    <search
+    @on-change="getResult"
+    @on-focus='focusFun'
+    @on-blur='blurFun'
+    v-model="value"
+    position="absolute"
+    auto-scroll-to-top
+    ref="search"></search>
     <div v-if='list==1' class="content relative">
-      <search
-      @on-change="getResult"
 
-      v-model="value"
-      position="absolute"
-      auto-scroll-to-top
-      ref="search"></search>
-      <div class="listBox">
+      <div :class="searchFlag?'listBox':'listBox sea'">
         <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.dream_id,i.icon)'>
           <img class="fl peo" :src="i.icon" alt="">
           <div class="fl itemInfo">
@@ -20,20 +30,16 @@
             </h1>
             <h1 class="clearfix">
               <span class="fl"><img src="../assets/location.png" alt="">{{i.city}}</span>
-              <span class="fr"><img src="../assets/nav4.png" alt="">{{i.rownum}}</span>
+              <span class="fr"><img src="../assets/nav4.png" alt="">{{i.rank}}</span>
             </h1>
           </div>
         </div>
       </div>
     </div>
     <div v-else class="content relative">
-      <search
-      @on-change="getResult"
-      v-model="value"
-      position="absolute"
-      auto-scroll-to-top
-      ref="search"></search>
-      <div class="listBox">
+
+      <div :class="searchFlag?'listBox':'listBox sea'">
+
         <div v-for='(i,index) in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.dream_id,i.icon)'>
           <em class="index fl">{{index<9?'0':''}}{{index+1}}</em>
           <img class="fl peo" :src="i.icon" alt="">
@@ -59,182 +65,163 @@ export default {
   name: 'app',
   data () {
     return {
+      searchFlag:true,
+      toZan:sessionStorage.toZan,
+      has_next_page:'',
+      ind:1,
+      ind1:1,
+      act2:'fr',
+      act1:'fl act',
       list:2,
       results:[],
       value: '',
-      listArr:[
-        {
-    			"dream_id": 11,
-    			"hits": 85,
-    			"rownum": "1",
-    			"name": "hellouu4",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-    		},
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        },
-  			{
-    			"dream_id": 10,
-    			"hits": 35,
-    			"rownum": "2",
-    			"name": "hellouu3",
-    			"city": "shanghai",
-    			"icon": "https://icon.pngfans.com//h/bg/53071822.jpg"
-        }
-      ]
+      listArr:[]
     }
   },
   created:function(){
-    console.log(sessionStorage.listCli);
-    let that =this;
-    // this.axios({
-    //    method: 'get',
-    //    url: '/api/list?page=10',
-    //    //data: qs.stringify(data)
-    //  }).then(function (res) {
-    //    Indicator.close();
-    //    if(res.data.code==1){
-    //      that.listArr = res.data.data;
-    //     }else {
-    //       Indicator.close();
-    //       Toast({
-    //         message: res.data.msg,
-    //         duration: 1500
-    //       });
-    //     }
-    //  })
+    if(this.toZan==1){
+      this.act2 ='fr act';
+      this.act1 ='fl';
+      this.myZan();
+      this.list=1;
+    }else{
+      this.act1 ='fl act';
+      this.act2 ='fr';
+      this.page();
+      this.list=2;
+    }
+  },
+  mounted(){
+    window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
-    getResult (val) {
+    focusFun(){
+      this.searchFlag=false;
+      this.list=1;
+      // this.listArr=[];
+    },
+    blurFun(){
+      this.searchFlag=true;
+      this.list=2;
+    },
+    handleScroll(e){
       let that =this;
-      console.log(this.value);
-      // Indicator.open('加载中');
-      // this.axios({
-      //    method: 'get',
-      //    url: '/api/search?keyword='+that.value,
-      //    //data: qs.stringify(data)
-      //  }).then(function (res) {
-      //    Indicator.close();
-      //    if(res.data.code==1){
-      //      that.listArr = res.data.data;
-      //     }else {
-      //       Indicator.close();
-      //       Toast({
-      //         message: res.data.msg,
-      //         duration: 1500
-      //       });
-      //     }
-      //  })
+        //变量scrollTop是滚动条滚动时，距离顶部的距离
+        var scrollTop = e.target.scrollTop;
+        //变量windowHeight是可视区的高度
+        var windowHeight = e.target.clientHeight;
+        //变量scrollHeight是滚动条的总高度
+   		var scrollHeight = e.target.scrollHeight;
+        //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+            //写后台加载数据的函数
+            if((location.hash.indexOf('rank')<0)){
+              // alert(1);
+            }else{
+              if(that.has_next_page==1){
+                if(that.list==2){
+                  that.ind++;
+                  that.page();
+                }else{
+                  that.ind1++;
+                  that.myZan();
+                }
+              }
+            };
+
+        }
+    },
+    myZan(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           if(that.ind1==1){
+             that.listArr=res.data.data;
+           }else{
+             that.listArr =that.listArr.concat(res.data.data);
+           }
+           that.has_next_page =res.data.has_next_page;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
+    page(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           if(that.ind==1){
+             that.listArr=res.data.data;
+           }else{
+             that.listArr =that.listArr.concat(res.data.data);
+           }
+           that.has_next_page =res.data.has_next_page;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
+    getList(e){
+      this.ind=1,this.ind1=1;
+
+      if(e==1){
+        this.act1 ='fl act';
+        this.act2 ='fr';
+        this.page();
+        this.list=2;
+      }else {
+        this.act2 ='fr act';
+        this.act1 ='fl';
+        this.myZan();
+        this.list=1;
+      }
+    },
+    getResult (val) {
+      if(val==''){
+        this.page();
+      }else{
+        let that =this;
+        Indicator.open('加载中');
+        this.axios({
+           method: 'get',
+           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid+'&page='+that.ind
+           //data: qs.stringify(data)
+         }).then(function (res) {
+           Indicator.close();
+           if(res.data.code==1){
+             that.list=1;
+             that.listArr = res.data.data;
+            }else {
+              Indicator.close();
+              Toast({
+                message: res.data.msg,
+                duration: 1500
+              });
+              that.listArr=[];
+            }
+         })
+      }
+
       // console.log('on-change', val)
       // this.results = val ? getResult(this.value) : []
     },
@@ -243,29 +230,28 @@ export default {
       console.log(this.value);
       //Indicator.open('加载中');
       sessionStorage.userImg=n;
-      that.$router.push({
-        name:'info'
-      })
-      // this.axios({
-      //    method: 'get',
-      //    url: '/api/getdreambyuser?user_id='+m,
-      //    //data: qs.stringify(data)
-      //  }).then(function (res) {
-      //    Indicator.close();
-      //    if(res.data.code==1){
-      //      store.commit('infoData',res.data.data);
-      //      sessionStorage.userImg=n;
-      //      that.$router.push({
-      //        name:'info'
-      //      })
-      //     }else {
-      //       Indicator.close();
-      //       Toast({
-      //         message: res.data.msg,
-      //         duration: 1500
-      //       });
-      //     }
-      //  })
+      sessionStorage.isIndex=1;
+      this.axios({
+         method: 'get',
+         url: '/api/getdreambyid?openid='+localStorage.openid+'&dream_id='+m,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           store.commit('infoFun2',res.data.data);
+           sessionStorage.userImg=n;
+           that.$router.push({
+             name:'info'
+           });
+           sessionStorage.dream_id=m;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
 
@@ -304,9 +290,11 @@ function getResult (val) {
   z-index: 100;
   left: 0px;
   top:40px;
-  background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
+  /* background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6); */
+  background: #bee3cf;
 }
 .vux-search-fixed {
+  background: #bee3cf !important;
   top: 40px !important;
 }
 .list .weui-search-bar__box .weui-icon-search{
@@ -315,8 +303,7 @@ function getResult (val) {
 .list .listBox {
   width: 96%;
   margin: 0 auto;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 90px;
 }
 .list .listItem {
   background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864);
@@ -366,13 +353,16 @@ function getResult (val) {
   width: 97%;
   margin: 0 auto;
   padding: 3% 3% 3% 0;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 90px;
   clear: both;
   overflow: hidden;
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
-  background: #03764D;
+  /* background: #e9f7f0; */
 }
+.rank .listBox.sea,.list .listBox.sea{
+  padding-top: 50px !important;
+}
+
 .rank .listItem {
   background: url('../assets/listBg1.png') no-repeat center;
   background-size: 100% 100%;
@@ -412,7 +402,7 @@ function getResult (val) {
   top: 0px;
   width: 10%;
   text-align: center;
-  color: #fff;
+  color: #339864;
   font-size: 13px;
 }
 .rank .top {
@@ -420,5 +410,37 @@ function getResult (val) {
   top: 0px;
   right: 0px;
   width: 40px;
+}
+.navBox {
+  position: fixed;
+  top: 43px;
+  width: 94%;
+  padding: 0 3%;
+  left: 0px;
+  z-index: 100;
+  margin-top: 39px;
+  background: #bee3cf;
+}
+.navBox div{
+  width: 49.5%;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 40px;
+  color: #339864;
+  background: #abdac2;
+}
+.navBox div.act {
+  background: #339864;
+  color: #fff;
+  pointer-events: none;
+}
+.navBox div.fl {
+  border-top-right-radius: 10px;
+}
+.navBox div.fr {
+  border-top-left-radius: 10px;
+
 }
 </style>

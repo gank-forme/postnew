@@ -26,7 +26,7 @@ export default {
   name: 'app',
   data () {
     return {
-      res:2,
+      res:sessionStorage.res,
       resultSrc:''
     }
 
@@ -42,7 +42,8 @@ export default {
     goRank(){
       this.$router.push({
         name:'rank'
-      })
+      });
+      sessionStorage.toZan=2;
     }
   },
   created:function(){
