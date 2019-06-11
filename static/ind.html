@@ -48,6 +48,9 @@
           sessionStorage.shareTitle=res.data.title,
           sessionStorage.shareCon=res.data.content,
           sessionStorage.shareImg=res.data.image;
+
+
+          sessionStorage.homeIndex=2;
           console.log(window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html');
           location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+res.data.appId+'&redirect_uri='+window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
 

@@ -157,16 +157,14 @@ export default {
   font-size: 13px;
   color: #fff;
 
-  width: 94%;
+  width: 100%;
   position: absolute;
-  left: 50%;
-  margin-left: -47%;
   top: 45px;
-  bottom: 60px;
+  bottom: 33px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat center;
-  background-size: 100% 100%;
+  background: url('../assets/infoBg.png') no-repeat top;
+  background-size: 94% 96%;
   padding-bottom: 30px;
 }
 #info .userBox {

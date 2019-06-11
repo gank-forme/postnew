@@ -40,6 +40,7 @@ export default {
   name: 'app',
   data () {
     return {
+      homeIndex:sessionStorage.homeIndex,
       appId:'',
       loadIndex:0,
       index:0,
@@ -217,7 +218,7 @@ export default {
     }
   },
   created:function(){
-    if(sessionStorage.firstFlag==1 || this.loadIndex==2){
+    if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
       this.loadIndex=2;
       if(this.$route.query.code){
         this.getUserInfo();
