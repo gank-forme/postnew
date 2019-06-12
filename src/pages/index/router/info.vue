@@ -26,7 +26,6 @@ import qs from 'qs'
 import axios from 'axios'
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
-
 export default {
   name: 'app',
   data () {
@@ -55,8 +54,6 @@ export default {
            localStorage.icon = res.data.data.icon;
            localStorage.nickname = res.data.data.nickname;
            localStorage.user_id = res.data.data.user_id;
-
-
            // wx.config({
            //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
            //   appId: sessionStorage.appId, // 必填，公众号的唯一标识
@@ -92,7 +89,6 @@ export default {
            //   // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
            //   console.log(res);
            // });
-
           }else {
             Indicator.close();
             Toast({
@@ -125,20 +121,16 @@ export default {
           }
        })
     }
-
   },
   created:function(){
-
     if(this.isIndex==5){
       //this.getUserInfo();
       //t
-      if(this.$route.query.code){
+      if(this.$route.query.code!=''){
         this.getUserInfo();
         this.toInfo(this.infoNum,1);
       }else {
-
         //  this.getWxconfig();
-
       }
     }
     //sessionStorage.id=store.state.infoData.id;
@@ -156,7 +148,6 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-
   width: 100%;
   position: absolute;
   top: 45px;
@@ -227,7 +218,6 @@ export default {
   margin-bottom: 20px;
   color: #fff;
 }
-
 #info .userBox .subBtn{
   margin: 0 auto;
   text-align: center;
