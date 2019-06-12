@@ -9,7 +9,7 @@
     <script src='//libs.baidu.com/jquery/2.1.1/jquery.min.js'></script>
   </head>
   <style media="screen">
-    #gd {
+    .loads {
       position: fixed;
       width: 100%;
       color: #03764D;
@@ -17,12 +17,22 @@
       height: 100%;
       left: 0px;
       top: 0px;
-      line-height: 100px;
-      background: linear-gradient(to bottom right, #79CA9E 40%, #fff);
+      background: linear-gradient(to bottom right, #fff 40%, #79CA9E);
+    }
+    .loads .logo {
+      display: block;
+      margin: 0 auto;
+      width: 180px;
+      margin-top: 240px;
     }
   </style>
   <body>
-    <div id='gd'>页面加载中...</div>
+    <!-- <div id='gd'>页面加载中...</div> -->
+    <div class="loads ">
+      <!-- <img class="logo" src="logo.png" alt=""> -->
+      <!-- <p class="progress">Loading 0%</p> -->
+      <!-- <h2>中国邮政储蓄银行“梦想加邮站”<br>产品系列活动之“你分享，我点赞”</h2> -->
+    </div>
   </body>
   <!-- <script type="text/javascript" src="//s.quanmin110.com/s/js/vconsole.min.js"></script> -->
   <script src="//res2.wx.qq.com/open/js/jweixin-1.4.0.js " charset="utf-8"></script>
