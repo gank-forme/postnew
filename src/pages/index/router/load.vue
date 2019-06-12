@@ -88,7 +88,7 @@ export default {
         setTimeout(function(){
           sessionStorage.firstFlag=1;
           that.loadIndex=2;
-          that.getWxconfig();
+          //that.getWxconfig();
 
         },700);
       }
@@ -98,7 +98,7 @@ export default {
         setTimeout(function(){
           sessionStorage.firstFlag=1;
           that.loadIndex=2;
-          that.getWxconfig();
+          //that.getWxconfig();
 
         },500);
       }
@@ -144,12 +144,13 @@ export default {
     },
     getUserInfo(){
       let that =this;
-      Indicator.open('加载中');
+      //Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/getuserinfo?code='+that.$route.query.code,
          //data: qs.stringify(data)
        }).then(function (res) {
+         that.homeIndex=2;
          Indicator.close();
          if(res.data.code==1){
            localStorage.openid1 = res.data.data.openid;
@@ -202,28 +203,56 @@ export default {
     }
   },
   created:function(){
-    if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
-      this.loadIndex=2;
-      if(this.$route.query.code!='' && this.homeIndex!=2){
-        this.getUserInfo();
-      }else {
-        if(localStorage.openid1){
-
-        }else{
-          this.getWxconfig();
-        }
-      }
-      //
+    if(this.$route.query.code!='' && this.homeIndex!=2){
+      this.getUserInfo();
     }else {
-      if(this.loadIndex==0){
-        this.numFun();
+      if(localStorage.openid1){
+        this.loadIndex=2;
+      }else{
+        //this.getWxconfig();
       }
     }
+    if(this.loadIndex==0){
+      this.numFun();
+    }
 
+
+
+    if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
+      this.loadIndex=2;
+
+      //
+    }else {
+
+    }
     Indicator.close();
 
   }
+  // created:function(){
+  //   if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
+  //     this.loadIndex=2;
+  //     if(this.$route.query.code!='' && this.homeIndex!=2){
+  //       this.getUserInfo();
+  //     }else {
+  //       if(localStorage.openid1){
+  //
+  //       }else{
+  //
+  //         //this.getWxconfig();
+  //       }
+  //     }
+  //     //
+  //   }else {
+  //     if(this.loadIndex==0){
+  //       this.numFun();
+  //     }
+  //   }
+  //
+  //   Indicator.close();
+  //
+  // }
 }
+
 </script>
 
 <style>
