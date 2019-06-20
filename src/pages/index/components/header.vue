@@ -1,8 +1,8 @@
 <template>
   <div class="header clearfix" >
-    <span class="fl">你分享我点赞大型系列活动</span>
+    <span class="fl">你做梦我买单大型系列活动</span>
     <span class="fr">
-      <img class="logoImg" src="../assets/headlogo.png" alt="">
+      <img class="logoImg" src="../assets/logo.png" alt="">
     </span>
   </div>
 </template>

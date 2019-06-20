@@ -20,10 +20,10 @@
           <h4>当前点赞票数</h4>
           <h4><img src="../assets/zan.png" alt="">{{deatilData.hits}}</h4>
           <h4>当前票数排名 </h4>
-          <h4><img src="../assets/nav4.png" alt="">{{deatilData.rank}}</h4>
+          <h4><img src="../assets/ra.png" alt="">{{deatilData.rank}}</h4>
         </div>
         <div class="shareBtn shareBtn1" @click='xLog1'>
-          <img src="../assets/nav3.png" alt="">
+          <img src="../assets/tozan.png" alt="">
           <p>查看我的点赞</p>
         </div>
 
@@ -184,8 +184,8 @@ export default {
   bottom: 25px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat top;
-  background-size: 94% 96%;
+  background: url('../assets/loginTop.png') no-repeat top;
+  background-size: 100%;
 }
 #detail .userBox {
   color: #03764D;
@@ -225,6 +225,7 @@ export default {
 #detail .infoBox h1{
   font-size: 15px;
   font-weight: 600;
+  color: #4C4948;
 }
 #detail .infoBox h2{
   font-size: 14px;
@@ -237,8 +238,8 @@ export default {
 }
 #detail .userBox h3{
   font-size: 14px;
-  background: #fff;
-  color: #339864;
+  background: #fd7522;
+  color: #fff;
   width: 76%;
   margin: 0 auto;
   padding: 10px 2%;
@@ -258,7 +259,7 @@ export default {
 }
 #detail .userBox h4{
   font-size: 15px;
-  color: #fff;
+  color: #4C4948;
   margin-top: 5px;
 }
 #detail .userBox h4 img{
@@ -283,7 +284,7 @@ export default {
   right: 10px;
   font-size: 13px;
   text-align: center;
-  color: #fff;
+  color: #4C4948;
   width: 100px;
 }
 

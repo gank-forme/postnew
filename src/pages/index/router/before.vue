@@ -2,7 +2,7 @@
   <div id="before" class='comon'>
     <app-header></app-header>
     <div class="registBox">
-      <img @click='nav2Fun' src="../assets/yidao_03.jpg" alt="">
+      <img @click='nav2Fun' src="../assets/yidao.png" alt="">
       <p>梦想加邮站系列活动之“你分享我点赞”发起我的梦想并号召好友进行点赞排名，助力最多的梦想将获得邮储银行提供的精美大奖哦~</p>
     </div>
 
@@ -76,9 +76,9 @@ export default {
   bottom: 60px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
+  /* background: url('../assets/logBg.png') no-repeat center; */
   background-size: 100% 100%;
-  color: #03764D;
+  color: #4C4948;
   font-size: 14px;
 }
 

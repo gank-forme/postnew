@@ -1,10 +1,10 @@
 <template>
-  <div id="load" class="comon">
+  <div id="load">
     <app-header v-if='loadIndex!=0'></app-header>
     <div class="load " v-if='loadIndex==0'>
       <img class="logo" src="../assets/logo.png" alt="">
       <p class="progress">Loading {{num}}%</p>
-      <h2>中国邮政储蓄银行“梦想加邮站”<br>产品系列活动之“你分享，我点赞”</h2>
+      <h2>中国邮政储蓄银行“梦想加邮站” 产品系列活动之“你做梦，我买单” </h2>
     </div>
 
     <div class="swiperDiv" v-if='loadIndex==1'>
@@ -248,7 +248,7 @@ export default {
     clear: both;
     overflow: auto;
     height: 100%;
-    background: linear-gradient(to bottom right, #fff 40%, #79CA9E);
+    background: #fff;
   }
   #load .logo {
     display: block;
@@ -321,19 +321,21 @@ export default {
     border:1px solid red;
   }
   h1.tipH {
-    color: #03764D;
+    color: #3E3A39;
     font-size: 15px;
     font-weight: 700;
     margin-top: 42px;
   }
   h2.tipH {
-    color: #03764D;
+    color: #3E3A39;
     font-size: 12px;
   }
 #load .load h2 {
+  margin: 0 auto;
+  width: 60%;
   font-size: 14px;
   margin-top: 10px;
-  color:#03764D;
+  color:#4C4948;
   font-weight: 600;
 }
 .vux-slider,.vux-swiper {
