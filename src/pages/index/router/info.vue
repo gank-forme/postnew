@@ -3,7 +3,7 @@
     <app-header></app-header>
 
     <div class="registBox">
-      <div class="userBox">
+      <div class="userBox" style="padding-bottom:50px;">
         <img class="headImg" :src="infoData.icon" alt="">
         <p>{{infoData.name}}</p>
         <div class="infoBox">
@@ -149,7 +149,7 @@ export default {
   font-size: 13px;
   color: #fff;
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   top: 45px;
   bottom: 33px;
   overflow-y: auto;
@@ -186,6 +186,7 @@ export default {
 }
 #info .infoBox img{
   width: 100%;
+  min-height: 250px;
   display: block;
   margin-top: 10px;
 }
