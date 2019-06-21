@@ -3,13 +3,15 @@
     <app-header></app-header>
 
     <div class="registBox">
-      <div class="userBox">
+      <div class="userBox" style="padding-bottom:60px;">
         <img class="headImg" :src="infoData.icon" alt="">
         <p>{{infoData.name}}</p>
         <div class="infoBox">
           <h1>{{infoData.title}}</h1>
           <h2></h2>
           <img :src="infoData.image" alt="">
+
+          <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
         </div>
         <h3><img src="../assets/zan1.png" alt="">当前票数 {{infoData.hits}}</h3>
         <h3><img src="../assets/rank1.png" alt="">当前排名 {{infoData.rank}}</h3>
@@ -149,7 +151,7 @@ export default {
   font-size: 13px;
   color: #fff;
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   top: 45px;
   bottom: 33px;
   overflow-y: auto;
@@ -186,6 +188,7 @@ export default {
 }
 #info .infoBox img{
   width: 100%;
+  min-height: 250px;
   display: block;
   margin-top: 10px;
 }

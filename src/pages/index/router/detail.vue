@@ -9,10 +9,11 @@
           <p class="fl p1">{{name}}</p>
           <p class="fl p2">{{txt}}</p>
         </div>
-        <div v-if='status!=4 && status!=3'>
+        <div v-if='status!=4 && status!=3' style="padding-bottom:70px;">
           <div class="infoBox">
             <h1>{{deatilData.title}}</h1>
             <img :src="deatilData.image" alt="">
+            <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
           </div>
           <h3>
             <p>{{deatilData.detail}}</p>
@@ -179,7 +180,7 @@ export default {
   color: #fff;
 
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
   top: 45px;
   bottom: 25px;
   overflow-y: auto;
@@ -232,6 +233,7 @@ export default {
 }
 #detail .infoBox img{
   width: 100%;
+  min-height: 250px;
   display: block;
   margin-top: 10px;
 }
