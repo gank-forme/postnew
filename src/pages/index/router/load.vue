@@ -220,7 +220,7 @@ export default {
   created:function(){
     if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
       this.loadIndex=2;
-      if(this.$route.query.code!=''){
+      if(this.$route.query.code!='' && this.homeIndex!=2){
         this.getUserInfo();
       }else {
         if(localStorage.openid){
