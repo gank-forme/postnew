@@ -154,6 +154,7 @@ export default {
               message: res.data.msg,
               duration: 1500
             });
+            that.listArr=[];
           }
        })
     },
@@ -179,6 +180,7 @@ export default {
               message: res.data.msg,
               duration: 1500
             });
+            that.listArr=[];
           }
        })
     },
