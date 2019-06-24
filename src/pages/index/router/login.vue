@@ -39,7 +39,7 @@ export default {
          method: 'POST',
          url: '/api/userupdate',
          headers: { 'content-type': 'application/x-www-form-urlencoded' },
-         data: qs.stringify({name:that.username,phone:that.usernum,openid:localStorage.openid})
+         data: qs.stringify({name:that.username,phone:that.usernum,openid:localStorage.openid1})
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){//无绑定

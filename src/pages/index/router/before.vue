@@ -29,7 +29,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/createcheck?page_type=2&openid='+localStorage.openid,
+         url: '/api/createcheck?page_type=2&openid='+localStorage.openid1,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

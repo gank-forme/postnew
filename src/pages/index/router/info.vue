@@ -51,7 +51,7 @@ export default {
          //alert(1);
          Indicator.close();
          if(res.data.code==1){
-           localStorage.openid = res.data.data.openid;
+           localStorage.openid1 = res.data.data.openid;
            localStorage.city = res.data.data.city;
            localStorage.icon = res.data.data.icon;
            localStorage.nickname = res.data.data.nickname;
@@ -107,7 +107,7 @@ export default {
       sessionStorage.dream_id=m;
       this.axios({
          method: 'get',
-         url: '/api/getdreambyid?openid='+localStorage.openid+'&dream_id='+m,
+         url: '/api/getdreambyid?openid='+localStorage.openid1+'&dream_id='+m,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
