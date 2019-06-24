@@ -89,7 +89,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/getdreambyuser?openid='+localStorage.openid,
+         url: '/api/getdreambyuser?openid='+localStorage.openid2,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

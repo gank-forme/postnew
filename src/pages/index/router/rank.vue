@@ -136,7 +136,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid,
+         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid2,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -161,7 +161,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid,
+         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid2,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -204,7 +204,7 @@ export default {
         Indicator.open('加载中');
         this.axios({
            method: 'get',
-           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid+'&page='+that.ind
+           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid2+'&page='+that.ind
            //data: qs.stringify(data)
          }).then(function (res) {
            Indicator.close();
@@ -233,7 +233,7 @@ export default {
       sessionStorage.isIndex=1;
       this.axios({
          method: 'get',
-         url: '/api/getdreambyid?openid='+localStorage.openid+'&dream_id='+m,
+         url: '/api/getdreambyid?openid='+localStorage.openid2+'&dream_id='+m,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

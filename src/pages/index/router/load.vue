@@ -151,7 +151,7 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           localStorage.openid = res.data.data.openid;
+           localStorage.openid2 = res.data.data.openid;
            localStorage.city = res.data.data.city;
            localStorage.icon = res.data.data.icon;
            localStorage.nickname = res.data.data.nickname;
@@ -223,7 +223,7 @@ export default {
       if(this.$route.query.code!='' && this.homeIndex!=2){
         this.getUserInfo();
       }else {
-        if(localStorage.openid){
+        if(localStorage.openid2){
 
         }else{
           this.getWxconfig();
