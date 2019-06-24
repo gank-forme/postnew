@@ -64,7 +64,7 @@ export default {
     }
   },
   created:function(){
-
+    sessionStorage.homeIndex=2;
   }
 }
 </script>

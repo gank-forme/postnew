@@ -34,6 +34,9 @@ export default {
   name: 'AppFooter',
   data () {
     return {
+      shareTitle:sessionStorage.shareTitle,
+      shareCon:sessionStorage.shareCon,
+      shareImg:sessionStorage.shareImg,
       centerImg:'',
       nav2:'/before',
       nav3:true,
@@ -46,7 +49,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/createcheck?page_type=1&openid='+localStorage.openid,
+         url: '/api/createcheck?page_type=1&openid='+localStorage.openid1,
          //data: qs.stringify(data)
        }).then(function (res) {
          console.log(res.data);
@@ -98,7 +101,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/getdreambyuser?openid='+localStorage.openid,
+         url: '/api/getdreambyuser?openid='+localStorage.openid1,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -121,7 +124,7 @@ export default {
         Indicator.open('加载中');
         axios({
            method: 'get',
-           url: '/api/dreamhits?dream_id='+sessionStorage.dream_id+'&openid='+localStorage.openid,
+           url: '/api/dreamhits?dream_id='+sessionStorage.dream_id+'&openid='+localStorage.openid1,
            //data: qs.stringify(data)
          }).then(function (res) {
            Indicator.close();
@@ -146,11 +149,30 @@ export default {
     }
   },
   created:function(){
+    let that =this;
     if((location.hash.indexOf('info')<0)){
       this.nav3=false
       this.centerImg=noc;
     }else{
       this.centerImg=cli;
+    };
+
+    if((location.hash.indexOf('detail')<0)){
+      wx.ready(function(){
+        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/index.html';
+        //alert(shareUrl);
+        wx.onMenuShareAppMessage({
+            title: that.shareTitle, // 分享标题
+            desc: that.shareCon, // 分享描述
+            link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: that.shareImg, // 分享图标
+            success: function () {
+              // 设置成功
+            }
+        });
+      });
+    }else{
+
     };
   }
 }

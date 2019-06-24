@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.a742303714884af9b44c233ef227c62e.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.5e7997d4ca6c5c787380.js></script><script type=text/javascript src=/static/js/index.c60cfa51a760cfc1c1b1.js></script></body><script type=text/javascript>function getWx(){
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.1e3106184b337003473c4261b7349618.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.5e7997d4ca6c5c787380.js></script><script type=text/javascript src=/static/js/index.dffca5e3991952955103.js></script></body><script type=text/javascript>function getWx(){
     //var urls = encodeURIComponent(window.location.href.split('#')[0]);
     var urls = encodeURIComponent(window.location.href.split('#')[0]);
 
@@ -10,7 +10,9 @@
         contentType:"application/x-www-form-urlencoded",
         data: {url:urls},
         success:function (res) {
-
+          sessionStorage.shareTitle=res.data.title,
+          sessionStorage.shareCon=res.data.content,
+          sessionStorage.shareImg=res.data.image;
           //location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+res.data.appId+'&redirect_uri='+window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
 
           wx.config({

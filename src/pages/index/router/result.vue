@@ -47,7 +47,7 @@ export default {
     }
   },
   created:function(){
-
+    sessionStorage.homeIndex=2;
      // this.axios({
      //    method: 'get',
      //    url: '/api/list?page=10',

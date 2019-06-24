@@ -79,6 +79,7 @@ export default {
     }
   },
   created:function(){
+    sessionStorage.homeIndex=2;
     if(this.toZan==1){
       this.act2 ='fr act';
       this.act1 ='fl';

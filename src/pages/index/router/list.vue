@@ -49,6 +49,7 @@ export default {
     }
   },
   created:function(){
+    sessionStorage.homeIndex=2;
     let that =this;
     Indicator.open('加载中');
     this.axios({
