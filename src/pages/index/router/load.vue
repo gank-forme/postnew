@@ -75,6 +75,7 @@ export default {
       },50);
     },
     toCon(e){
+      sessionStorage.homeIndex=2;
       store.commit('infoFun1',e);
       this.$router.push({
         name:'content'
