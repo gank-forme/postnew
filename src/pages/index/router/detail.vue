@@ -111,10 +111,10 @@ export default {
       wx.ready(function(){
         let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind.html?info='+e+'&sd='+sessionStorage.appId;
         wx.onMenuShareAppMessage({
-            title: that.deatilData.title, // 分享标题
-            desc: that.deatilData.detail, // 分享描述
+            title: '中国邮政储蓄银行梦想加邮站系列活动之“你分享我点赞“', // 分享标题
+            desc: that.deatilData.title+'  '+that.deatilData.detail, // 分享描述
             link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: that.deatilData.image, // 分享图标
+            imgUrl: 'http://share.marketservice.cn/uploads/20190612/16f6808112c73e4df95a44b87d1c68b0.png', // 分享图标
             success: function () {
               // 设置成功
             }

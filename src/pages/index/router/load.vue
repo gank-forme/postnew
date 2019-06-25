@@ -34,15 +34,13 @@ import banner3 from '../assets/banner3_02.jpg'
 import list1 from '../assets/list1_03.jpg'
 import list2 from '../assets/list2_06.jpg'
 import list3 from '../assets/list3_08.jpg'
-import list4 from '../assets/list4_03.jpg'
-
 export default {
   name: 'app',
   data () {
     return {
       homeIndex:sessionStorage.homeIndex,
       appId:'',
-      loadIndex:0,
+      loadIndex:2,
       index:0,
       num:0,
       demo01_list:[{
@@ -56,7 +54,7 @@ export default {
           img: banner3,
         }
       ],
-      listIndex:[list1,list2,list3,list4]
+      listIndex:[list1,list2,list3]
     }
   },
   methods: {
@@ -300,7 +298,6 @@ export default {
     width: 94%;
     margin: 0 auto;
     margin-top: 10px;
-    height: 115px;
     text-align: center;
     color: #fff;
     position: relative;
