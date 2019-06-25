@@ -14,7 +14,7 @@
           <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
         </div>
         <h3><img src="../assets/zan1.png" alt="">当前票数 {{infoData.hits}}</h3>
-        <h3><img src="../assets/rank1.png" alt="">当前排名 {{infoData.rank}}</h3>
+        <h3><img src="../assets/rank.png" alt="">当前排名 {{infoData.rank}}</h3>
         <!-- <img @click='toDetail' class="next none" src="../assets/bottom.png" alt="">
         <h4 class="none" @click='toDetail()'>梦想详情</h4> -->
       </div>
@@ -161,14 +161,13 @@ export default {
   font-size: 13px;
   color: #fff;
   width: 100%;
-  min-height: 550px;
   /* position: absolute; */
   top: 45px;
   bottom: 33px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat top;
-  background-size: 94% 96%;
+  background: url('../assets/loginTop.png') no-repeat top;
+  background-size: 100%;
   padding-bottom: 30px;
 }
 #info .userBox {
@@ -205,8 +204,8 @@ export default {
 }
 #info .userBox h3{
   font-size: 14px;
-  background: #fff;
-  color: #339864;
+  background: #fd7522;
+  color: #fff;
   width: 80%;
   margin: 0 auto;
   padding: 10px 0;

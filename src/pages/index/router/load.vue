@@ -34,6 +34,7 @@ import banner3 from '../assets/banner3_02.jpg'
 import list1 from '../assets/list1_03.jpg'
 import list2 from '../assets/list2_06.jpg'
 import list3 from '../assets/list3_08.jpg'
+import list4 from '../assets/list4_03.jpg'
 export default {
   name: 'app',
   data () {
@@ -54,7 +55,7 @@ export default {
           img: banner3,
         }
       ],
-      listIndex:[list1,list2,list3]
+      listIndex:[list1,list2,list3,list4]
     }
   },
   methods: {
@@ -266,99 +267,102 @@ export default {
 </script>
 
 <style>
-  #load {
-    text-align: center;
-    clear: both;
-    overflow: auto;
-    height: 100%;
-    background: linear-gradient(to bottom right, #fff 40%, #79CA9E);
-  }
-  #load .logo {
-    display: block;
-    margin: 0 auto;
-    width: 180px;
-    margin-top: 240px;
-  }
-  #load .progress {
-    font-size:13px;
-    text-align: center;
-    margin-top: 10px;
-  }
-  .logoImg {
-    display: inline-block;
-    width: 110px;
-  }
-  .swiperDiv {
-    margin:0 auto;
-    height: 100%;
-  }
-  .vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-img{
-    background-position: 0 30px !important;
-  }
-  .listIndex {
-    width: 94%;
-    margin:0 auto;
-    margin-top: 45px;
-    padding-bottom: 70px;
-  }
-  .listIndex p {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    text-align: right;
-  }
-  .listIndex li {
-    width: 94%;
-    margin: 0 auto;
-    margin-top: 10px;
-    text-align: center;
-    color: #fff;
-    position: relative;
-  }
-  .listIndex li img {
-    width: 100%;
-    /* width: 33px;
-    height: 33px;
-    display: inline-block;
-    background: #999;
-    margin-top: 20px;
-    margin-bottom: 10px; */
-  }
-  .listIndex li h1{
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .listIndex li h2{
-    width: 60%;
-    line-height: 12px;
-    margin: 0 auto;
-    font-size: 10px;
-  }
-  .listIndex li img.goBtn {
-    position: absolute;
-    display: block;
-    width: 15px;
-    height: 15px;
-    top: 30px;
-    right: 20px;
-    border:1px solid red;
-  }
-  h1.tipH {
-    color: #03764D;
-    font-size: 15px;
-    font-weight: 700;
-    margin-top: 42px;
-  }
-  h2.tipH {
-    color: #03764D;
-    font-size: 12px;
-  }
-#load .load h2 {
-  font-size: 14px;
+#load {
+  text-align: center;
+  clear: both;
+  overflow: auto;
+  height: 100%;
+  background: #fff;
+}
+#load .logo {
+  display: block;
+  margin: 0 auto;
+  width: 180px;
+  margin-top: 240px;
+}
+#load .progress {
+  font-size:13px;
+  text-align: center;
   margin-top: 10px;
-  color:#03764D;
-  font-weight: 600;
+}
+.logoImg {
+  display: inline-block;
+  width: 110px;
+}
+.swiperDiv {
+  margin:0 auto;
+  height: 100%;
+}
+.vux-slider > .vux-swiper > .vux-swiper-item > a > .vux-img{
+  background-position: 0 30px !important;
+}
+.listIndex {
+  width: 94%;
+  margin:0 auto;
+  margin-top: 45px;
+  padding-bottom: 70px;
+}
+.listIndex p {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+.listIndex li {
+  width: 94%;
+  margin: 0 auto;
+  margin-top: 10px;
+  height: 115px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+.listIndex li img {
+  width: 100%;
+  /* width: 33px;
+  height: 33px;
+  display: inline-block;
+  background: #999;
+  margin-top: 20px;
+  margin-bottom: 10px; */
+}
+.listIndex li h1{
+  font-size: 13px;
+  font-weight: 700;
+}
+.listIndex li h2{
+  width: 60%;
+  line-height: 12px;
+  margin: 0 auto;
+  font-size: 10px;
+}
+.listIndex li img.goBtn {
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+  top: 30px;
+  right: 20px;
+  border:1px solid red;
+}
+h1.tipH {
+  color: #3E3A39;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 42px;
+}
+h2.tipH {
+  color: #3E3A39;
+  font-size: 12px;
+}
+#load .load h2 {
+margin: 0 auto;
+width: 60%;
+font-size: 14px;
+margin-top: 10px;
+color:#4C4948;
+font-weight: 600;
 }
 .vux-slider,.vux-swiper {
-  height: 100%;
+height: 100%;
 }
 </style>

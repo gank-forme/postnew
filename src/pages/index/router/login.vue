@@ -79,19 +79,18 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-
-  width: 96%;
+  width: 100%;
   position: absolute;
-  left: 50%;
-  margin-left: -48%;
+  left: 0%;
   top: 45px;
   bottom: 60px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
-  background-size: 100% 100%;
+  background: url('../assets/loginTop.png') no-repeat top ;
+  background-size: 100%;
 }
 #login .registBox h1 {
+  display: none;
   background: #03764D;
   padding: 8px 10px;
   font-size: 13px;
@@ -105,20 +104,20 @@ export default {
 }
 #login .headImg {
   width: 40px;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 #login .userBox {
-  color: #03764D;
+  color: #fff;
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
-
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #login .userBox p{
   font-size: 13px;
-  margin-top: 10px;
-  margin-bottom: 40px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 70px;
 }
 #login .userBox input{
   font-size: 13px;
@@ -135,7 +134,7 @@ export default {
   font-size: 13px;
   width: 250px;
   height: 30px;
-  background: #03764D;
+  background: #fd7522;
   color: #fff;
   margin-top: 30px;
 }
@@ -143,17 +142,20 @@ export default {
   padding: 0;
 }
 #name {
-  background:#03764D url('../assets/nav5.png') no-repeat 5px center;
+  background:#fd7522 url('../assets/nav5.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
 }
 #number {
-  background:#03764D url('../assets/phone.png') no-repeat 5px center;
+  background:#fd7522 url('../assets/phone.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
 }
 #login input::-webkit-input-placeholder {
     /* placeholder颜色  */
   color: #fff;
+}
+#login .toplogin {
+  width: 100%;
 }
 </style>

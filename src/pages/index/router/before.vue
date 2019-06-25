@@ -76,18 +76,15 @@ export default {
   bottom: 60px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
+  /* background: url('../assets/logBg.png') no-repeat center; */
   background-size: 100% 100%;
-  color: #03764D;
+  color: #4C4948;
   font-size: 14px;
 }
-
 #before .registBox img {
   width: 100%;
   margin-top: 2%;
   margin-bottom: 40px;
-
 }
-
 
 </style>

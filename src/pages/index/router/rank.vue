@@ -30,7 +30,7 @@
             </h1>
             <h1 class="clearfix">
               <span class="fl"><img src="../assets/location.png" alt="">{{i.city}}</span>
-              <span class="fr"><img src="../assets/nav4.png" alt="">{{i.rank}}</span>
+              <span class="fr"><img src="../assets/ra.png" alt="">{{i.rank}}</span>
             </h1>
           </div>
         </div>
@@ -276,8 +276,9 @@ function getResult (val) {
   display: none !important;
 }
 .weui-search-bar__form,.weui-search-bar__box,.weui-search-bar__label {
-  background: #03764D !important;
+  background: #fd7522 !important;
   color: #fff !important;
+  border-radius: 40px !important;
 }
 .weui-search-bar__box .weui-search-bar__input {
   color: #fff !important;
@@ -288,16 +289,19 @@ function getResult (val) {
 .weui-search-bar {
   background: none !important;
 }
+.weui-search-bar:after {
+  display: none !important;
+}
 .vux-search-box {
   position: fixed !important;
   z-index: 100;
   left: 0px;
   top:40px;
   /* background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6); */
-  background: #bee3cf;
+  background: #fff;
 }
 .vux-search-fixed {
-  background: #bee3cf !important;
+  background: #fff !important;
   top: 40px !important;
 }
 .list .weui-search-bar__box .weui-icon-search{
@@ -309,10 +313,10 @@ function getResult (val) {
   padding-top: 90px;
 }
 .list .listItem {
-  background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864);
-  color: #fff;
+  /* background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864); */
+  color: #4c4948;
   padding: 10px;
-  margin-bottom: 10px;
+  border-bottom: 1px solid #ff7500;
 }
 .list .listItem .peo {
   width: 40px;
@@ -344,7 +348,7 @@ function getResult (val) {
   -webkit-overflow-scrolling: touch;
 }
 .rank,.list {
-  background: linear-gradient(to bottom right, #C5E8D5 10%,#eee 30%,  #B1E0C6);
+  background: #fff;
   min-height: 100%;
   clear: both;
   overflow: hidden;
@@ -365,17 +369,17 @@ function getResult (val) {
 .rank .listBox.sea,.list .listBox.sea{
   padding-top: 50px !important;
 }
-
 .rank .listItem {
-  background: url('../assets/listBg1.png') no-repeat center;
+  /* background: url('../assets/listBg1.png') no-repeat center; */
   background-size: 100% 100%;
   /* background: linear-gradient( to right,#A2D3B9 10%,#339864 30%, #339864); */
-  color: #fff;
+  color: #4c4948;
   width: 84%;
   float: right;
   padding: 10px 3%;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   position: relative;
+  border-bottom: 1px solid #ff7500;
 }
 .rank .listItem .peo {
   width: 35px;
@@ -405,7 +409,7 @@ function getResult (val) {
   top: 0px;
   width: 10%;
   text-align: center;
-  color: #339864;
+  color: #4C4948;
   font-size: 13px;
 }
 .rank .top {
@@ -422,7 +426,7 @@ function getResult (val) {
   left: 0px;
   z-index: 100;
   margin-top: 39px;
-  background: #bee3cf;
+  background: #fff;
 }
 .navBox div{
   width: 49.5%;
@@ -431,11 +435,11 @@ function getResult (val) {
   font-weight: 600;
   text-align: center;
   line-height: 40px;
-  color: #339864;
-  background: #abdac2;
+  color: #4C4948;
+  background: #fecda6;
 }
 .navBox div.act {
-  background: #339864;
+  background: #fd7522;
   color: #fff;
   pointer-events: none;
 }
@@ -444,6 +448,5 @@ function getResult (val) {
 }
 .navBox div.fr {
   border-top-left-radius: 10px;
-
 }
 </style>

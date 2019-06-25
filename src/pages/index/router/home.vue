@@ -326,7 +326,11 @@ export default {
   bottom: 60px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: linear-gradient(to bottom right, #79CA9E 6%,#b0e0c6, #79CA9E);
+  background: #fc863f;
+  /* background: linear-gradient(to bottom right, #79CA9E 6%,#b0e0c6, #79CA9E); */
+}
+#passport .imgBox {
+  background: #fc863f;
 }
 #passport .addBtn {
   width: 100%;
@@ -348,7 +352,7 @@ export default {
   margin-bottom: 10px;
 }
 #passport .loadCon p{
-  color: #03764D;
+  color: #fff;
   text-align: center;
   font-size: 13px;
   padding: 0 100px;
@@ -361,10 +365,10 @@ export default {
   width: 90%;
 }
 #passport .con h2 {
-  color: #fff;
+  color: #4C4948;
   font-size: 13px;
   padding: 10px;
-  background: #03764D;
+  background: #fff;
   margin:2px 0;
 }
 #passport .con h2 img {
@@ -372,10 +376,13 @@ export default {
   margin-right: 8px;
 }
 #passport .con h2 input {
-  color: #fff;
+  color: #4C4948;
   font-size: 13px;
   background: none;
 }
+#passport input::-webkit-input-placeholder{
+            color:#4C4948;
+        }
 #passport .textareaBox {
   background: #fff;
   height: 150px;
@@ -383,7 +390,7 @@ export default {
 }
 #passport .textareaBox div {
   color: #fff;
-  background: #03764D;
+  background: #4C4948;
   width: 120px;
   height: 30px;
   line-height: 30px;
@@ -398,11 +405,11 @@ export default {
   padding: 2%;
   margin-top: 5px;
   font-size: 13px;
-  color: #03764D;
+  color: #4C4948;
   border-radius: 0px;
 }
 #passport .bots {
-  color: #03764D;
+  color: #fff;
   font-size: 10px;
   padding: 20px 0 10px 10px;
   margin-bottom: 40px;
@@ -416,7 +423,7 @@ export default {
 #passport .bots div.fr{
   width:73px;
   display: block;
-  background: #03764D;
+  background: #fdd5b5;
   margin-left: 10px;
   padding: 20px;
 }

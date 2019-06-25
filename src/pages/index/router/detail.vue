@@ -182,15 +182,14 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-  min-height: 550px;
   width: 100%;
   /* position: absolute; */
   top: 45px;
   bottom: 25px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat top;
-  background-size: 94% 96%;
+  background: url('../assets/loginTop.png') no-repeat top;
+  background-size: 100%;
 }
 #detail .userBox {
   color: #03764D;
@@ -230,6 +229,7 @@ export default {
 #detail .infoBox h1{
   font-size: 15px;
   font-weight: 600;
+  color: #4C4948;
 }
 #detail .infoBox h2{
   font-size: 14px;
@@ -243,8 +243,8 @@ export default {
 }
 #detail .userBox h3{
   font-size: 14px;
-  background: #fff;
-  color: #339864;
+  background: #fd7522;
+  color: #fff;
   width: 76%;
   margin: 0 auto;
   padding: 10px 2%;
@@ -264,7 +264,7 @@ export default {
 }
 #detail .userBox h4{
   font-size: 15px;
-  color: #fff;
+  color: #4C4948;
   margin-top: 5px;
 }
 #detail .userBox h4 img{
@@ -289,13 +289,11 @@ export default {
   right: 10px;
   font-size: 13px;
   text-align: center;
-  color: #fff;
+  color: #4C4948;
   width: 100px;
 }
-
 #detail .shareBtn1 {
   bottom: 150px;
-
 }
 #detail .shareBtn img{
   margin: 0 auto;

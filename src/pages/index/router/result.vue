@@ -4,7 +4,7 @@
 
     <div class="content">
       <img v-if='res==1' class="res_logo" src="../assets/suc.png" alt="">
-      <img v-if='res==2' class="res_logo" src="../assets/zan1.png" alt="">
+      <img v-if='res==2' class="res_logo" src="../assets/zan12.png" alt="">
       <h1>您已成功{{res==1?'上传':'点赞'}}</h1>
       <p>You have successfully uploaded </p>
 
@@ -74,13 +74,10 @@ export default {
   height: 100%;
   clear: both;
   overflow: hidden;
-
 }
 #result .content {
-
   text-align: center;
-  color: #03764D;
-
+  color: #fd7522;
   width: 96%;
   position: absolute;
   left: 50%;
@@ -89,7 +86,7 @@ export default {
   bottom: 0px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
+  /* background: url('../assets/logBg.png') no-repeat center; */
   background-size: 100% 100%;
 }
 #result .content .res_logo{
@@ -113,7 +110,7 @@ export default {
   line-height: 32px;
   margin: 0 auto;
   margin-top: 10px;
-  background: #03764D;
+  background: #fd7522;
 }
 #result .content img.gbBtn{
   width: 30px;
