@@ -107,18 +107,38 @@ export default {
     },
     wxShare(e){
       let that = this;
-      console.log(wx);
+
+      let desc;
+      if(that.deatilData.title!='' ||that.deatilData.title!=undefined){
+        desc = that.deatilData.title+'  '+that.deatilData.detail
+      }else {
+        desc = sessionStorage.shareCon
+      }
       wx.ready(function(){
         let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind.html?info='+e+'&sd='+sessionStorage.appId;
         wx.onMenuShareAppMessage({
             title: '中国邮政储蓄银行梦想加邮站系列活动之“你分享我点赞“', // 分享标题
-            desc: that.deatilData.title+'  '+that.deatilData.detail, // 分享描述
+            desc: desc, // 分享描述
             link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
             imgUrl: 'http://share.marketservice.cn/uploads/20190612/16f6808112c73e4df95a44b87d1c68b0.png', // 分享图标
             success: function () {
               // 设置成功
             }
         });
+
+        wx.onMenuShareTimeline({
+           title: '中国邮政储蓄银行梦想加邮站系列活动之“你分享我点赞“', // 分享时的标题
+           link: shareUrl, // 分享时的链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+           imgUrl: 'http://share.marketservice.cn/uploads/20190612/16f6808112c73e4df95a44b87d1c68b0.png', // 分享时显示的图标
+           //用户确认分享后执行的回调函数
+           success: function () {
+
+           },
+           //用户取消分享后执行的回调函数
+           cancel: function () {
+
+           }
+       });
 
       });
       wx.error(function(res){

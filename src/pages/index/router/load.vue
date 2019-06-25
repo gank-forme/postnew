@@ -40,7 +40,7 @@ export default {
     return {
       homeIndex:sessionStorage.homeIndex,
       appId:'',
-      loadIndex:2,
+      loadIndex:0,
       index:0,
       num:0,
       demo01_list:[{
@@ -185,6 +185,20 @@ export default {
                  }
              });
 
+             wx.onMenuShareTimeline({
+                title: sessionStorage.shareTitle, // 分享时的标题
+                link: shareUrl, // 分享时的链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: sessionStorage.shareImg, // 分享时显示的图标
+                //用户确认分享后执行的回调函数
+                success: function () {
+
+                },
+                //用户取消分享后执行的回调函数
+                cancel: function () {
+
+                }
+            });
+
            });
            wx.error(function(res){
              // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
@@ -213,8 +227,6 @@ export default {
     if(this.loadIndex==0){
       this.numFun();
     }
-
-
 
     if(sessionStorage.firstFlag==1 || this.loadIndex==2 ||this.homeIndex==2){
       this.loadIndex=2;
