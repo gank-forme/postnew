@@ -2,7 +2,7 @@
   <div id="before" class='comon'>
     <app-header></app-header>
     <div class="registBox">
-      <img @click='nav2Fun' src="../assets/yidao_03.jpg" alt="">
+      <img @click='nav2Fun' src="../assets/yidao.png" alt="">
       <p>梦想加邮站系列活动之“你分享我点赞”发起我的梦想并号召好友进行点赞排名，助力最多的梦想将获得邮储银行提供的精美大奖哦~</p>
     </div>
 

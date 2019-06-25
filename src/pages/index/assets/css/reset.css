@@ -42,26 +42,28 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           margin-top: 0px !important;
         } */
         .comon {
-          background: linear-gradient(to bottom right, #C5E8D5 20%,#fff 40%,  #B1E0C6) !important;
+          /* background: linear-gradient(to bottom right, #C5E8D5 20%,#fff 40%,  #B1E0C6) !important; */
+          background: #fff;
         }
         .header {
-          color: #fff;
+          color: #595757;
           line-height: 30px;
           padding:5px 2%;
           font-size: 13px;
           font-weight: 700;
-          background: #339864;
+          background: #fff;
           position: fixed;
           top: 0px;
           width: 96%;
           z-index: 100;
         }
+
         .logoImg {
           display: inline-block;
-          width: 110px;
+          width: 120px;
         }
         .weui-tabbar{
-          background-color: #03764D !important;
+          background-color: #4c4948 !important;
           color: #fff;
           position: fixed !important;
         }
