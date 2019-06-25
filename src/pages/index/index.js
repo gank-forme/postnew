@@ -74,16 +74,16 @@ Vue.use(VueAxios, axios)
 const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
-    { path: '/home', component: home,name:'home' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/load', component: load,name:'load' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/detail', component: detail,name:'detail' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/result', component: result,name:'result' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/list', component: list,name:'list' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/content', component: content,name:'content',meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/info', component: info,name:'info' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/rank', component: rank,name:'rank' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/login', component: login,name:'login',meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/before', component: before,name:'before',meta: { title: "你分享我点赞大型系列活动" }}
+    { path: '/home', component: home,name:'home'},
+    { path: '/load', component: load,name:'load'},
+    { path: '/detail', component: detail,name:'detail' },
+    { path: '/result', component: result,name:'result' },
+    { path: '/list', component: list,name:'list' },
+    { path: '/content', component: content,name:'content'},
+    { path: '/info', component: info,name:'info'},
+    { path: '/rank', component: rank,name:'rank'},
+    { path: '/login', component: login,name:'login'},
+    { path: '/before', component: before,name:'before'}
 
   ]
 })

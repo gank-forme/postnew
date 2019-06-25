@@ -1,8 +1,8 @@
 <template>
   <div class="header clearfix" >
-    <span class="fl">你分享我点赞大型系列活动</span>
+    <span class="fl">活动</span>
     <span class="fr">
-      <img class="logoImg" src="../assets/headlogo.png" alt="">
+      <input placeholder="搜索照片名称或作者" type="text" name="" value="">
     </span>
   </div>
 </template>
@@ -19,5 +19,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .header input {
+    width: 303px;
+    font-size: 13px;
+    padding: 0 10px;
+    height: 22px;
+    border-radius: 22px;
+    color: #028458;
+    text-align: center;
+  }
 
 </style>

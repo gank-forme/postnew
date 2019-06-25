@@ -42,7 +42,12 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           margin-top: 0px !important;
         } */
         .comon {
-          background: linear-gradient(to bottom right, #C5E8D5 20%,#fff 40%,  #B1E0C6) !important;
+          background: url('../combg.jpg') no-repeat center !important;
+          background-size: 100% 100%;
+          padding: 0 10px;
+          padding-bottom: 70px;
+          height: auto !important;
+          overflow: inherit;
         }
         .header {
           color: #fff;
@@ -55,10 +60,7 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           top: 0px;
           width: 96%;
           z-index: 100;
-        }
-        .logoImg {
-          display: inline-block;
-          width: 110px;
+          left: 0px;
         }
         .weui-tabbar{
           background-color: #03764D !important;

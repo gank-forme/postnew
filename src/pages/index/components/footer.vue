@@ -2,15 +2,12 @@
   <tabbar>
     <tabbar-item  link="/load">
       <img class="w90" slot="icon" src="../assets/nav1.png">
-      <span slot="label">活动详情</span>
+      <span slot="label">活动</span>
     </tabbar-item>
     <tabbar-item  :link="nav2" >
       <img class="w90" slot="icon" src="../assets/nav2.png">
-      <span slot="label">发起梦想</span>
+      <span slot="label">抽奖</span>
     </tabbar-item>
-    <a href="javascript:;" @click='nav3Fun' :class="!nav3?'centerTab noc':'centerTab'">
-      <img slot="icon" :src="centerImg">
-    </a>
     <tabbar-item link="/rank">
       <img slot="icon" src="../assets/nav4.png">
       <span slot="label">排行榜</span>
