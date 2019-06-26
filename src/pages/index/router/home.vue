@@ -71,6 +71,16 @@
       @click.native='bingtap_hiddenImg()'
     />
 
+    <mt-popup
+      v-model="popupVisible"
+      position="center">
+      <div class="alerCon">
+        <img class="suc" src="../assets/Succ.png" alt="">
+        <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
+        <h2>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.</h2>
+        <span >立即抽奖</span>
+      </div>
+    </mt-popup>
   </div>
 </template>
 <script>
@@ -91,11 +101,11 @@ export default {
   },
   data () {
     return {
+      popupVisible:true,
       imgUrl:'',
       txt1:'',
       show1:false,
       show2:false,
-      popupVisible:false,
       pVisible:false,
       subFlag:false,
       isDone:1,
@@ -422,6 +432,9 @@ export default {
 input::-webkit-input-placeholder {
   color: #03764D;
 }
+textarea::-webkit-textarea-placeholder {
+  color: #03764D;
+}
 .preImg {
   position: fixed;
   width: 70%;
@@ -501,5 +514,38 @@ input::-webkit-input-placeholder {
   margin: 20px auto;
   background: #03764D;
   border-radius: 30px;
+}
+#passport .alerCon {
+  width: 250px;
+  color: #fff;
+  text-align: center;
+}
+#passport .alerCon h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+#passport .alerCon h2 {
+  font-size: 12px;
+}
+#passport .alerCon img.suc{
+  display: block;
+  width: 50px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+#passport .alerCon span {
+  display: block;
+  width: 120px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 0;
+  color: #03764D;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 30px;
+}
+#passport .mint-popup {
+  background: none !important;
 }
 </style>

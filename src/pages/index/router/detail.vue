@@ -1,36 +1,48 @@
 <template>
   <div id="detail" class='comon'>
-    <app-header></app-header>
+    <x-header :left-options="{backText: ''}">信息提交</x-header>
 
     <div class="registBox relative">
       <div class="userBox ">
         <div class="clearfix">
           <img class="headImg fl" :src="icon" alt="">
-          <p class="fl p1">{{name}}</p>
-          <p class="fl p2">{{txt}}</p>
+          <p class="fl p1">驱蚊器翁</p>
+          <p class="fl p2">20123123</p>
         </div>
-        <div v-if='status!=4 && status!=3' style="padding-bottom:70px;">
+        <div v-if='status!=4 && status!=3' style="padding-bottom:20px;">
           <div class="infoBox">
-            <h1>{{deatilData.title}}</h1>
             <img :src="deatilData.image" alt="">
             <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
           </div>
           <h3>
-            <p>{{deatilData.detail}}</p>
+            <p>《说的方法》</p>
           </h3>
-          <h4>当前点赞票数</h4>
-          <h4><img src="../assets/zan.png" alt="">{{deatilData.hits}}</h4>
-          <h4>当前票数排名 </h4>
-          <h4><img src="../assets/nav4.png" alt="">{{deatilData.rank}}</h4>
-        </div>
-        <div class="shareBtn shareBtn1" @click='xLog1'>
-          <img src="../assets/nav3.png" alt="">
-          <p>查看我的点赞</p>
-        </div>
+          <img class="log" src="../assets/logo.png" alt="">
+          <div class="clearfix relative">
+            <div class="liBox fl">
+              <img src="../assets/de2.png" alt="">
+              <h1>123123</h1>
+              <p>当前点赞数</p>
+            </div>
+            <div class="liBox absolute">
+              <img src="../assets/de1.png" alt="">
+              <h1>123123</h1>
+              <p>当前全国排名</p>
+            </div>
+            <div class="liBox fr">
+              <img src="../assets/de3.png" alt="">
+              <h1>分享</h1>
+              <p>帮TA分享</p>
+            </div>
+          </div>
+          <h4>照片详情</h4>
+          <h5>Photo details</h5>
+          <div class="blank">
 
-        <div :class="status==2?'shareBtn noc':'shareBtn'"  @click='xLog2'>
-          <img src="../assets/share.png" alt="">
-          <p>号召助力</p>
+          </div>
+          <div class="blank">
+
+          </div>
         </div>
       </div>
     </div>
@@ -49,7 +61,6 @@
         </div>
       </x-dialog>
     </div>
-    <app-footer></app-footer>
   </div>
 </template>
 
@@ -128,25 +139,6 @@ export default {
     }
   },
   created:function(){
-    sessionStorage.homeIndex=2;
-    this.detailFu();
-    let that =this;
-    setTimeout(function(){
-      that.wxShare(that.deatilData.dream_id);
-    },1000);
-
-    if(this.status==1){
-      this.txt ='您已发起梦想'
-    }
-    if(this.status==2){
-      this.txt ='您发起梦想审核中'
-    }
-    if(this.status==4){
-      this.txt ='您还没有发起梦想'
-    }
-    if(this.status==3){
-      this.txt ='您的梦想审核未通过'
-    }
 
   }
 }
@@ -161,7 +153,7 @@ export default {
 #detail .registBox {
   text-align: center;
   font-size: 13px;
-  color: #fff;
+  color: #3E3A39;
   min-height: 550px;
   width: 100%;
   /* position: absolute; */
@@ -169,8 +161,6 @@ export default {
   bottom: 25px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat top;
-  background-size: 94% 96%;
 }
 #detail .userBox {
   color: #03764D;
@@ -191,21 +181,21 @@ export default {
   position: absolute;
   top: 25px;
   left: 90px;
-  font-size: 15px;
-  color: #fff;
+  font-size: 18px;
+  color: #3E3A39;
+
 }
 #detail .clearfix .p2{
   position: absolute;
-  top: 45px;
+  top: 50px;
   left: 90px;
   font-size: 15px;
-  color: #fff;
+  color: #3E3A39;
 }
 #detail .infoBox{
+  width: 350px;
   background: #fff;
-  width: 80%;
   margin: 0 auto;
-  padding-top: 10px;
 }
 #detail .infoBox h1{
   font-size: 15px;
@@ -217,23 +207,16 @@ export default {
 }
 #detail .infoBox img{
   width: 100%;
-  min-height: 250px;
+  min-height: 413px;
   display: block;
-  margin-top: 10px;
 }
 #detail .userBox h3{
-  font-size: 14px;
-  background: #fff;
-  color: #339864;
-  width: 76%;
-  margin: 0 auto;
+  font-size: 18px;
+  color: #028458;
   padding: 10px 2%;
-  margin-top: 10px;
-  text-align: left;
-  margin-bottom: 20px;
-}
-#detail .userBox h3 p{
-  font-size: 12px;
+  margin-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
 }
 #detail .userBox img.next{
   width: 50px;
@@ -243,15 +226,16 @@ export default {
   margin: 10px auto;
 }
 #detail .userBox h4{
+  font-size: 18px;
+  color: #3E3A39;
+  margin-top: 15px;
+  font-weight: 700;
+}
+#detail .userBox h5{
   font-size: 15px;
-  color: #fff;
-  margin-top: 5px;
+  color: #3E3A39;
 }
-#detail .userBox h4 img{
-  width: 15px;
-  margin-right: 5px;
-  margin-top: -5px;
-}
+
 #detail .userBox .subBtn{
   margin: 0 auto;
   text-align: center;
@@ -307,9 +291,34 @@ export default {
 #detail .img2 img {
   width: 40px;
 }
+#detail .log {
+  width: 180px;
+}
 .shareBtn.noc {
   opacity: 0.5;
   pointer-events: none;
 }
-
+#detail .liBox {
+  width: 36%;
+  font-size: 15px;
+  color: #3E3A39;
+  margin-top: 20px;
+}
+#detail .liBox.absolute {
+  left: 50%;
+  margin-left: -18%;
+}
+#detail .liBox h1{
+  font-size: 16px;
+}
+#detail .liBox img{
+  width: 30px;
+}
+#detail .blank {
+  width: 100%;
+  background: #fff;
+  opacity: 0.7;
+  height: 82px;
+  margin-top: 10px;
+}
 </style>

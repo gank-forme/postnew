@@ -1,6 +1,6 @@
 <template>
   <div id="login" class='comon'>
-    <x-header :left-options="{backText: ''}"></x-header>
+    <x-header :left-options="{backText: ''}">信息提交</x-header>
     <div class="registBox">
       <div class="userBox">
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">

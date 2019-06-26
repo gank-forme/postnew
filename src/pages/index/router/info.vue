@@ -1,6 +1,6 @@
 <template>
   <div id="info" class='comon'>
-    <app-header></app-header>
+    <x-header :left-options="{backText: ''}">照片展示</x-header>
 
     <div class="registBox">
       <div class="userBox" style="padding-bottom:60px;">
