@@ -15,7 +15,7 @@
       <div class="swi">
         <span class="upload">上传照片</span>
       </div>
-      <li class="liItem relative" v-for='i in 10'>
+      <li class="liItem relative" v-for='i in 10' @click='liCli'>
         <img class="photo" src="" alt="">
         <em class="absolute">热门</em>
         <div class="op absolute"></div>
@@ -26,6 +26,17 @@
         </p>
       </li>
     </div>
+
+    <mt-popup
+      v-model="popupVisible"
+      position="center">
+      <div class="alerCon">
+        <img src="../assets/alert.png" alt="">
+        <span @click='sub1Fun'><img src="../assets/sub1.png" alt=""></span>
+      </div>
+    </mt-popup>
+
+
     <app-footer v-if='loadIndex==2'></app-footer>
   </div>
 </template>
@@ -49,9 +60,10 @@ export default {
   data () {
     return {
       appId:'',
-      loadIndex:1,
+      loadIndex:2,
       index:0,
       num:0,
+      popupVisible:false,
       demo01_list:[{
           url: 'javascript:',
           img: banner1,
@@ -106,6 +118,12 @@ export default {
         },500);
       }
     },
+    liCli(){
+      this.popupVisible=true;
+    },
+    sub1Fun(){
+      this.popupVisible=false;
+    }
   },
   created:function(){
     Indicator.close();
@@ -218,5 +236,17 @@ export default {
 }
 .vux-slider,.vux-swiper {
   height: 100%;
+}
+.alerCon {
+  width: 250px;
+}
+.alerCon span {
+  width: 120px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+#load .mint-popup {
+  background: none !important;
 }
 </style>

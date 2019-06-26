@@ -37,15 +37,19 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .center{margin:0 auto;}
         .max640{max-width:640px;}
         .full_screen{width: 100%; height: 100%; overflow: hidden;}
-        body{font:.14rem/1.5 "Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",tahoma,Arial; background: #fff;position: relative;overflow-x: hidden !important;}
+        body{font:.14rem/1.5 "Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",tahoma,Arial; position: relative;overflow-x: hidden !important;}
         /* .mint-button {
           margin-top: 0px !important;
         } */
+        body {
+          background: url('../combg.png') no-repeat center !important;
+          background-size: 100% 100%;
+        }
         .comon {
-          background: url('../combg.jpg') no-repeat center !important;
+          background: url('../combg.png') no-repeat center !important;
           background-size: 100% 100%;
           padding: 0 10px;
-          padding-bottom: 70px;
+
           height: auto !important;
           overflow: inherit;
         }
@@ -79,4 +83,12 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         }
         .w90 {
           width: 80% !important;
+        }
+        .vux-header{
+          position: fixed !important;
+          top: 0px;
+          width: 100% !important;
+          left: 0px;
+          background: #028458 !important;
+          z-index: 10;
         }

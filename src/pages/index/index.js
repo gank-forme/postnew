@@ -8,6 +8,7 @@ import VueRouter from "vue-router"
 import header from './components/header.vue'
 import footer from './components/footer.vue'
 
+
 import home from './router/home.vue'
 import login from './router/login.vue'
 import result from './router/result.vue'
@@ -27,14 +28,17 @@ import before from './router/before.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {ImageUpload , ImagePreview} from 'vue-image-upload-preview'
-import {XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker} from 'vux'
+import {XHeader,XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker,Picker} from 'vux'
 import 'mint-ui/lib/style.css'
-import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
+import {Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
+
+Vue.component(Header.name, Header);
 
 Vue.component(header.name, header)
 Vue.component(footer.name, footer)
 
+Vue.component('x-header', XHeader)
 Vue.component('x-dialog', XDialog)
 Vue.component('search', Search)
 Vue.component('tabbar', Tabbar)
@@ -49,6 +53,7 @@ Vue.component('popup-picker', PopupPicker)
 Vue.component('cell', Cell)
 Vue.component('timeline', Timeline)
 Vue.component('timelineItem', TimelineItem)
+Vue.component('picker', Picker)
 
 Vue.use(LoadingPlugin)
 Vue.use(ConfirmPlugin)

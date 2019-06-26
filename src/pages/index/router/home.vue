@@ -1,13 +1,13 @@
 <template>
   <div id="passport" class="comon">
-    <app-header></app-header>
+    <x-header ><a slot="overwrite-left">取消</a><a slot="right">发布</a></x-header>
 
     <div class="con relative">
       <div class="imgBox">
-        <div class="loadCon" v-if='uploadData["images0"].length==0'>
+        <!-- <div class="loadCon" v-if='uploadData["images0"].length==0'>
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
-        </div>
+        </div> -->
         <image-upload
           v-if="uploadData['images0'].length==0"
           class="addBtn"
@@ -22,25 +22,22 @@
         />
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
       </div>
-      <h2><img src="../assets/write.png" alt=""><input type="text" v-model='title' placeholder='请输入您的梦想标题' name="" value="">  </h2>
-      <div class="textareaBox">
-        <textarea @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请输入您的梦想描述（参加你分享我点赞系列描述） " name="name"></textarea>
-        <div class="" @click='xLog1'>
-          确认提交
-        </div>
+      <p>1：上传照片小于20M，照片格式不限。
+      <p>2：含有暴力、色情、宗教禁忌等法律不允许内容的作品不予参评。</p>
+      <p>3：凡在其他各类摄影大赛中已经获奖的作品(含收藏作品)，谢绝再次参评。</p>
+      <p>4：本次活动所有参赛作品,邮储银行作为主办方,对所有参赛作品拥有商业使用权，作者享有署名权!</p>
+      <div class="inpBox">
+        <input type="text" placeholder="请为照片命名  " name="" value="">
+        <p>照片命名长度控制在8个汉字内</p>
       </div>
-      <div class="clearfix bots relative">
-        <div class="fr">
-          <img src="../assets/ex.png" alt="">
-        </div>
-        <div class="fl">
-          <h1>上传须知</h1>
-          <h3>Upload instructions </h3>
-          <h4>请勿上传非法图片（涉及暴力、色情、政治政策、负面性社会舆论的照片均不会通过审核）</h4>
-          <h4>请上传指定照片（参照右图），可通过邮储银行APP进入梦乡加邮站主页创建梦乡并找到梦想主页截图上传，目前支持JPG/PNG/JPGE等多种格式</h4>
-        </div>
-        <img class="bigLook absolute" @click='xLog2' src="../assets/bigLook.png" alt="">
+      <div class="textareaBox inpBox">
+        <textarea @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请为照片添加描述 " name="name"></textarea>
+        <p>照片内容表述在500个汉字内</p>
       </div>
+      <div class="xlog1" @click='xLog1'>
+        确认发布
+      </div>
+
 
     </div>
 
@@ -73,7 +70,6 @@
       :deleteIsShow="false"
       @click.native='bingtap_hiddenImg()'
     />
-    <app-footer></app-footer>
 
   </div>
 </template>
@@ -318,15 +314,8 @@ export default {
   overflow: hidden;
 }
 #passport .con  {
-  width: 96%;
-  position: absolute;
-  left: 50%;
-  margin-left: -48%;
-  top: 45px;
-  bottom: 60px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background: linear-gradient(to bottom right, #79CA9E 6%,#b0e0c6, #79CA9E);
+  width: 240px;
+  margin: 0 auto;
 }
 #passport .addBtn {
   width: 100%;
@@ -377,8 +366,6 @@ export default {
   background: none;
 }
 #passport .textareaBox {
-  background: #fff;
-  height: 150px;
   box-shadow:0px 8px 17px 1px rgba(6,6,6,0.13);
 }
 #passport .textareaBox div {
@@ -391,14 +378,10 @@ export default {
   margin: 0 auto;
 }
 #passport #textarea {
-  background: #fff;
   width: 96%;
-  height: 90px;
   display: block;
   padding: 2%;
   margin-top: 5px;
-  font-size: 13px;
-  color: #03764D;
   border-radius: 0px;
 }
 #passport .bots {
@@ -437,7 +420,7 @@ export default {
   bottom: 20px;
 }
 input::-webkit-input-placeholder {
-  color: #fff;
+  color: #03764D;
 }
 .preImg {
   position: fixed;
@@ -481,5 +464,42 @@ input::-webkit-input-placeholder {
 }
 .upload-button input {
   bottom: 0;
+}
+#passport .imgBox {
+  width: 235px;
+  height: 322px;
+  background: #ddd;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+#passport .con  p{
+  color: #3E3A39;
+  font-size: 12px;
+}
+#passport .inpBox {
+  width: 98%;
+  margin: 0 auto;
+  border:1px solid #03764D;
+  padding:10px 1%;
+  text-align: center;
+  margin-top: 10px;
+}
+#passport .inpBox input,#passport .inpBox textarea {
+  font-size: 16px;
+  color: #188E67;
+  background: none;
+  text-align: center;
+}
+#passport .xlog1 {
+  width: 117px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 0;
+  color: #fff;
+  margin: 20px auto;
+  background: #03764D;
+  border-radius: 30px;
 }
 </style>

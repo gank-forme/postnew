@@ -1,18 +1,25 @@
 <template>
   <div id="login" class='comon'>
-    <app-header></app-header>
+    <x-header :left-options="{backText: ''}"></x-header>
     <div class="registBox">
-      <h1><span class="fl" @click='close'><img src="../assets/close.png" alt=""></span>注册页面</h1>
       <div class="userBox">
-        <img class="headImg" src="../assets/suc.png" alt="">
-        <p>请您根据提示完善注册流程 </p>
-        <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的名称" name="" value="">
-        <input @blur='inputBlur' v-model='usernum' id="number" type="text" placeholder="请输入您的电话" name="" value="">
+        <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
+        <input @blur='inputBlur' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
+        <input @blur='inputBlur' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
+        <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
+        <div class="pickBox">
+          <picker :data='years' v-model='year3' @on-change='change'></picker>
+        </div>
+        <p>请填写真实信息</p>
         <div class="subBtn" @click='goHome'>确认提交</div>
+        <h5 class="clearfix">
+          <em class="fl"></em>
+          <span class="fl">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
+        </h5>
       </div>
     </div>
 
-    <app-footer></app-footer>
+    <!-- <app-footer></app-footer> -->
   </div>
 </template>
 
@@ -22,12 +29,23 @@ import axios from 'axios'
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 
+let years = []
+for (var i = 2000; i <= 2030; i++) {
+  years.push({
+    name: i + '年',
+    value: i + ''
+  })
+}
+
 export default {
   name: 'app',
   data () {
     return {
+      years: [years],
+      year3: ['2005'],
       usernum:'',
-      username:''
+      username:'',
+      usercard:''
     }
   },
   methods: {
@@ -61,7 +79,10 @@ export default {
     },
     inputBlur(){
       window.scrollTo(0, 0)
-    }
+    },
+    change (value) {
+      console.log('new Value', value)
+    },
   },
   created:function(){
     sessionStorage.homeIndex=2;
@@ -79,17 +100,13 @@ export default {
   text-align: center;
   font-size: 13px;
   color: #fff;
-
-  width: 96%;
-  position: absolute;
-  left: 50%;
-  margin-left: -48%;
-  top: 45px;
-  bottom: 60px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
-  background-size: 100% 100%;
+  background: #fff;
+  width: 98%;
+  margin: 0 auto;
+  margin-top: 60px;
+  border-radius: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 #login .registBox h1 {
   background: #03764D;
@@ -118,42 +135,81 @@ export default {
 #login .userBox p{
   font-size: 13px;
   margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 #login .userBox input{
-  font-size: 13px;
+  font-size: 15px;
   width: 250px;
   height: 30px;
-  color: #fff;
-  text-indent: 30px;
+  color: #3E3A39;
+  text-indent: 35px;
   margin-bottom: 10px;
+  border-bottom: 1px solid #03764D;
 }
 #login .userBox .subBtn{
   margin: 0 auto;
   text-align: center;
   line-height: 30px;
   font-size: 13px;
-  width: 250px;
+  width: 115px;
   height: 30px;
-  background: #03764D;
+  background: #349C79;
   color: #fff;
-  margin-top: 30px;
+  margin-bottom: 20px;
+  border-radius: 30px;
 }
 #login input {
   padding: 0;
 }
 #name {
-  background:#03764D url('../assets/nav5.png') no-repeat 5px center;
+  background: url('../assets/inp1.png') no-repeat 5px center;
+  background-size: 18px;
+  border-radius: 0;
+  margin-top: 50px;
+}
+#number {
+  background: url('../assets/inp2.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
 }
-#number {
-  background:#03764D url('../assets/phone.png') no-repeat 5px center;
+#idcard {
+  background: url('../assets/inp3.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
+}
+#loca {
+  background: url('../assets/inp4.png') no-repeat 5px center;
+  background-size: 18px;
+  border-radius: 0;
+  border:none !important;
 }
 #login input::-webkit-input-placeholder {
     /* placeholder颜色  */
-  color: #fff;
+  color: #3E3A39;
+}
+.pickBox {
+  width: 230px;
+  margin: 0 auto;
+  border-bottom: 1px solid #03764D;
+}
+
+#login .userBox h5 {
+  width: 80%;
+  margin: 0 auto;
+  text-align: left;
+}
+#login .userBox h5 em {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #03764D;
+  border-radius: 2px;
+  margin-top: -3px;
+  margin-right: 5px;
+}
+#login .userBox h5 span {
+  font-size: 12px;
+  width: 90%;
+
 }
 </style>
