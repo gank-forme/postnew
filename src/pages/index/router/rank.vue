@@ -1,27 +1,29 @@
 <template>
 
   <div :class="list==1?'list':'rank'">
-    <x-header :left-options="{backText: ''}"><span :class='ind==2?"act":""' @click='navFun(1)'>赛区榜单</span><span :class='ind==1?"act":""' @click='navFun(2)'>全国榜单</span> </x-header>
 
-    <search
+    <x-header v-if='addFlag' :left-options="{backText: ''}">{{addTxt}}榜单</x-header>
+    <x-header v-else :left-options="{backText: ''}"><span :class='ind==2?"act":""' @click='navFun(1)'>赛区榜单</span><span :class='ind==1?"act":""' @click='navFun(2)'>全国榜单</span> </x-header>
+
+    <search v-if='ind==2'
     @on-change="getResult"
     v-model="value"
     position="absolute"
     auto-scroll-to-top
     ref="search"></search>
-    <div class="topBox">
+    <div v-if='ind==2' class="topBox">
       <div v-if='ind==2' >
         <img class="topBg" src="../assets/images/bgAll_02.jpg" alt="">
         <span class="topTitle">全国榜单</span>
       </div>
-      <div v-if='ind==1' class="">
+      <div v-if='ind==1'>
         <img class="topBg" src="../assets/images/bgSq_02.jpg" alt="">
-        <span class="topTitle">北京赛区榜单</span>
+        <span class="topTitle">{{addTxt}}榜单</span>
       </div>
 
     </div>
 
-    <div v-if='list==1' class="content relative">
+    <div v-if='ind==2' class="content relative">
 
       <div :class="searchFlag?'listBox':'listBox sea'">
         <div v-for='i in 20' class="listItem clearfix">
@@ -36,9 +38,9 @@
       </div>
 
     </div>
-    <div v-else class="content relative">
+    <div v-if='ind==1' class="content content1 relative clearfix">
       <h1>请选择您所在的赛区</h1>
-      <span></span>
+      <span  class="addItem" v-for='(i,index) in add' :key='index' @click='addFun(i)'>{{i}}赛区</span>
 
     </div>
     <app-footer></app-footer>
@@ -69,7 +71,10 @@ export default {
       results:[],
       value: '',
       listArr:[],
-      numList:[num1,num2,num3]
+      numList:[num1,num2,num3],
+      addFlag:false,
+      addTxt:'',
+      add:['北京','天津','河北省','山西省','内蒙古区','辽宁省','吉林省','浙江省','安徽省','江苏省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西省','海南省','重庆','四川省','贵州省','云南省','西藏区','陕西省','甘肃省','青海省','宁夏区','新疆区','大连区','厦门','宁波','青岛','深圳']
     }
   },
   created:function(){
@@ -214,6 +219,13 @@ export default {
     navFun(e){
       this.ind = e;
     },
+    addFun(e){
+      this.addFlag=true;
+      sessionStorage.addTxt =e;
+      this.$router.push({
+        name:'list'
+      })
+    },
     toInfo(m,n){
       let that =this;
       console.log(this.value);
@@ -329,12 +341,28 @@ function getResult (val) {
   width: 10px;
   margin-right: 5px;
 }
-.list .content,.rank .content {
+.rank .content {
   width: 94%;
   left: 50%;
   margin-left: -47%;
   margin-top: 160px;
   padding-bottom: 40px;
+}
+.rank .content.content1 {
+  width: 94%;
+  left: 50%;
+  margin-left: -47%;
+  margin-top: 50px;
+  padding-bottom: 70px;
+  position:relative;
+  background-color: rgba(255, 255, 255, .5);
+}
+
+.rank .content1 h1 {
+  color: #028458;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px;
 }
 .rank,.list {
   min-height: 100%;
@@ -456,6 +484,26 @@ span.act {
   font-size: 13px;
 }
 .vux-header-title span:nth-child(1){
+  margin-right: 20px;
+}
+.content1 .addItem {
+  display: block;
+  width: 128px;
+  height: 31px;
+  font-size: 17px;
+  text-align: center;
+  line-height: 31px;
+  color: #028458;
+  border:1px solid #028458;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+.content1 .addItem:nth-child(even){
+  float: left;
+  margin-left: 20px;
+}
+.content1 .addItem:nth-child(odd){
+  float: right;
   margin-right: 20px;
 }
 </style>
