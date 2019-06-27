@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.0e820587821ea1caa6200846bc37133a.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.5e7997d4ca6c5c787380.js></script><script type=text/javascript src=/static/js/index.f148dfc32befaeb4e5b6.js></script></body><script type=text/javascript>function getWx(){
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.0e820587821ea1caa6200846bc37133a.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.5e7997d4ca6c5c787380.js></script><script type=text/javascript src=/static/js/index.ec8ea25edb18d4028ed5.js></script></body><script type=text/javascript>function getWx(){
     //var urls = encodeURIComponent(window.location.href.split('#')[0]);
     var urls = encodeURIComponent(window.location.href.split('#')[0]);
 
@@ -43,6 +43,19 @@
                   // 设置成功
                 }
             });
+            wx.onMenuShareTimeline({
+               title: res.data.title, // 分享时的标题
+               link: shareUrl, // 分享时的链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+               imgUrl: res.data.image, // 分享时显示的图标
+               //用户确认分享后执行的回调函数
+               success: function () {
+
+               },
+               //用户取消分享后执行的回调函数
+               cancel: function () {
+
+               }
+           });
 
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
           });
