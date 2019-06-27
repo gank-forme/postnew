@@ -5,10 +5,11 @@ import App from './index.vue'
 import './assets/css/reset.css'
 import 'lib-flexible/flexible.js'
 import VueRouter from "vue-router"
+import lottery from 'vue-lottery'
 import header from './components/header.vue'
 import footer from './components/footer.vue'
 
-
+import lot from './router/lottery.vue'
 import home from './router/home.vue'
 import login from './router/login.vue'
 import result from './router/result.vue'
@@ -57,6 +58,7 @@ Vue.component('picker', Picker)
 
 Vue.use(LoadingPlugin)
 Vue.use(ConfirmPlugin)
+Vue.use(lottery)
 
 
 Vue.component(TabContainer.name, TabContainer)
@@ -80,6 +82,7 @@ const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
     { path: '/home', component: home,name:'home'},
+    { path: '/lottery', component: lot,name:'lot'},
     { path: '/load', component: load,name:'load'},
     { path: '/detail', component: detail,name:'detail' },
     { path: '/result', component: result,name:'result' },

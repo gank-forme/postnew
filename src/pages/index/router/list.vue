@@ -1,31 +1,9 @@
 <template>
 
   <div class="list">
-    <app-header></app-header>
-    <div class="content relative">
-      <search
-      @on-change="getResult"
+    <x-header :left-options="{backText: ''}"><span>赛区榜单</span><span>全国榜单</span> </x-header>
+    
 
-      v-model="value"
-      position="absolute"
-      auto-scroll-to-top
-      ref="search"></search>
-      <div class="listBox">
-        <div v-for='i in listArr' :id='i.dream_id' class="listItem clearfix" @click='toInfo(i.user_id,i.icon)'>
-          <img class="fl peo" :src="i.icon" alt="">
-          <div class="fl itemInfo">
-            <h1 class="clearfix">
-              <span class="fl">{{i.name}}</span>
-              <span class="fr"><img src="../assets/zan.png" alt="">{{i.hits}}</span>
-            </h1>
-            <h1 class="clearfix">
-              <span class="fl"><img src="../assets/location.png" alt="">{{i.city}}</span>
-              <span class="fr"><img src="../assets/nav4.png" alt="">{{i.rownum}}</span>
-            </h1>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <app-footer></app-footer>
   </div>
