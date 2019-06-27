@@ -1,7 +1,7 @@
 <template>
 
-  <div class="list">
-    <x-header :left-options="{backText: ''}"><span>赛区榜单</span><span>全国榜单</span> </x-header>
+  <div id="list">
+    <x-header :left-options="{backText: ''}"><span :class='ind==2?"act":""' @click='navFun(1)'>赛区榜单</span><span :class='ind==1?"act":""' @click='navFun(2)'>全国榜单</span> </x-header>
 
 
 
@@ -18,19 +18,16 @@ export default {
   name: 'app',
   data () {
     return {
-      list:sessionStorage.listCli,
-      results:[],
-      value: '',
-      listArr:[
-
-      ]
+      ind:2
     }
   },
   created:function(){
-    
+
   },
   methods:{
-
+    navFun(e){
+      this.ind = e;
+    }
   },
 
 }
@@ -38,5 +35,10 @@ export default {
 </script>
 
 <style>
-
+#list span.act {
+  font-size: 13px;
+}
+#list .vux-header-title span:nth-child(1){
+  margin-right: 20px;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
 
   <div :class="list==1?'list':'rank'">
-    <x-header :left-options="{backText: ''}"><span>赛区榜单</span><span>全国榜单</span> </x-header>
+    <x-header :left-options="{backText: ''}"><span :class='ind==2?"act":""' @click='navFun(1)'>赛区榜单</span><span :class='ind==1?"act":""' @click='navFun(2)'>全国榜单</span> </x-header>
 
     <search
     @on-change="getResult"
@@ -10,11 +10,11 @@
     auto-scroll-to-top
     ref="search"></search>
     <div class="topBox">
-      <div class="none">
+      <div v-if='ind==2' >
         <img class="topBg" src="../assets/images/bgAll_02.jpg" alt="">
         <span class="topTitle">全国榜单</span>
       </div>
-      <div class="">
+      <div v-if='ind==1' class="">
         <img class="topBg" src="../assets/images/bgSq_02.jpg" alt="">
         <span class="topTitle">北京赛区榜单</span>
       </div>
@@ -37,20 +37,8 @@
 
     </div>
     <div v-else class="content relative">
-
-      <div :class="searchFlag?'listBox':'listBox sea'">
-        <div v-for='i in 20' class="listItem clearfix">
-          <em v-if='i<=3'><img :src="numList[i-1]" alt=""></em>
-          <em v-else >{{i}}</em>
-          <img class="fl peo"  alt="">
-          <div class="fl itemInfo">
-            <h1 class="clearfix">
-              <span class="fl">123123</span>
-              <span class="fr">票数：123</span>
-            </h1>
-          </div>
-        </div>
-      </div>
+      <h1>请选择您所在的赛区</h1>
+      <span></span>
 
     </div>
     <app-footer></app-footer>
@@ -69,6 +57,7 @@ export default {
   name: 'app',
   data () {
     return {
+      ind:2,
       searchFlag:true,
       toZan:sessionStorage.toZan,
       has_next_page:'',
@@ -221,6 +210,9 @@ export default {
 
       // console.log('on-change', val)
       // this.results = val ? getResult(this.value) : []
+    },
+    navFun(e){
+      this.ind = e;
     },
     toInfo(m,n){
       let that =this;
@@ -459,5 +451,11 @@ function getResult (val) {
   color: #fff;
   bottom: 30px;
   left: 50px;
+}
+span.act {
+  font-size: 13px;
+}
+.vux-header-title span:nth-child(1){
+  margin-right: 20px;
 }
 </style>
