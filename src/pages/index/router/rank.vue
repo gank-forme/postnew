@@ -10,8 +10,15 @@
     auto-scroll-to-top
     ref="search"></search>
     <div class="topBox">
-      <img class="topBg" src="../assets/images/bgAll_02.jpg" alt="">
-      <span class="topTitle">全国榜单</span>
+      <div class="none">
+        <img class="topBg" src="../assets/images/bgAll_02.jpg" alt="">
+        <span class="topTitle">全国榜单</span>
+      </div>
+      <div class="">
+        <img class="topBg" src="../assets/images/bgSq_02.jpg" alt="">
+        <span class="topTitle">北京赛区榜单</span>
+      </div>
+
     </div>
 
     <div v-if='list==1' class="content relative">
@@ -335,6 +342,7 @@ function getResult (val) {
   left: 50%;
   margin-left: -47%;
   margin-top: 160px;
+  padding-bottom: 40px;
 }
 .rank,.list {
   min-height: 100%;
