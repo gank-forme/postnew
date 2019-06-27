@@ -1,22 +1,32 @@
 <template>
   <div id="info" class='comon'>
-    <x-header :left-options="{backText: ''}">照片展示</x-header>
+    <x-header :left-options="{backText: ''}"></x-header>
 
     <div class="registBox">
-      <div class="userBox" style="padding-bottom:60px;">
-        <img class="headImg" :src="infoData.icon" alt="">
-        <p>{{infoData.name}}</p>
+      <div class="userBox">
+        <img class="headImg" src="" alt="">
+        <p>说的方法</p>
         <div class="infoBox">
-          <h1>{{infoData.title}}</h1>
-          <h2></h2>
-          <img :src="infoData.image" alt="">
-
-          <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
+          <h1 class='clearfix'><span class="fl">北京 赛区</span>  <span class="fr">女 65</span></h1>
+          <h2>希望每个人都可以在自己的分享中得到快乐</h2>
         </div>
-        <h3><img src="../assets/zan1.png" alt="">当前票数 {{infoData.hits}}</h3>
-        <h3><img src="../assets/rank1.png" alt="">当前排名 {{infoData.rank}}</h3>
-        <!-- <img @click='toDetail' class="next none" src="../assets/bottom.png" alt="">
-        <h4 class="none" @click='toDetail()'>梦想详情</h4> -->
+      </div>
+      <div class="userBox clearfix">
+        <img @click='navFun(1)' class="navl" src="../assets/111.png" alt="">
+        <img @click='navFun(2)' class="navl" src="../assets/222.png" alt="">
+      </div>
+      <div v-if='ind==1' class="userBox">
+        <div class="txt">
+          <h1>当前北京赛区排名</h1>
+          <h2>Current ranking of Beijing Branch</h2>
+          <h3>16</h3>
+          <h1>当前全国排名</h1>
+          <h2>Current National Ranking</h2>
+          <h3>16123</h3>
+        </div>
+      </div>
+      <div v-else class="picBox clearfix">
+        <img v-for='i in 10' src="" alt="">
       </div>
     </div>
     <app-footer message='zan'></app-footer>
@@ -32,77 +42,17 @@ export default {
   name: 'app',
   data () {
     return {
-      isIndex:sessionStorage.isIndex,
-      infoNum:sessionStorage.infoNum,
-      userImg:sessionStorage.userImg,
-      infoData:store.state.infoData,
+      ind:1
       //infoData:''
     }
   },
   methods: {
-    getUserInfo(){
-      let that =this;
-      Indicator.open('加载中');
-      this.axios({
-         method: 'get',
-         url: '/api/getuserinfo?code='+that.$route.query.code,
-         //data: qs.stringify(data)
-       }).then(function (res) {
-         //alert(1);
-         Indicator.close();
-         if(res.data.code==1){
-           localStorage.openid1 = res.data.data.openid;
-           localStorage.city = res.data.data.city;
-           localStorage.icon = res.data.data.icon;
-           localStorage.nickname = res.data.data.nickname;
-           localStorage.user_id = res.data.data.user_id;
-
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
-    },
-    toInfo(m,n){
-      let that =this;
-      //console.log(this.value);
-      Indicator.open('加载中');
-      sessionStorage.dream_id=m;
-      this.axios({
-         method: 'get',
-         url: '/api/getdreambyid?openid='+localStorage.openid1+'&dream_id='+m,
-         //data: qs.stringify(data)
-       }).then(function (res) {
-         Indicator.close();
-         if(res.data.code==1){
-           //store.commit('infoFun2',res.data.data);
-           that.infoData=res.data.data;
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
+    navFun(e){
+      this.ind =e;
     }
   },
   created:function(){
-    sessionStorage.homeIndex=2;
-    if(this.isIndex==5){
-      //this.getUserInfo();
-      //t
-      if(this.$route.query.code!=''){
-        this.getUserInfo();
-        this.toInfo(this.infoNum,1);
-      }else {
-        //  this.getWxconfig();
-      }
-    }
-    //sessionStorage.id=store.state.infoData.id;
+
   }
 }
 </script>
@@ -118,14 +68,7 @@ export default {
   font-size: 13px;
   color: #fff;
   width: 100%;
-  min-height: 550px;
-  /* position: absolute; */
-  top: 45px;
-  bottom: 33px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background: url('../assets/infoBg.png') no-repeat top;
-  background-size: 94% 96%;
+  margin-top: 50px;
   padding-bottom: 30px;
 }
 #info .userBox {
@@ -133,9 +76,42 @@ export default {
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
+  background-color: rgba(255, 255, 255, .5);
+  clear: both;
+  overflow: hidden;
+
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
+#info .userBox .navl{
+  width: 23px;
+  height: 18px;
+  margin: 10px 0;
+}
+#info .userBox .navl:nth-child(1){
+  float: left;
+  margin-left: 90px;
+}
+#info .userBox .navl:nth-child(2){
+  float: right;
+  margin-right: 90px;
+}
+#info .userBox .txt {
+    padding-bottom: 50px;
+}
+#info .userBox .txt h1{
+  font-size: 17px;
+  font-weight: 700;
+  padding-top: 30px;
+}
+#info .userBox .txt h3{
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  background: none;
+}
 #info .headImg {
+  display: block;
+  margin: 0 auto;
   width: 53px;
   height: 53px;
   border: 1px solid #fff;
@@ -143,7 +119,6 @@ export default {
   margin-top: 40px;
 }
 #info .infoBox{
-  background: #fff;
   width: 80%;
   margin: 0 auto;
   padding-top: 20px;
@@ -151,8 +126,23 @@ export default {
 #info .infoBox h1{
   font-size: 15px;
 }
+#info .infoBox h1 span {
+  display: block;
+  width: 130px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  line-height: 25px;
+  height: 25px;
+  background: #028458;
+  border-radius: 25px;
+}
 #info .infoBox h2{
-  font-size: 12px;
+  font-size: 13px;
+  color: #028458;
+  font-weight: 600;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 #info .infoBox img{
   width: 100%;
@@ -184,10 +174,10 @@ export default {
   color: #fff;
 }
 #info .userBox p{
-  font-size: 13px;
+  font-size: 17px;
   margin-top: 10px;
   margin-bottom: 20px;
-  color: #fff;
+  color: #3E3A39;
 }
 #info .userBox .subBtn{
   margin: 0 auto;
@@ -199,5 +189,21 @@ export default {
   background: #03764D;
   color: #fff;
   margin-top: 30px;
+}
+#info .picBox {
+  margin-bottom: 40px;
+}
+#info .picBox img {
+  display: block;
+  width: 49%;
+  height: 175px;
+  background: #ddd;
+  margin-top: 5px;
+}
+#info .picBox img:nth-child(odd) {
+  float: left;
+}
+#info .picBox img:nth-child(even) {
+  float: right;
 }
 </style>

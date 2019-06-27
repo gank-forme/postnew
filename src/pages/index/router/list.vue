@@ -23,6 +23,8 @@
       <div :class="searchFlag?'listBox':'listBox sea'">
         <div v-for='i in 20' class="listItem clearfix">
           <img class="fl peo"  alt="">
+          <em v-if='i<=3'><img :src="numList[i-1]" alt=""></em>
+          <em v-else >{{i}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
               <span class="fl">123123</span>
