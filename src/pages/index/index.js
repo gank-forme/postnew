@@ -5,19 +5,19 @@ import App from './index.vue'
 import './assets/css/reset.css'
 import 'lib-flexible/flexible.js'
 import VueRouter from "vue-router"
-import header from './components/header.vue'
-import footer from './components/footer.vue'
+// import header from './components/header.vue'
+// import footer from './components/footer.vue'
 
-import home from './router/home.vue'
 import login from './router/login.vue'
-import result from './router/result.vue'
-import list from './router/list.vue'
-import info from './router/info.vue'
-import detail from './router/detail.vue'
-import load from './router/load.vue'
-import content from './router/content.vue'
-import rank from './router/rank.vue'
-import before from './router/before.vue'
+// import login from './router/login.vue'
+// import result from './router/result.vue'
+// import list from './router/list.vue'
+// import info from './router/info.vue'
+// import detail from './router/detail.vue'
+// import load from './router/load.vue'
+// import content from './router/content.vue'
+// import rank from './router/rank.vue'
+// import before from './router/before.vue'
 
 
 
@@ -31,9 +31,9 @@ import {XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmP
 import 'mint-ui/lib/style.css'
 import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
-
-Vue.component(header.name, header)
-Vue.component(footer.name, footer)
+//
+// Vue.component(header.name, header)
+// Vue.component(footer.name, footer)
 
 Vue.component('x-dialog', XDialog)
 Vue.component('search', Search)
@@ -74,16 +74,8 @@ Vue.use(VueAxios, axios)
 const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
-    { path: '/home', component: home,name:'home' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/load', component: load,name:'load' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/detail', component: detail,name:'detail' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/result', component: result,name:'result' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/list', component: list,name:'list' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/content', component: content,name:'content',meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/info', component: info,name:'info' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/rank', component: rank,name:'rank' ,meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/login', component: login,name:'login',meta: { title: "你分享我点赞大型系列活动" }},
-    { path: '/before', component: before,name:'before',meta: { title: "你分享我点赞大型系列活动" }}
+    { path: '/login', component: login,name:'login'},
+
 
   ]
 })
