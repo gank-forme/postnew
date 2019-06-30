@@ -6,7 +6,7 @@ import './assets/css/reset.css'
 import 'lib-flexible/flexible.js'
 import VueRouter from "vue-router"
 // import header from './components/header.vue'
-// import footer from './components/footer.vue'
+import footer from './components/footer.vue'
 
 import login from './router/login.vue'
 import regist from './router/regist.vue'
@@ -15,6 +15,16 @@ import password from './router/password.vue'
 import card from './router/card.vue'
 import msg from './router/msg.vue'
 import home from './router/home.vue'
+import list from './router/list.vue'
+import info from './router/info.vue'
+import convert from './router/convert.vue'
+import user from './router/user.vue'
+import mine from './router/mine.vue'
+
+
+
+
+
 
 
 
@@ -44,7 +54,7 @@ import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio
 Vue.config.productionTip = false
 //
 // Vue.component(header.name, header)
-// Vue.component(footer.name, footer)
+Vue.component(footer.name, footer)
 
 Vue.component('x-dialog', XDialog)
 Vue.component('search', Search)
@@ -94,10 +104,11 @@ const router = new VueRouter({
     { path: '/card', component: card,name:'card'},
     { path: '/msg', component: msg,name:'msg'},
     { path: '/home', component: home,name:'home'},
-
-
-
-
+    { path: '/list', component: list,name:'list'},
+    { path: '/info', component: info,name:'info'},
+    { path: '/convert', component: convert,name:'convert'},
+    { path: '/user', component: user,name:'user'},
+    { path: '/mine', component: mine,name:'mine'},
 
 
 

@@ -2,7 +2,7 @@
   <div id="login">
     <div class="head clearfix">
       <img class="closeBtn fl" src="../assets/close.png" alt="">
-      <span class='resig fr'>注册</span>
+      <span class='resig fr' @click='toRig'>注册</span>
     </div>
     <img class="logo" src="../assets/logo.png" alt="">
     <div class="fromBox">
@@ -21,9 +21,9 @@
           <img slot="right-full-height" height="20px" src="https://ws1.sinaimg.cn/large/663d3650gy1fq684go3glj203m01hmwy.jpg">
         </x-input>
       </group>
-      <p class='forget'>忘记密码？</p>
+      <p class='forget' @click='toForget'>忘记密码？</p>
 
-      <img class="loginBtn" src="../assets/login.png" alt="">
+      <img @click='toLoad' class="loginBtn" src="../assets/login.png" alt="">
     </div>
 
   </div>
@@ -44,7 +44,21 @@ export default {
     }
   },
   methods: {
-
+    toRig(){
+      this.$router.push({
+        name:'regist'
+      })
+    },
+    toForget(){
+      this.$router.push({
+        name:'forget'
+      })
+    },
+    toLoad(){
+      this.$router.push({
+        name:'home'
+      })
+    }
   },
   created:function(){
 

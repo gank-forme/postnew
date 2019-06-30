@@ -6,13 +6,13 @@
         <swiper-item class="swiper-demo-img" v-for="(item, index) in 3" :key="index"><img src="../assets/logo.png"></swiper-item>
       </swiper>
       <ul class="clearfix liBox">
-        <li class='li1'></li>
-        <li class='li2'></li>
-        <li class='li3'></li>
-        <li class='li4'></li>
+        <li class='li1' @click='toList'></li>
+        <li class='li2' @click='toList'></li>
+        <li class='li3' @click='toList'></li>
+        <li class='li4' @click='toList'></li>
       </ul>
     </div>
-
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -21,20 +21,21 @@ import qs from 'qs'
 import axios from 'axios'
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
-import li1 from '../assets/li1.png'
-import li2 from '../assets/li2.png'
-import li3 from '../assets/li3.png'
-import li4 from '../assets/li4.png'
+
 export default {
 
   name: 'app',
   data () {
     return {
-      imgList:[li1,li2,li3,li4]
+
     }
   },
   methods: {
-
+    toList(){
+      this.$router.push({
+        name:'list'
+      })
+    }
   },
   created:function(){
 
@@ -51,7 +52,7 @@ export default {
 #home .content {
   width: 90%;
   margin: 0 auto;
-  margin-top: 10px;
+  padding-top: 60px;
 }
 #home .vux-slider {
   background: url('../assets/swiperBg.png') no-repeat;

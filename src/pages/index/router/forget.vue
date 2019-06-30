@@ -4,12 +4,12 @@
     <div class="fromBox">
       <p class="tips">请选择您的找回形式</p>
       <group>
-        <cell title="通过短信验证码找回" is-link>
+        <cell title="通过短信验证码找回" link="/password" >
            <img slot="icon" style="margin-right:20px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
          </cell>
        </group>
        <group>
-         <cell title="通过身份证号找回" is-link>
+         <cell title="通过身份证号找回" link="/card">
             <img slot="icon" style="margin-right:20px;margin-top:-5px;" src="../assets/card.png" height="20px;" alt="">
           </cell>
       </group>

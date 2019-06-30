@@ -61,23 +61,17 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           width: 110px;
         }
         .weui-tabbar{
-          background-color: #03764D !important;
-          color: #fff;
+          background: url('../navBg.png') no-repeat;
+          background-size: 100% 100%;
           position: fixed !important;
         }
-        .weui-tabbar:before {
+        /* .weui-tabbar:before {
           display: none !important;
-        }
+        } */
         .weui-tabbar__label {
-          color: #fff !important;
+          /* color: #fff !important; */
         }
-        .centerTab {
-          width: 48px;
-          margin-top: -10px;
-        }
-        .w90 {
-          width: 80% !important;
-        }
+
         .weui-cells:before, .weui-cells:after {
           display: none;
         }
@@ -86,5 +80,19 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           padding-bottom: 0px !important;
         }
         .vux-header {
+          position: fixed !important;
+          width: 100%;
+          top: 0px;
           background: #029161 !important;
+          z-index: 10;
+        }
+        .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label{
+          color: #fff !important;
+
+        }
+        .weui-tabbar__label {
+          color:#a4c9b9 !important;
+        }
+        .fromBox {
+          padding-top: 40px;
         }
