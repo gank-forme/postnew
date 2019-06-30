@@ -9,6 +9,17 @@ import VueRouter from "vue-router"
 // import footer from './components/footer.vue'
 
 import login from './router/login.vue'
+import regist from './router/regist.vue'
+import forget from './router/forget.vue'
+import password from './router/password.vue'
+import card from './router/card.vue'
+import msg from './router/msg.vue'
+import home from './router/home.vue'
+
+
+
+
+
 // import login from './router/login.vue'
 // import result from './router/result.vue'
 // import list from './router/list.vue'
@@ -27,7 +38,7 @@ import login from './router/login.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {ImageUpload , ImagePreview} from 'vue-image-upload-preview'
-import {XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker} from 'vux'
+import {XButton,XHeader,XDialog,Search, Tabbar, TabbarItem,Swiper,SwiperItem,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker} from 'vux'
 import 'mint-ui/lib/style.css'
 import {TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
@@ -40,6 +51,7 @@ Vue.component('search', Search)
 Vue.component('tabbar', Tabbar)
 Vue.component('tabbar-item', TabbarItem)
 Vue.component('swiper', Swiper)
+Vue.component('swiper-item', SwiperItem)
 Vue.component('x-input', XInput)
 Vue.component('flow', Flow)
 Vue.component('flow-state', FlowState)
@@ -49,6 +61,7 @@ Vue.component('popup-picker', PopupPicker)
 Vue.component('cell', Cell)
 Vue.component('timeline', Timeline)
 Vue.component('timelineItem', TimelineItem)
+Vue.component('x-header', XHeader)
 
 Vue.use(LoadingPlugin)
 Vue.use(ConfirmPlugin)
@@ -75,6 +88,17 @@ const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
     { path: '/login', component: login,name:'login'},
+    { path: '/regist', component: regist,name:'regist'},
+    { path: '/forget', component: forget,name:'forget'},
+    { path: '/password', component: password,name:'password'},
+    { path: '/card', component: card,name:'card'},
+    { path: '/msg', component: msg,name:'msg'},
+    { path: '/home', component: home,name:'home'},
+
+
+
+
+
 
 
   ]

@@ -78,3 +78,13 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .w90 {
           width: 80% !important;
         }
+        .weui-cells:before, .weui-cells:after {
+          display: none;
+        }
+        .vux-x-input-has-right-full {
+          padding-top: 0px !important;
+          padding-bottom: 0px !important;
+        }
+        .vux-header {
+          background: #029161 !important;
+        }
