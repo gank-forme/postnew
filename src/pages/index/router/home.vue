@@ -8,7 +8,7 @@
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div>
-        <input v-if='!avatar' class="addBtn"  type="file" name="avatar" accept="image/gif,image/jpeg,image/jpg,image/png"  @change="chooseImg($event)" ref="avatarInput">
+        <input v-if='!avatar' class="addBtn"  type="file" name="avatar" accept="image/*"  @change="chooseImg($event)" >
         <img  v-else  class="preI" :src="avatar" alt="">
 
         <!-- <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)"> -->
