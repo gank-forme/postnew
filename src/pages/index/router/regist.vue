@@ -3,14 +3,14 @@
     <x-header :left-options="{backText: ''}">注册</x-header>
     <div class="fromBox">
       <group>
-         <x-input type="text" placeholder="请输入您的手机号" v-model="phone" >
+         <x-input type="text" placeholder="请输入您的手机号" :max='11' v-model="phone" >
            <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/phone.png" height="20px;" alt="">
          </x-input>
        </group>
        <group>
         <x-input type="text" placeholder="请输入手机验证码" v-model="msg" class="weui-vcode">
           <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
-          <x-button slot="right" type="primary" mini>发送验证码</x-button>
+          <x-button slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
         </x-input>
       </group>
       <group>
@@ -24,7 +24,7 @@
           </x-input>
         </group>
 
-      <img class="loginBtn" src="../assets/regist.png" alt="">
+      <img class="loginBtn" src="../assets/regist.png" @click='regFun' alt="">
     </div>
 
   </div>
@@ -54,7 +54,61 @@ export default {
     }
   },
   methods: {
-
+    sendFun(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/getSmsCode?phone='+that.phone,
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.error==0){
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           setTimeout(function(){
+             history.go(-1);
+           },2000);
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    },
+    regFun(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/register',
+         data:{
+           phone:that.phone,
+           smscode:that.msg,
+           password:that.firstPass,
+           repassword:that.lastPass
+         }
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.error==0){
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    }
   },
   created:function(){
 

@@ -7,7 +7,7 @@
     <img class="logo" src="../assets/logo.png" alt="">
     <div class="fromBox">
       <group>
-         <x-input type="text" placeholder="请输入您的账号" v-model="username" >
+         <x-input type="text" placeholder="请输入您的账号" :max='11' v-model="username" >
            <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/user.png" height="20px;" alt="">
          </x-input>
        </group>
@@ -17,8 +17,8 @@
         </x-input>
       </group>
       <group>
-        <x-input placeholder="请输入验证码">
-          <img slot="right-full-height" height="20px" src="https://ws1.sinaimg.cn/large/663d3650gy1fq684go3glj203m01hmwy.jpg">
+        <x-input placeholder="请输入验证码" v-model='code'>
+          <img slot="right-full-height" height="20px" :src="imgsrc" @click='getCode'>
         </x-input>
       </group>
       <p class='forget' @click='toForget'>忘记密码？</p>
@@ -39,8 +39,10 @@ export default {
   name: 'app',
   data () {
     return {
+      imgsrc:'',
       username:'',
-      password:''
+      password:'',
+      code:''
     }
   },
   methods: {
@@ -55,13 +57,42 @@ export default {
       })
     },
     toLoad(){
-      this.$router.push({
-        name:'home'
-      })
+
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/login',
+         data:{
+           phone:that.username,
+           password:that.password,
+           code:that.code
+         }
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           //store.commit('loginFun',res.data.data);
+           sessionStorage.token= res.data.data.token;
+           that.$router.push({
+             name:'home'
+           })
+
+         }else {
+           that.getCode();
+           Toast({
+             message: res.data.message,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    },
+    getCode(){
+      this.imgsrc='/api/getCode?'+Math.floor(Math.random() * 100);
     }
   },
   created:function(){
-
+    this.getCode();
   }
 }
 </script>

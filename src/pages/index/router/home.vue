@@ -6,10 +6,13 @@
         <swiper-item class="swiper-demo-img" v-for="(item, index) in 3" :key="index"><img src="../assets/logo.png"></swiper-item>
       </swiper>
       <ul class="clearfix liBox">
-        <li class='li1' @click='toList'></li>
+        <li v-for='(i,index) in dataList' :key='index' :id='i.id'>
+          <img :src="i.banner" alt="">
+        </li>
+        <!-- <li class='li1' @click='toList'></li>
         <li class='li2' @click='toList'></li>
         <li class='li3' @click='toList'></li>
-        <li class='li4' @click='toList'></li>
+        <li class='li4' @click='toList'></li> -->
       </ul>
     </div>
     <app-footer></app-footer>
@@ -27,7 +30,7 @@ export default {
   name: 'app',
   data () {
     return {
-
+      dataList:[]
     }
   },
   methods: {
@@ -35,10 +38,29 @@ export default {
       this.$router.push({
         name:'list'
       })
+    },
+    getList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/catList?token='+sessionStorage.token,
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.dataList=res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
     }
   },
   created:function(){
-
+    this.getList();
   }
 }
 </script>

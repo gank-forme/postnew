@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://share.marketservice.cn',  //目标接口域名
+        target: 'http://exchange.marketservice.cn',  //目标接口域名
         changeOrigin: true,  //是否跨域
         pathRewrite: {
           '^/api': '/api'
