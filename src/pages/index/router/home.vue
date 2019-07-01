@@ -4,23 +4,14 @@
 
     <div class="con relative">
       <div class="imgBox">
-        <div class="loadCon" v-if='uploadData["images0"].length==0'>
+        <div class="loadCon" v-if='!avatar'>
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div>
-        <image-upload
-          v-if="uploadData['images0'].length==0"
-          class="addBtn"
-          ref='imgaeUpload'
-          :touch-size = 1
-          :lrz-options = {width:500}
-          :multiple = false
-          field-name = 'fileBase64'
-          :max-count = 1
-          @chooseImages='bindtap_chooseImages'
-          @click.native='picFun(0)'
-        />
-        <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
+        <input v-if='!avatar' class="addBtn"  type="file" name="avatar" accept="image/gif,image/jpeg,image/jpg,image/png"  @change="chooseImg($event)" ref="avatarInput">
+        <img  v-else  class="preI" :src="avatar" alt="">
+
+        <!-- <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)"> -->
       </div>
       <h2><img src="../assets/write.png" alt=""><input type="text" v-model='title' placeholder='请输入您的梦想标题' name="" value="">  </h2>
       <div class="textareaBox">
@@ -95,6 +86,7 @@ export default {
   },
   data () {
     return {
+      avatar:'',
       imgUrl:'',
       txt1:'',
       show1:false,
@@ -268,6 +260,26 @@ export default {
      lookFun(){
 
      },
+     chooseImg(e){
+       var file = e.target.files[0];
+       console.log(file);
+       this.images =file;
+        var reader = new FileReader()
+        var that = this
+        reader.readAsDataURL(file)
+        reader.onload = function(e) {
+          that.avatar= this.result
+        }
+        that.fileupload();
+       // wx.chooseImage({
+       //    count: 1, // 默认9
+       //    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+       //    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+       //    success: function (res) {
+       //      var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+       //    }
+       //  });
+     },
      xLog1(){
        //this.show1=!this.show1;
        let that =this;
@@ -332,13 +344,30 @@ export default {
   width: 100%;
   height: 214px;
 }
+#passport input.addBtn {
+  width: 100%;
+  height: 214px;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
 #passport img.addBtn {
   object-fit:cover;
+}
+#passport .imgBox {
+  height: 214px;
+}
+#passport .preI {
+  width: 100%;
+  height: 214px;
+  object-fit:cover;
+
 }
 #passport .loadCon {
   position: absolute;
   top: 60px;
   width: 100%;
+  height: 214px;
 }
 #passport .loadCon img{
   width: 25px;
