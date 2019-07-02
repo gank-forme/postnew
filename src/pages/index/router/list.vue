@@ -32,12 +32,32 @@ export default {
   name: 'app',
   data () {
     return {
-      actIndex:'',
+      page:1,
+      has_next_page:0,
+      actIndex:-1,
       spanList:[],
       dataList:[]
     }
   },
+  mounted(){
+    window.addEventListener('scroll',this.handleScroll,true);
+
+  },
   methods: {
+    handleScroll(e){
+      let that =this;
+        //变量scrollTop是滚动条滚动时，距离顶部的距离
+        var scrollTop = e.target.scrollTop;
+        //变量windowHeight是可视区的高度
+        var windowHeight = e.target.clientHeight;
+        //变量scrollHeight是滚动条的总高度
+   		   var scrollHeight = e.target.scrollHeight;
+        //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+            //写后台加载数据的函数
+
+        }
+    },
     toCon(){
       this.$router.push({
         name:'convert'
@@ -74,11 +94,15 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/goodsList?token='+sessionStorage.token+'&cat='+sessionStorage.title+'&page=1',
+         url: '/api/goodsList?token='+sessionStorage.token+'&cat='+sessionStorage.title+'&page='+that.page,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.dataList=res.data.data;
+           that.dataList = that.dataList.concat(res.data.data);
+           if(res.data.has_next_page==1){
+             that.page++;
+             that.getList();
+           }
          }else {
            Toast({
              message: res.data.msg,
@@ -113,14 +137,18 @@ export default {
     searchFun(e,i){
       this.actIndex = i;
       let that =this;
-      Indicator.open('加载中');
+      //Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/search?token='+sessionStorage.token+'&keyword='+e+'&page=1',
+         url: '/api/search?token='+sessionStorage.token+'&keyword='+e+'&page='+that.page,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.dataList=res.data.data;
+           that.dataList=that.dataList.concat(res.data.data);
+           if(res.data.data.has_next_page==1){
+             that.page++;
+             that.searchFun(e,i);
+           }
          }else {
            Toast({
              message: res.data.msg,
@@ -135,6 +163,7 @@ export default {
   created:function(){
     this.getList1();
     this.getList();
+
   }
 }
 </script>
@@ -158,6 +187,7 @@ export default {
   position: fixed;
   width: 100%;
   top: 45px;
+  z-index: 10;
 }
 #list .searchBox input {
   width: 90%;
