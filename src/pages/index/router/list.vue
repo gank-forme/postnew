@@ -40,27 +40,22 @@ export default {
     }
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll,true);
+    let that =this;
+    window.onscroll = function(){
+   		//变量scrollTop是滚动条滚动时，距离顶部的距离
+     		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+     		//变量windowHeight是可视区的高度
+     		var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+     		//变量scrollHeight是滚动条的总高度
+     		var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+                 //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+                  //写后台加载数据的函数
+         
+        }   
+     }
   },
   methods: {
-    handleScroll(e){
-
-      let that =this;
-        //变量scrollTop是滚动条滚动时，距离顶部的距离
-        var scrollTop = e.target.scrollTop;
-        //变量windowHeight是可视区的高度
-        var windowHeight = e.target.clientHeight;
-        //变量scrollHeight是滚动条的总高度
-   		   var scrollHeight = e.target.scrollHeight;
-        //滚动条到底部的条件
-        
-        if(scrollTop+windowHeight==scrollHeight){
-            //写后台加载数据的函数
-
-        }else{
-
-        }
-    },
     toCon(){
       this.$router.push({
         name:'convert'
@@ -74,7 +69,7 @@ export default {
     },
     getList1(){
       let that =this;
-      Indicator.open('加载中');
+      //Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/subcatList?token='+sessionStorage.token+'&fid='+sessionStorage.listId,
@@ -94,18 +89,15 @@ export default {
     },
     getList(){
       let that =this;
-      Indicator.open('加载中');
+      //Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/goodsList?token='+sessionStorage.token+'&cat='+sessionStorage.title+'&page='+that.page,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.dataList = that.dataList.concat(res.data.data);
-           if(res.data.has_next_page==1){
-             that.page++;
-             that.getList();
-           }
+           //that.dataList = that.dataList.concat(res.data.data);   
+           that.dataList=res.data.data;
          }else {
            Toast({
              message: res.data.msg,
@@ -117,15 +109,15 @@ export default {
        })
     },
     searchFun1(e){
-
       let that =this;
-      Indicator.open('加载中');
+      //Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/search?token='+sessionStorage.token+'&keyword='+e.data+'&page=1',
+         url: '/api/search?token='+sessionStorage.token+'&keyword='+e.data+'&page='+that.page,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
+           //that.dataList=that.dataList.concat(res.data.data);
            that.dataList=res.data.data;
          }else {
            Toast({
@@ -147,11 +139,8 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.dataList=that.dataList.concat(res.data.data);
-           if(res.data.data.has_next_page==1){
-             that.page++;
-             that.searchFun(e,i);
-           }
+           //that.dataList=that.dataList.concat(res.data.data);
+           that.dataList=res.data.data;
          }else {
            Toast({
              message: res.data.msg,

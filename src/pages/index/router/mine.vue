@@ -33,6 +33,7 @@ export default {
   name: 'app',
   data () {
     return {
+      page:1,
       dataList:[]
     }
   },
@@ -50,11 +51,12 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/myExchangeList?token='+sessionStorage.token+'&page=1&type='+e,
+         url: '/api/myExchangeList?token='+sessionStorage.token+'&page='+that.page+'&type='+e,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.dataList =res.data.data;
+           //that.dataList=that.dataList.concat(res.data.data);
+           that.dataList=res.data.data;
          }else {
            Toast({
              message: res.data.msg,
