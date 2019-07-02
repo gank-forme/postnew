@@ -36,7 +36,7 @@ export default {
   methods: {
     toList(title,id){
       sessionStorage.title =title;
-      sessionStorage.listId =id;      
+      sessionStorage.listId =id;
       this.$router.push({
         name:'list'
       })
@@ -97,6 +97,10 @@ export default {
 #home li img {
   border-radius: 5px;
   box-shadow: 3px #eee;
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 #home li:nth-child(even) {
   float: right;

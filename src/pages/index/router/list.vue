@@ -7,14 +7,14 @@
     <div class="content">
       <div class="maybe clearfix" >
         <p>您可能在找</p>
-        <span class="maySpan" v-for ='(i,index) in spanList' :key='index' @click='searchFun(i.title)'>{{i.title}}</span>
+        <span :class="actIndex==index?'maySpan act':'maySpan'" v-for ='(i,index) in spanList' :key='index' @click='searchFun(i.title,index)'>{{i.title}}</span>
       </div>
-      <div @click='toInfo' v-for='(i,index) in dataList' :key='index' class="maybe clearfix">
+      <div  v-for='(i,index) in dataList' :key='index' @click='toInfo(i.id)' class="maybe clearfix">
         <img class="fl" :src="i.icon" alt="">
         <h1>{{i.title}}</h1>
         <h2>
           市场价 <span>￥<em>{{i.price}}</em></span>
-          <img src="../assets/dui.png" alt="">
+          <img src="../assets/dui.png" @click='toCon' alt="">
         </h2>
       </div>
     </div>
@@ -32,12 +32,19 @@ export default {
   name: 'app',
   data () {
     return {
+      actIndex:'',
       spanList:[],
       dataList:[]
     }
   },
   methods: {
-    toInfo(){
+    toCon(){
+      this.$router.push({
+        name:'convert'
+      })
+    },
+    toInfo(e){
+      sessionStorage.infoId = e;
       this.$router.push({
         name:'info'
       })
@@ -103,8 +110,8 @@ export default {
          }
        })
     },
-    searchFun(e){
-
+    searchFun(e,i){
+      this.actIndex = i;
       let that =this;
       Indicator.open('加载中');
       this.axios({
@@ -172,6 +179,7 @@ export default {
   padding: 10px 10px 20px 10px;
 }
 #list .maySpan {
+  opacity: 0.7;
   background: #609a7b;
   color: #fff;
   font-size: 13px;
@@ -180,6 +188,9 @@ export default {
   margin-top: 10px;
   float: left;
   border-radius: 30px;
+}
+#list .maySpan.act {
+  opacity: 1;
 }
 #list .maybe img.fl {
   display: block;
