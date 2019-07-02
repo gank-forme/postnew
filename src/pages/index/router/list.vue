@@ -2,7 +2,7 @@
   <div id="list">
     <x-header :left-options="{backText: ''}">商品名</x-header>
     <div class="searchBox">
-      <input type="text" name="" @input='searchFun1'>
+      <input type="text" name="" v-model='search' @input='searchFun1'>
     </div>
     <div class="content">
       <div class="maybe clearfix" >
@@ -32,11 +32,15 @@ export default {
   name: 'app',
   data () {
     return {
+      keyword:'',
+      search:'',
       page:1,
+      scrollInd:1,
       has_next_page:0,
       actIndex:-1,
       spanList:[],
-      dataList:[]
+      dataList:[],
+      linkList:[]
     }
   },
   mounted(){
@@ -51,7 +55,32 @@ export default {
                  //滚动条到底部的条件
         if(scrollTop+windowHeight==scrollHeight){
                   //写后台加载数据的函数
-         
+          if(that.scrollInd==1){
+            if(that.has_next_page==1){
+              that.page++;
+              that.getList();
+            }else{
+              that.page=1;
+            }
+          }
+          //
+          // if(that.scrollInd==2){
+          //   if(that.has_next_page==1){
+          //     that.page++;
+          //     that.searchFun1(that.search);
+          //   }else{
+          //     that.page=1;
+          //   }
+          // }
+          if(that.scrollInd==3){
+            if(that.has_next_page==1){
+              that.page++;
+              that.searchFun(that.keyword,that.actIndex);
+            }else{
+              that.page=1;
+            }
+          }
+
         }   
      }
   },
@@ -88,6 +117,7 @@ export default {
        })
     },
     getList(){
+      this.scrollInd =1;
       let that =this;
       //Indicator.open('加载中');
       this.axios({
@@ -96,8 +126,8 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           //that.dataList = that.dataList.concat(res.data.data);
-           that.dataList=res.data.data;
+           that.has_next_page = res.data.has_next_page;
+           that.dataList = that.dataList.concat(res.data.data);
          }else {
            Toast({
              message: res.data.msg,
@@ -108,17 +138,26 @@ export default {
          }
        })
     },
-    searchFun1(e){
+    searchFun1(){
+
+      this.scrollInd =2;
+      this.actIndex = -1;
       let that =this;
       //Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/search?token='+sessionStorage.token+'&keyword='+e.data+'&page='+that.page,
+         url: '/api/search?token='+sessionStorage.token+'&keyword='+that.search+'&page='+that.page,
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           //that.dataList=that.dataList.concat(res.data.data);
-           that.dataList=res.data.data;
+           if(res.data.has_next_page==1){
+             that.page++;
+             that.searchFun1();
+           }else{
+             that.page=1;
+           }
+           that.has_next_page = res.data.has_next_page;
+           that.dataList=that.dataList.concat(res.data.data);
          }else {
            Toast({
              message: res.data.msg,
@@ -130,7 +169,9 @@ export default {
        })
     },
     searchFun(e,i){
+      this.scrollInd =3;
       this.actIndex = i;
+      this.keyword = e;
       let that =this;
       //Indicator.open('加载中');
       this.axios({
@@ -139,8 +180,13 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           //that.dataList=that.dataList.concat(res.data.data);
-           that.dataList=res.data.data;
+           that.has_next_page = res.data.has_next_page;
+           if(that.page==1){
+             that.dataList=res.data.data;
+             that.linkList=res.data.data;
+           }else{
+             that.dataList=that.linkList.concat(res.data.data);
+           }
          }else {
            Toast({
              message: res.data.msg,
@@ -155,7 +201,6 @@ export default {
   created:function(){
     this.getList1();
     this.getList();
-
   }
 }
 </script>
@@ -213,6 +258,7 @@ export default {
 }
 #list .maySpan.act {
   opacity: 1;
+  pointer-events: none;
 }
 #list .maybe img.fl {
   display: block;
