@@ -4,7 +4,7 @@
     <div class="content">
       <div class="maybe clearfix">
         <h1>我的兑换</h1>
-        <img class="fl" src="../assets/my1.png" alt="">
+        <img class="fl" src="../assets/my1.png" @click='myFun' alt="">
         <img class="fr" src="../assets/my2.png" alt="">
       </div>
 
@@ -29,7 +29,11 @@ export default {
     }
   },
   methods: {
-
+    myFun(){
+      this.$router.push({
+        name:'mine'
+      })
+    }
   },
   created:function(){
 

@@ -6,7 +6,7 @@
         <swiper-item class="swiper-demo-img" v-for="(item, index) in 3" :key="index"><img src="../assets/logo.png"></swiper-item>
       </swiper>
       <ul class="clearfix liBox">
-        <li v-for='(i,index) in dataList' :key='index' :id='i.id'>
+        <li v-for='(i,index) in dataList' :key='index' :id='i.id' @click='toList(i.title,i.id)'>
           <img :src="i.banner" alt="">
         </li>
         <!-- <li class='li1' @click='toList'></li>
@@ -34,7 +34,9 @@ export default {
     }
   },
   methods: {
-    toList(){
+    toList(title,id){
+      sessionStorage.title =title;
+      sessionStorage.listId =id;      
       this.$router.push({
         name:'list'
       })
@@ -90,6 +92,11 @@ export default {
   width: 49%;
   height: 170px;
   margin-top: 10px;
+
+}
+#home li img {
+  border-radius: 5px;
+  box-shadow: 3px #eee;
 }
 #home li:nth-child(even) {
   float: right;

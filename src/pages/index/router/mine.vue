@@ -1,18 +1,18 @@
 <template>
   <div id="mine">
     <x-header :left-options="{backText: ''}">我的兑换</x-header>
-    <tab line-width='0' default-color='#81c2ac' active-color='#fff'>
+    <tab :line-width='0' default-color='#81c2ac' active-color='#fff'>
       <tab-item selected @on-item-click="onItemClick">全部兑换</tab-item>
       <tab-item @on-item-click="onItemClick">未使用</tab-item>
       <tab-item @on-item-click="onItemClick">已使用/过期</tab-item>
     </tab>
     <div class="content">
 
-      <div v-for='(i,index) in 10' :key='index' class="maybe clearfix">
-        <img class="fl" src="" alt="">
-        <h1>小米电视4A标准版 英寸L65M5-AZ超大彩屏，家庭独享</h1>
+      <div v-for='(i,index) in dataList' :key='index' class="maybe clearfix">
+        <img class="fl" :src="i.icon" alt="">
+        <h1>{{i.title}}</h1>
         <h2>
-          市场价 <span>￥<em>3212</em></span>
+          市场价 <span>￥<em>{{i.price}}</em></span>
         </h2>
       </div>
     </div>
@@ -33,16 +33,40 @@ export default {
   name: 'app',
   data () {
     return {
-
+      dataList:[]
     }
   },
   methods: {
     onItemClick (index) {
-      console.log('on item click:', index)
+      let ind = {
+        0:3,
+        1:1,
+        2:2
+      }
+      this.myFun(ind[index]);
     },
+    myFun(e){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/myExchangeList?token='+sessionStorage.token+'&page=1&type='+e,
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.dataList =res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    }
   },
   created:function(){
-
+    this.myFun(3);
   }
 }
 </script>

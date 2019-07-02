@@ -9,19 +9,19 @@
          </x-input>
        </group>
        <group>
-         <x-input placeholder="请输入验证码">
+         <x-input placeholder="请输入验证码" v-model='code'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
-           <img slot="right-full-height" height="20px" src="https://ws1.sinaimg.cn/large/663d3650gy1fq684go3glj203m01hmwy.jpg">
+           <img slot="right-full-height" height="20px" :src="imgsrc" @click='getCode'>
          </x-input>
        </group>
-       <img class="loginBtn" src="../assets/convert.png" alt="">
-       <img class="bot" src="../assets/bot.png" alt="">
-       <div v-for='(i,index) in 3' :key='index' class="maybe clearfix">
-         <img class="fl" src="" alt="">
-         <h1>小米电视4A标准版 英寸L65M5-AZ超大彩屏，家庭独享</h1>
+       <img class="loginBtn" src="../assets/convert.png" @click='toExchange' alt="">
+       <img v-if='datas' class="bot" src="../assets/bot.png" alt="">
+       <div v-if='datas' class="maybe clearfix">
+         <img class="fl" :src="datas.icon" alt="">
+         <h1>{{datas.title}}</h1>
          <h2>
-           市场价 <span>￥<em>3212</em></span>
-           <img src="../assets/ling.png" alt="">
+           市场价 <span>￥<em>{{datas.price}}</em></span>
+           <img src="../assets/ling.png" @click='tocharge(datas.id)' alt="">
          </h2>
        </div>
     </div>
@@ -48,14 +48,82 @@ export default {
   data () {
     return {
       num:'',
+      code:'',
+      imgsrc:'',
+      datas:''
 
     }
   },
   methods: {
+    getCode(){
+      this.imgsrc='/api/getCode?'+Math.floor(Math.random() * 100);
+    },
+    toExchange(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/toExchange',
+         data:{
+           code:that.code,
+           exchange_code:that.num,
+           token:sessionStorage.token
+         }
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.datas = res.data.data;
+         }else {
+           that.getCode();
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    },
+    tocharge(e){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/receive',
+         data:{
+           id:e,
+           exchange_code:that.num,
+           token:sessionStorage.token
+         }
+       }).then(function (res) {
+         Indicator.close();
 
+         if(res.data.code==1){
+           sessionStorage.msgId=res.data.data.id;
+           sessionStorage.exchange_code=res.data.data.exchange_code;
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }else if(res.data.code==2){
+           sessionStorage.msgId=res.data.data.id;
+           sessionStorage.exchange_code=res.data.data.exchange_code;
+           that.$router.push({
+             name:'msg'
+           })
+         }else{
+           that.getCode();
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    }
   },
   created:function(){
-
+    this.getCode();
   }
 }
 </script>
@@ -86,7 +154,7 @@ export default {
 #convert .fromBox {
   width: 90%;
   margin: 0 auto;
-  margin-top: 30px;
+  padding-top: 30px;
   padding-bottom: 60px;
 }
 #convert .weui-cells {

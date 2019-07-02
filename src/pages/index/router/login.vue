@@ -80,7 +80,7 @@ export default {
          }else {
            that.getCode();
            Toast({
-             message: res.data.message,
+             message: res.data.msg,
              position: 'bottom',
              duration: 1500
            });

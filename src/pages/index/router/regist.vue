@@ -10,7 +10,8 @@
        <group>
         <x-input type="text" placeholder="请输入手机验证码" v-model="msg" class="weui-vcode">
           <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
-          <x-button slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
+          <x-button v-if='timer==60' slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
+          <x-button v-else slot="right" disabled mini @click.native='sendFun'>已发送 {{timer}}s</x-button>
         </x-input>
       </group>
       <group>
@@ -47,6 +48,7 @@ export default {
   name: 'app',
   data () {
     return {
+      timer:60,
       phone:'',
       msg:'',
       firstPass:'',
@@ -54,6 +56,17 @@ export default {
     }
   },
   methods: {
+    timFun(){
+      let that =this;
+      let tim = setInterval(function(){
+        that.timer --;
+        if(that.timer<=0){
+          clearInterval(tim);
+          tim =null;
+          that.timer =60;
+        }
+      },1000);
+    },
     sendFun(){
       let that =this;
       Indicator.open('加载中');
@@ -62,15 +75,9 @@ export default {
          url: '/api/getSmsCode?phone='+that.phone,
        }).then(function (res) {
          Indicator.close();
-         if(res.data.error==0){
-           Toast({
-             message: res.data.msg,
-             position: 'bottom',
-             duration: 1500
-           });
-           setTimeout(function(){
-             history.go(-1);
-           },2000);
+         if(res.data.code==1){
+           that.timFun();
+
          }else {
            Toast({
              message: res.data.msg,

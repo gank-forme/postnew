@@ -21,13 +21,13 @@
           <img class="tit" style="margin:10px 10px 10px 20px;" src="../assets/loc.png" height="20px;" alt="">
 
             <span style="color:#b8b7b7">请输入您的详细收获地址</span>
-            <x-textarea :max="20" placeholder="" @on-focus="onEvent('focus')" @on-blur="onEvent('blur')">
+            <x-textarea :max="20" placeholder="" v-model='address' @on-focus="onEvent('focus')" @on-blur="onEvent('blur')">
 
             </x-textarea>
 
         </group>
 
-      <img class="loginBtn" src="../assets/sub.png" alt="">
+      <img class="loginBtn" @click='msgFun' src="../assets/sub.png" alt="">
     </div>
 
   </div>
@@ -54,12 +54,41 @@ export default {
       phone:'',
       username:'',
       card:'',
+      address:''
     }
   },
   methods: {
     onEvent (event) {
       console.log('on', event)
-    }
+    },
+    msgFun(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/recive_address',
+         data:{
+           id:sessionStorage.msgId,
+           exchange_code:sessionStorage.exchange_code,
+           name:that.username,
+           phone:that.phone,
+           id_card:that.card,
+           address:that.address,
+           token:sessionStorage.token
+         }
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           history.go(-1);
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    },
   },
   created:function(){
 

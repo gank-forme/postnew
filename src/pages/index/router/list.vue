@@ -2,18 +2,18 @@
   <div id="list">
     <x-header :left-options="{backText: ''}">商品名</x-header>
     <div class="searchBox">
-      <input type="text" name="" value="">
+      <input type="text" name="" @input='searchFun1'>
     </div>
     <div class="content">
       <div class="maybe clearfix" >
         <p>您可能在找</p>
-        <span class="maySpan" v-for ='(i,index) in spanList' :key='index'>{{i}}</span>
+        <span class="maySpan" v-for ='(i,index) in spanList' :key='index' @click='searchFun(i.title)'>{{i.title}}</span>
       </div>
-      <div @click='toInfo' v-for='(i,index) in 10' :key='index' class="maybe clearfix">
-        <img class="fl" src="" alt="">
-        <h1>小米电视4A标准版 英寸L65M5-AZ超大彩屏，家庭独享</h1>
+      <div @click='toInfo' v-for='(i,index) in dataList' :key='index' class="maybe clearfix">
+        <img class="fl" :src="i.icon" alt="">
+        <h1>{{i.title}}</h1>
         <h2>
-          市场价 <span>￥<em>3212</em></span>
+          市场价 <span>￥<em>{{i.price}}</em></span>
           <img src="../assets/dui.png" alt="">
         </h2>
       </div>
@@ -32,7 +32,8 @@ export default {
   name: 'app',
   data () {
     return {
-      spanList:['收到','尔尔而','水电费健康','水电费','收到','尔尔而','水电费健康','水电费']
+      spanList:[],
+      dataList:[]
     }
   },
   methods: {
@@ -40,10 +41,93 @@ export default {
       this.$router.push({
         name:'info'
       })
+    },
+    getList1(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/subcatList?token='+sessionStorage.token+'&fid='+sessionStorage.listId,
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.spanList=res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           that.spanList=[];
+         }
+       })
+    },
+    getList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/goodsList?token='+sessionStorage.token+'&cat='+sessionStorage.title+'&page=1',
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.dataList=res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           that.dataList=[];
+         }
+       })
+    },
+    searchFun1(e){
+
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/search?token='+sessionStorage.token+'&keyword='+e.data+'&page=1',
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.dataList=res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           that.dataList=[];
+         }
+       })
+    },
+    searchFun(e){
+
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/search?token='+sessionStorage.token+'&keyword='+e+'&page=1',
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.dataList=res.data.data;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           that.dataList=[];
+         }
+       })
     }
   },
   created:function(){
-
+    this.getList1();
+    this.getList();
   }
 }
 </script>

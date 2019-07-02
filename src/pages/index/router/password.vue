@@ -5,7 +5,8 @@
       <group>
          <x-input type="text" placeholder="请输入注册时的手机号" v-model="phone" >
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/phone.png" height="20px;" alt="">
-           <x-button slot="right" type="primary" mini>发送验证码</x-button>
+           <x-button v-if='timer==60' slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
+           <x-button v-else slot="right" disabled mini @click.native='sendFun'>已发送 {{timer}}s</x-button>
          </x-input>
        </group>
        <group>
@@ -19,12 +20,12 @@
          </x-input>
        </group>
        <group>
-         <x-input placeholder="请输入验证码">
+         <x-input placeholder="请输入验证码" v-model='code'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
-           <img slot="right-full-height" height="20px" src="https://ws1.sinaimg.cn/large/663d3650gy1fq684go3glj203m01hmwy.jpg">
+           <img slot="right-full-height" height="20px" :src="imgsrc">
          </x-input>
        </group>
-      <img class="loginBtn" src="../assets/sub.png" alt="">
+      <img class="loginBtn" @click ='forUn' src="../assets/sub.png" alt="">
     </div>
 
   </div>
@@ -47,17 +48,88 @@ export default {
   name: 'app',
   data () {
     return {
+      timer:60,
+      imgsrc:'',
       phone:'',
       msg:'',
+      code:'',
       firstPass:'',
       lastPass:''
+
     }
   },
   methods: {
+    timFun(){
+      let that =this;
+      let tim = setInterval(function(){
+        that.timer --;
+        if(that.timer<=0){
+          clearInterval(tim);
+          tim =null;
+          that.timer =60;
+        }
+      },1000);
+    },
+    sendFun(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/getSmsCode?phone='+that.phone,
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.timFun();
 
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    },
+    getCode(){
+      this.imgsrc='/api/getCode?'+Math.floor(Math.random() * 100);
+    },
+    forUn(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'post',
+         url: '/api/repassword',
+         data:{
+           phone:that.phone,
+           password:that.firstPass,
+           code:that.code,
+           smscode:that.msg
+         }
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           //store.commit('loginFun',res.data.data);
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+           setTimeout(function(){
+             history.go(-2);
+           },2000)        
+         }else {
+           that.getCode();
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
+    }
   },
   created:function(){
-
+    this.getCode();
   }
 }
 </script>
