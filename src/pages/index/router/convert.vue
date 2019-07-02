@@ -154,7 +154,7 @@ export default {
 #convert .fromBox {
   width: 90%;
   margin: 0 auto;
-  padding-top: 30px;
+  padding-top: 60px;
   padding-bottom: 60px;
 }
 #convert .weui-cells {

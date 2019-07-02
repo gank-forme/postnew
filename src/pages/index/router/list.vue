@@ -96,7 +96,7 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           //that.dataList = that.dataList.concat(res.data.data);   
+           //that.dataList = that.dataList.concat(res.data.data);
            that.dataList=res.data.data;
          }else {
            Toast({
@@ -155,7 +155,6 @@ export default {
   created:function(){
     this.getList1();
     this.getList();
-
   }
 }
 </script>
@@ -205,7 +204,7 @@ export default {
   background: #609a7b;
   color: #fff;
   font-size: 13px;
-  padding: 2px 40px;
+  padding: 3px 40px;
   margin-right: 10px;
   margin-top: 10px;
   float: left;
