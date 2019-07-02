@@ -41,10 +41,10 @@ export default {
   },
   mounted(){
     window.addEventListener('scroll',this.handleScroll,true);
-
   },
   methods: {
     handleScroll(e){
+
       let that =this;
         //变量scrollTop是滚动条滚动时，距离顶部的距离
         var scrollTop = e.target.scrollTop;
@@ -53,8 +53,11 @@ export default {
         //变量scrollHeight是滚动条的总高度
    		   var scrollHeight = e.target.scrollHeight;
         //滚动条到底部的条件
+        
         if(scrollTop+windowHeight==scrollHeight){
             //写后台加载数据的函数
+
+        }else{
 
         }
     },
