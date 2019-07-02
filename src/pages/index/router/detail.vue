@@ -110,7 +110,7 @@ export default {
 
       let desc;
       if(that.deatilData.title!='' ||that.deatilData.title!=undefined){
-        desc = that.deatilData.title+'  '+that.deatilData.detail
+        desc = that.deatilData.title+'：'+that.deatilData.detail
       }else {
         desc = sessionStorage.shareCon
       }

@@ -94,7 +94,7 @@ export default {
 
       let desc;
       if(that.infoData.title!='' ||that.infoData.title!=undefined){
-        desc = that.infoData.title+'  '+that.infoData.detail
+        desc = that.infoData.title+'：'+that.infoData.detail
       }else {
         desc = sessionStorage.shareCon
       }
