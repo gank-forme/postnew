@@ -64,14 +64,14 @@ export default {
             }
           }
           //
-          // if(that.scrollInd==2){
-          //   if(that.has_next_page==1){
-          //     that.page++;
-          //     that.searchFun1(that.search);
-          //   }else{
-          //     that.page=1;
-          //   }
-          // }
+          if(that.scrollInd==2){
+            if(that.has_next_page==1){
+              that.page++;
+              that.pageScroll();
+            }else{
+              that.page=1;
+            }
+          }
           if(that.scrollInd==3){
             if(that.has_next_page==1){
               that.page++;
@@ -138,10 +138,7 @@ export default {
          }
        })
     },
-    searchFun1(){
-
-      this.scrollInd =2;
-      this.actIndex = -1;
+    pageScroll(){
       let that =this;
       //Indicator.open('加载中');
       this.axios({
@@ -150,12 +147,6 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           if(res.data.has_next_page==1){
-             that.page++;
-             that.searchFun1();
-           }else{
-             that.page=1;
-           }
            that.has_next_page = res.data.has_next_page;
            that.dataList=that.dataList.concat(res.data.data);
          }else {
@@ -167,6 +158,36 @@ export default {
            that.dataList=[];
          }
        })
+    },
+    searchFun1(){
+      this.scrollInd =2;
+      this.actIndex = -1;
+      if(this.search==''){
+        this.dataList=[];
+        this.getList();
+      }else{
+
+        let that =this;
+        //Indicator.open('加载中');
+        this.axios({
+           method: 'get',
+           url: '/api/search?token='+sessionStorage.token+'&keyword='+that.search+'&page='+that.page,
+         }).then(function (res) {
+           Indicator.close();
+           if(res.data.code==1){
+             that.has_next_page = res.data.has_next_page;
+             that.dataList=res.data.data;
+           }else {
+             Toast({
+               message: res.data.msg,
+               position: 'bottom',
+               duration: 1500
+             });
+             that.dataList=[];
+           }
+         })
+      }
+
     },
     searchFun(e,i){
       this.scrollInd =3;
