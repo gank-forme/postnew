@@ -155,6 +155,7 @@ export default {
   created:function(){
     this.getList1();
     this.getList();
+
   }
 }
 </script>
