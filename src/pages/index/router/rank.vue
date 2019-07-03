@@ -103,7 +103,11 @@ export default {
     },
     blurFun(){
       this.searchFlag=true;
-      this.list=2;
+      if(this.act2 =='fr act'){
+        this.list=1;
+      }else{
+        this.list=2;
+      }
     },
     handleScroll(e){
       let that =this;
