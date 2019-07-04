@@ -8,11 +8,11 @@
            <img slot="icon" style="margin-right:20px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
          </cell>
        </group>
-       <group>
+       <!-- <group>
          <cell title="通过身份证号找回" link="/card">
             <img slot="icon" style="margin-right:20px;margin-top:-5px;" src="../assets/card.png" height="20px;" alt="">
           </cell>
-      </group>
+      </group> -->
     </div>
 
   </div>

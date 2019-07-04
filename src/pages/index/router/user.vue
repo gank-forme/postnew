@@ -9,7 +9,7 @@
       </div>
       <h2 class="h2tit">兑换客服</h2>
       <div class="kf relative">
-        <span><em>QQ客服：</em>201293223</span>
+        <span><em>QQ客服：</em>{{tel}}</span>
         <img class="kf" src="../assets/tel.png" alt="">
       </div>
       <img class="botto" src="../assets/friend.png" alt="">
@@ -52,7 +52,30 @@ export default {
     }
   },
   created:function(){
-
+    let that =this;
+    Indicator.open('加载中');
+    this.axios({
+       method: 'get',
+       url: '/api/getPartner?num=',
+       data:{
+         phone:that.username,
+         password:that.password,
+         code:that.code
+       }
+     }).then(function (res) {
+       Indicator.close();
+       if(res.data.code==1){
+         that.imgArr = res.data.data.banner_list
+         that.tel = res.data.data.number
+       }else {
+         that.getCode();
+         Toast({
+           message: res.data.msg,
+           position: 'bottom',
+           duration: 1500
+         });
+       }
+     })
   }
 }
 </script>
@@ -165,12 +188,14 @@ export default {
 #user .imgBg {
   width: 100px;
   height: 50px;
-  background: url('../assets/imgBg.png') no-repeat;
-  background-size: 100%;
+  /* background: url('../assets/imgBg.png') no-repeat;
+  background-size: 100%; */
   text-align: center;
   line-height: 40px;
 }
 #user .imgBg img {
-  width: 60px;
+  width: 100%;
+  height: 50px;
+  object-fit: cover;
 }
 </style>

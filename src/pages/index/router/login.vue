@@ -131,7 +131,7 @@ export default {
 #login .logo {
   display: block;
   width: 150px;
-  margin: 80px auto;
+  margin: 60px auto;
 }
 #login .fromBox {
   width: 90%;
