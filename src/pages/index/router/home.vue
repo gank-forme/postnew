@@ -43,10 +43,10 @@ export default {
     },
     getList(){
       let that =this;
-      Indicator.open('加载中');
+      // Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/catLis',
+         url: '/api/catLis?',
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
