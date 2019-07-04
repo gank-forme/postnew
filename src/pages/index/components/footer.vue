@@ -1,6 +1,6 @@
 <template>
   <tabbar v-model='ind'>
-    <tabbar-item  link="/home" @click.native='navFun(0)'>
+    <tabbar-item  link="/home" >
       <img slot="icon" src="../assets/nav1-1.png">
       <img slot="icon-active" src="../assets/nav1.png">
       <span slot="label">首页</span>
@@ -10,12 +10,12 @@
       <img slot="icon-active" src="../assets/nav2.png">
       <span slot="label">优惠券</span>
     </tabbar-item>
-    <tabbar-item link="/convert" @click.native='navFun(2)'>
+    <tabbar-item :link='login?"/login":"/convert"' @click.native='navFun(2)'>
       <img slot="icon" src="../assets/nav3-1.png">
       <img slot="icon-active" src="../assets/nav3.png">
       <span slot="label">兑奖</span>
     </tabbar-item>
-    <tabbar-item link="/user" @click.native='navFun(3)'>
+    <tabbar-item :link='login?"/login":"/user"' @click.native='navFun(3)'>
       <img slot="icon" src="../assets/nav4-1.png">
       <img slot="icon-active" src="../assets/nav4.png">
       <span slot="label">个人中心</span>
@@ -34,12 +34,17 @@ export default {
   name: 'AppFooter',
   data () {
     return {
+      login:!sessionStorage.token,
       ind:0
     }
   },
   methods:{
     navFun(e){
-
+      if(!sessionStorage.token){
+        this.$router.push({
+          name:'login'
+        })
+      }
     }
   },
   created:function(){

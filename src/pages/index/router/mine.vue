@@ -41,8 +41,8 @@ export default {
     onItemClick (index) {
       let ind = {
         0:3,
-        1:1,
-        2:2
+        1:2,
+        2:1
       }
       this.myFun(ind[index]);
     },

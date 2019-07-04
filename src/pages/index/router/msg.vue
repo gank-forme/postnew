@@ -21,7 +21,7 @@
           <img class="tit" style="margin:10px 10px 10px 20px;" src="../assets/loc.png" height="20px;" alt="">
 
             <span style="color:#b8b7b7">请输入您的详细收获地址</span>
-            <x-textarea :max="20" placeholder="" v-model='address' @on-focus="onEvent('focus')" @on-blur="onEvent('blur')">
+            <x-textarea :max="80" placeholder="" v-model='address' @on-focus="onEvent('focus')" @on-blur="onEvent('blur')">
 
             </x-textarea>
 

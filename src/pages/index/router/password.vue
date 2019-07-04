@@ -3,24 +3,25 @@
     <x-header :left-options="{backText: ''}">密码找回</x-header>
     <div class="fromBox">
       <group>
-         <x-input type="text" placeholder="请输入注册时的手机号" v-model="phone" >
+         <x-input type="text" placeholder="请输入注册时的手机号" :max='11' v-model="phone" :show-clear='false'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/phone.png" height="20px;" alt="">
-           <x-button v-if='timer==60' slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
-           <x-button v-else slot="right" disabled mini @click.native='sendFun'>已发送 {{timer}}s</x-button>
+           <x-button v-if='phone.length==11 && sendF==0' slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
+           <x-button v-if='phone.length<11 && sendF==0' slot="right" disabled mini @click.native='sendFun'>发送验证码</x-button>
+           <x-button v-if='sendF==1' slot="right" disabled mini @click.native='sendFun'>已发送 {{timer}}s</x-button>
          </x-input>
        </group>
        <group>
-        <x-input type="text" placeholder="请输入验证码" v-model="msg" class="weui-vcode">
+        <x-input type="text" placeholder="请输入验证码" :max='4' v-model="msg" class="weui-vcode" :show-clear='false'>
           <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
         </x-input>
       </group>
       <group>
-         <x-input type="text" placeholder="请输入您的新密码" v-model="firstPass" >
+         <x-input type="password" placeholder="请输入您的新密码" v-model="firstPass" :show-clear='false'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/lock.png" height="20px;" alt="">
          </x-input>
        </group>
        <group>
-         <x-input placeholder="请输入验证码" v-model='code'>
+         <x-input placeholder="请输入验证码" :max='4' v-model='code' :show-clear='false'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
            <img slot="right-full-height" height="20px" :src="imgsrc">
          </x-input>
@@ -37,7 +38,7 @@ import axios from 'axios'
 import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 import { XInput, Group, XButton, Cell } from 'vux'
-
+var tim;
 export default {
   components: {
     XInput,
@@ -48,6 +49,7 @@ export default {
   name: 'app',
   data () {
     return {
+      sendF:0,
       timer:60,
       imgsrc:'',
       phone:'',
@@ -55,23 +57,25 @@ export default {
       code:'',
       firstPass:'',
       lastPass:''
-
     }
   },
   methods: {
     timFun(){
       let that =this;
-      let tim = setInterval(function(){
+      tim = setInterval(function(){
         that.timer --;
         if(that.timer<=0){
           clearInterval(tim);
           tim =null;
           that.timer =60;
+          that.sendF=0;
         }
       },1000);
     },
     sendFun(){
       let that =this;
+      that.sendF=1;
+      that.timFun();
       Indicator.open('加载中');
       this.axios({
          method: 'get',
@@ -79,7 +83,6 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.timFun();
 
          }else {
            Toast({
@@ -87,6 +90,10 @@ export default {
              position: 'bottom',
              duration: 1500
            });
+           clearInterval(tim);
+           tim =null;
+           that.timer =60;
+           that.sendF=0;
          }
        })
     },
@@ -116,7 +123,7 @@ export default {
            });
            setTimeout(function(){
              history.go(-2);
-           },2000)        
+           },2000)
          }else {
            that.getCode();
            Toast({

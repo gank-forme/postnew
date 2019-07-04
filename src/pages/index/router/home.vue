@@ -46,7 +46,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/catList?token='+sessionStorage.token,
+         url: '/api/catLis',
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
@@ -69,7 +69,7 @@ export default {
 
 <style>
 #home {
-  height: 100%;
+  min-height: 100%;
   background: url('../assets/bg.jpg') no-repeat;
   background-size: 100% 100%;
 }

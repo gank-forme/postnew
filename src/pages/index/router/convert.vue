@@ -4,12 +4,12 @@
     <div class="fromBox">
       <p class="tips">请输入您的兑换码</p>
       <group>
-         <x-input type="text" placeholder="如 789546212" v-model="num" >
+         <x-input type="text" :show-clear='false' placeholder="如 789546212" v-model="num" >
            <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/lock.png" height="20px;" alt="">
          </x-input>
        </group>
        <group>
-         <x-input placeholder="请输入验证码" v-model='code'>
+         <x-input :show-clear='false' :max='4' placeholder="请输入验证码" v-model='code'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
            <img slot="right-full-height" height="20px" :src="imgsrc" @click='getCode'>
          </x-input>
@@ -154,7 +154,7 @@ export default {
 #convert .fromBox {
   width: 90%;
   margin: 0 auto;
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 60px;
 }
 #convert .weui-cells {
