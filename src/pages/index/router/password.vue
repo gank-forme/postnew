@@ -3,7 +3,7 @@
     <x-header :left-options="{backText: ''}">密码找回</x-header>
     <div class="fromBox">
       <group>
-         <x-input type="text" placeholder="请输入注册时的手机号" :max='11' v-model="phone" :show-clear='false'>
+         <x-input   type="text" placeholder="请输入注册时的手机号" :max='11' v-model="phone" :show-clear='false'>
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/phone.png" height="20px;" alt="">
            <x-button v-if='phone.length==11 && sendF==0' slot="right" type="primary" mini @click.native='sendFun'>发送验证码</x-button>
            <x-button v-if='phone.length<11 && sendF==0' slot="right" disabled mini @click.native='sendFun'>发送验证码</x-button>
@@ -11,7 +11,7 @@
          </x-input>
        </group>
        <group>
-        <x-input type="text" placeholder="请输入验证码" :max='4' v-model="msg" class="weui-vcode" :show-clear='false'>
+        <x-input  type="text" placeholder="请输入验证码" :max='4' v-model="msg" class="weui-vcode" :show-clear='false'>
           <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
         </x-input>
       </group>
@@ -133,7 +133,14 @@ export default {
            });
          }
        })
-    }
+    },
+    fixScroll() {
+        let u = navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          window.scrollTo(0, 0);
+        }
+      }
   },
   created:function(){
     this.getCode();

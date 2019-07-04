@@ -8,7 +8,7 @@
          </x-input>
        </group>
        <group>
-         <x-input placeholder="请输入验证码">
+         <x-input  placeholder="请输入验证码">
            <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/msg.png" height="20px;" alt="">
            <img slot="right-full-height" height="20px" src="https://ws1.sinaimg.cn/large/663d3650gy1fq684go3glj203m01hmwy.jpg">
          </x-input>
@@ -44,6 +44,13 @@ export default {
   },
   methods: {
 
+    fixScroll() {
+        let u = navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          window.scrollTo(0, 0);
+        }
+      }
   },
   created:function(){
 

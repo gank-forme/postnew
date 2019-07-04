@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.58937421331a75a17374577922261a6c.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.b89cef0a4cc4f2965f33.js></script><script type=text/javascript src=/static/js/index.a30035ef29f9065a0127.js></script></body><script type=text/javascript>function getWx(){
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title></title><link href=/static/css/index.9f5cc4e0d953bb45dc764095bd34c9e8.css rel=stylesheet></head><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.b89cef0a4cc4f2965f33.js></script><script type=text/javascript src=/static/js/index.68dffbb8a8b1d820cf15.js></script></body><script type=text/javascript>function getWx(){
     //var urls = encodeURIComponent(window.location.href.split('#')[0]);
     var urls = encodeURIComponent(window.location.href.split('#')[0]);
 
@@ -66,6 +66,29 @@
     });
   };
 
+
+  (function () {
+    let myFunction
+    let isWXAndIos = isWeiXinAndIos()
+    if (isWXAndIos) {
+      document.body.addEventListener('focusin', () => {
+        clearTimeout(myFunction)
+      })
+      document.body.addEventListener('focusout', () => {
+        clearTimeout(myFunction)
+        myFunction = setTimeout(function() {
+          window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        }, 100)
+      })
+    }
+  })()
+
+  function isWeiXinAndIos () {
+    let ua = '' + window.navigator.userAgent.toLowerCase()
+    let isWeixin = /MicroMessenger/i.test(ua)
+    let isIos = /\(i[^;]+;( U;)? CPU.+Mac OS X/i.test(ua)
+    return isWeixin && isIos
+  }
 
   $(function(){
     //getWx();

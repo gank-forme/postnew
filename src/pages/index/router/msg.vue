@@ -8,12 +8,12 @@
          </x-input>
        </group>
        <group>
-          <x-input type="text" placeholder="请输入您的手机号" v-model="phone" >
+          <x-input  type="text" placeholder="请输入您的手机号" v-model="phone" >
             <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/phone.png" height="20px;" alt="">
           </x-input>
         </group>
         <group>
-           <x-input type="text" placeholder="请输入您的身份证件号码" v-model="card" >
+           <x-input  type="text" placeholder="请输入您的身份证件号码" v-model="card" >
              <img slot="label" style="margin-right:10px;margin-top:-5px;" src="../assets/card.png" height="20px;" alt="">
            </x-input>
          </group>
@@ -21,7 +21,7 @@
           <img class="tit" style="margin:10px 10px 10px 20px;" src="../assets/loc.png" height="20px;" alt="">
 
             <span style="color:#b8b7b7">请输入您的详细收获地址</span>
-            <x-textarea :max="80" placeholder="" v-model='address' @on-focus="onEvent('focus')" @on-blur="onEvent('blur')">
+            <x-textarea  :max="80" placeholder="" v-model='address' @on-focus="onEvent('focus')" >
 
             </x-textarea>
 
@@ -89,6 +89,13 @@ export default {
          }
        })
     },
+    fixScroll() {
+        let u = navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          window.scrollTo(0, 0);
+        }
+      }
   },
   created:function(){
 

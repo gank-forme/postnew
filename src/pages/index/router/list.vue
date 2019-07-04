@@ -98,7 +98,7 @@ export default {
     },
     getList1(){
       let that =this;
-      //Indicator.open('加载中');
+      Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/subcatList?token='+sessionStorage.token+'&fid='+sessionStorage.listId,
@@ -119,7 +119,7 @@ export default {
     getList(){
       this.scrollInd =1;
       let that =this;
-      //Indicator.open('加载中');
+      Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/goodsList?token='+sessionStorage.token+'&cat='+sessionStorage.title+'&page='+that.page,
@@ -140,7 +140,7 @@ export default {
     },
     pageScroll(){
       let that =this;
-      //Indicator.open('加载中');
+      Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/search?token='+sessionStorage.token+'&keyword='+that.search+'&page='+that.page,
@@ -168,7 +168,7 @@ export default {
       }else{
 
         let that =this;
-        //Indicator.open('加载中');
+        Indicator.open('加载中');
         this.axios({
            method: 'get',
            url: '/api/search?token='+sessionStorage.token+'&keyword='+that.search+'&page='+that.page,
@@ -194,7 +194,7 @@ export default {
       this.actIndex = i;
       this.keyword = e;
       let that =this;
-      //Indicator.open('加载中');
+      Indicator.open('加载中');
       this.axios({
          method: 'get',
          url: '/api/search?token='+sessionStorage.token+'&keyword='+e+'&page='+that.page,

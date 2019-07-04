@@ -120,7 +120,14 @@ export default {
            });
          }
        })
-    }
+    },
+    fixScroll() {
+        let u = navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          window.scrollTo(0, 0);
+        }
+      }
   },
   created:function(){
     this.getCode();

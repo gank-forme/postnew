@@ -7,17 +7,17 @@
     <img class="logo" src="../assets/logo.png" alt="">
     <div class="fromBox">
       <group>
-         <x-input type="text" placeholder="请输入您的账号" :max='11' v-model="username" :show-clear='false'>
+         <x-input  type="text" placeholder="请输入您的账号" :max='11' v-model="username" :show-clear='false'>
            <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/user.png" height="20px;" alt="">
          </x-input>
        </group>
        <group>
-        <x-input type="password" placeholder="请输入您的密码" v-model="password" :show-clear='false'>
+        <x-input  type="password" placeholder="请输入您的密码" v-model="password" :show-clear='false'>
           <img slot="label" style="margin-right:20px;margin-top:-5px;" src="../assets/pass.png" height="20px;" alt="">
         </x-input>
       </group>
       <group>
-        <x-input placeholder="请输入验证码" :max='4' v-model='code'>
+        <x-input  placeholder="请输入验证码" :max='4' v-model='code'>
           <img slot="right-full-height" height="20px" :src="imgsrc" @click='getCode'>
         </x-input>
       </group>
@@ -76,6 +76,7 @@ export default {
          if(res.data.code==1){
            //store.commit('loginFun',res.data.data);
            sessionStorage.token= res.data.data.token;
+           sessionStorage.linUrl = res.data.data.link_url;
            history.go(-1);
 
          }else {
@@ -90,7 +91,16 @@ export default {
     },
     getCode(){
       this.imgsrc='/api/getCode?'+Math.floor(Math.random() * 100);
-    }
+    },
+    fixScroll() {
+        let u = navigator.userAgent;
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+          setTimeout(function() {
+             var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;                window.scrollTo(0, Math.max(scrollHeight - 1, 0));
+          }, 200);
+        }
+      }
   },
   created:function(){
     this.getCode();
@@ -126,6 +136,7 @@ export default {
 #login .fromBox {
   width: 90%;
   margin: 0 auto;
+  padding-top: 0px;
 }
 #login .weui-cells {
   background: url('../assets/inpBg.png') no-repeat;

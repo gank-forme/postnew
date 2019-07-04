@@ -46,7 +46,7 @@ export default {
       // Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/catLis?',
+         url: '/api/catList',
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
