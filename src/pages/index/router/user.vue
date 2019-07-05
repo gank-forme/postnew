@@ -5,7 +5,7 @@
       <div class="maybe clearfix">
         <h1>我的兑换</h1>
         <img class="fl" src="../assets/my1.png" @click='myFun' alt="">
-        <img class="fr" src="../assets/my2.png" alt="">
+        <img class="fr" src="../assets/my2.png" @click='toOut' alt="">
       </div>
       <h2 class="h2tit">兑换客服</h2>
       <div class="kf relative">
@@ -14,9 +14,9 @@
       </div>
       <img class="botto" src="../assets/friend.png" alt="">
       <div class="imgBox relative clearfix">
-        <div v-for='(i,index) in imgArr' :key='index' class="imgBg">
-          <img :src="i" alt="">
-        </div>
+        <a v-for='(i,index) in imgArr' :key='index' :href="i.url"  class="imgBg">
+          <img :src="i.banner" alt="">
+        </a>
       </div>
     </div>
     <app-footer></app-footer>
@@ -39,6 +39,7 @@ export default {
   name: 'app',
   data () {
     return {
+      tel:'',
       imgArr:[
         img1,img2,img3,img4,img5,img6
       ]
@@ -49,6 +50,9 @@ export default {
       this.$router.push({
         name:'mine'
       })
+    },
+    toOut(){
+      location.href=sessionStorage.out_url
     }
   },
   created:function(){
@@ -186,6 +190,7 @@ export default {
   top: 60px;
 }
 #user .imgBg {
+  display: block;
   width: 100px;
   height: 50px;
   /* background: url('../assets/imgBg.png') no-repeat;
