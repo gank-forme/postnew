@@ -123,10 +123,42 @@ export default {
     },
     sub1Fun(){
       this.popupVisible=false;
+    },
+    getUserInfo(){
+      let that =this;
+      //Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/getuserinfo?code='+that.$route.query.code,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         that.homeIndex=2;
+         Indicator.close();
+         if(res.data.code==1){
+           localStorage.openid1 = res.data.data.openid;
+           localStorage.city = res.data.data.city;
+           localStorage.icon = res.data.data.icon;
+           localStorage.nickname = res.data.data.nickname;
+           localStorage.user_id = res.data.data.user_id;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
   created:function(){
     Indicator.close();
+    console.log(this.$route.query.code==undefined);
+    if(this.$route.query.code==undefined){
+
+      //console.log(222);
+    }else{
+       this.getUserInfo();
+    };
     //this.numFun();
   }
 }
