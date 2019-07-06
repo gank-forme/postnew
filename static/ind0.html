@@ -42,28 +42,27 @@
     //var urls = encodeURIComponent(window.location.href.split('#')[0]);
     var urls = encodeURIComponent(window.location.href.split('#')[0]);
 
-    var url = "/api/getsign";
+    var url = "/api/getconfig";
     $.ajax({
         url:url,
-        type: "POST",
+        type: "get",
         timeout: 15000,
-        contentType:"application/x-www-form-urlencoded",
-        data: {url:urls},
+        // contentType:"application/x-www-form-urlencoded",
+        // data: {url:urls},
         success:function (res) {
-          sessionStorage.appId= res.data.appId, // 必填，公众号的唯一标识
-          sessionStorage.timestamp=res.data.timestamp, // 必填，生成签名的时间戳
-          sessionStorage.nonceStr= res.data.nonceStr, // 必填，生成签名的随机串
-          sessionStorage.signature= res.data.signature,// 必填，签名
-
-          sessionStorage.shareTitle=res.data.title,
-          sessionStorage.shareCon=res.data.content,
-          sessionStorage.shareImg=res.data.image;
-
-
-          //sessionStorage.homeIndex=2;
-          console.log(window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html');
-          location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+res.data.appId+'&redirect_uri='+window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2findex.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
-
+           sessionStorage.appId= res.data.app_id; // 必填，公众号的唯一标识
+          // sessionStorage.timestamp=res.data.timestamp, // 必填，生成签名的时间戳
+          // sessionStorage.nonceStr= res.data.nonceStr, // 必填，生成签名的随机串
+          // sessionStorage.signature= res.data.signature,// 必填，签名
+          //
+          // sessionStorage.shareTitle=res.data.title,
+          // sessionStorage.shareCon=res.data.content,
+          // sessionStorage.shareImg=res.data.image;
+          //
+          //
+          // //sessionStorage.homeIndex=2;
+          // console.log(window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2find.html');
+          location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+res.data.app_id+'&redirect_uri='+window.location.protocol+'%2f%2f'+window.location.host+'%2fstatic%2findex.html&response_type=code&scope=snsapi_userinfo#wechat_redirect';
         },
         error: function (res) {
 

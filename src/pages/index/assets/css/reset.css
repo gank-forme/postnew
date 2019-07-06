@@ -70,6 +70,7 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           background-color: #03764D !important;
           color: #fff;
           position: fixed !important;
+          left: 0;
         }
         .weui-tabbar:before {
           display: none !important;
