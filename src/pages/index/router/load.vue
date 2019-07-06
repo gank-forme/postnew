@@ -219,7 +219,7 @@ export default {
     color: #028458;
     text-align: center;
   }
-  #load p span {
+  #load li p span {
     margin-right: 7px;
   }
   #load .liItem:nth-child(even){
