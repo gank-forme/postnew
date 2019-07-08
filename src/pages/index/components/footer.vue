@@ -159,7 +159,7 @@ export default {
 
     if((location.hash.indexOf('detail')<0)){
       wx.ready(function(){
-        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/index.html';
+        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind0.html';
         //alert(shareUrl);
         wx.onMenuShareAppMessage({
             title: that.shareTitle, // 分享标题
