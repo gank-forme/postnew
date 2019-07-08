@@ -3,7 +3,7 @@
     <x-header :left-options="{showBack: false}">邮储银行兑奖平台</x-header>
     <div class="content">
       <swiper :aspect-ratio="300/800" dots-position='center'>
-        <swiper-item class="swiper-demo-img" v-for="(item, index) in 3" :key="index"><img src="../assets/logo.png"></swiper-item>
+        <swiper-item v-for='(i,index) in bannerList' class="swiper-demo-img" :key="index"><img :src="i.banner"></swiper-item>
       </swiper>
       <ul class="clearfix liBox">
         <li v-for='(i,index) in dataList' :key='index' :id='i.id' @click='toList(i.title,i.id)'>
@@ -30,7 +30,8 @@ export default {
   name: 'app',
   data () {
     return {
-      dataList:[]
+      dataList:[],
+      bannerList:[]
     }
   },
   methods: {
@@ -59,10 +60,30 @@ export default {
            });
          }
        })
+    },
+    getBanner(){
+      let that =this;
+      // Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/getIndexBanner',
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.bannerList=res.data.data.banner_list;
+         }else {
+           Toast({
+             message: res.data.msg,
+             position: 'bottom',
+             duration: 1500
+           });
+         }
+       })
     }
   },
   created:function(){
     this.getList();
+    this.getBanner();
   }
 }
 </script>
@@ -79,7 +100,6 @@ export default {
   padding-top: 60px;
 }
 #home .vux-slider {
-  background: url('../assets/swiperBg.png') no-repeat;
   background-size: 100%;
   height: 150px;
   text-align: center;
@@ -123,6 +143,16 @@ export default {
 #home .li4 {
   background: url('../assets/li4.png') no-repeat -30px -20px;
   background-size: 124% 140%;
+}
+#home .swiper-demo-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#home .vux-swiper {
+  height: 100% !important;
+  border-radius: 5px;
 }
 
 

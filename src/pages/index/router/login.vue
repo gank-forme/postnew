@@ -77,6 +77,7 @@ export default {
            //store.commit('loginFun',res.data.data);
            sessionStorage.token= res.data.data.token;
            sessionStorage.linUrl = res.data.data.link_url;
+           sessionStorage.out_url =res.data.data.out_url;
            history.go(-1);
 
          }else {

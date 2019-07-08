@@ -54,9 +54,15 @@ export default {
    },
   methods: {
     toCon(){
-      this.$router.push({
-        name:'convert'
-      })
+      if(!sessionStorage.token){
+        this.$router.push({
+          name:'login'
+        })
+      }else {
+        this.$router.push({
+          name:'convert'
+        })
+      }
     },
     toTop(e) {
         if(!!this.scrollState){
