@@ -63,7 +63,8 @@
        let protocol = window.location.protocol;
        let host = window.location.hostname;
        let code = href.split("?")[1].split("&")[0].split("=")[1];
-       let wxUrl = `${protocol}//${host}/index.html#/load?code=${code}`;
+       let code1 = href.split('code=')[1].split("&")[0];
+       let wxUrl = `${protocol}//${host}/index.html#/load?code=${code1}`;
       let infoUrl = `${protocol}//${host}/index.html#/info`;
       //  alert(location.href.indexOf('info')>=0);
       if(location.href.indexOf('info')>=0){
@@ -74,6 +75,7 @@
          sessionStorage.isIndex=5;
       }else{
       //  alert(0);
+      console.log(code1);
        window.location.href = wxUrl;
      };
 
