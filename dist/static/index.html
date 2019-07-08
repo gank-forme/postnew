@@ -74,7 +74,8 @@
          sessionStorage.isIndex=5;
       }else{
       //  alert(0);
-       window.location.href = wxUrl;
+      alert(code);
+       window.location.href = window.location.protocol+'//'+window.location.host+'/index.html#/load?code='+code;
      };
 
   })
