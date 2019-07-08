@@ -57,6 +57,7 @@ export default {
            localStorage.nickname = res.data.data.nickname;
            localStorage.user_id = res.data.data.user_id;
 
+           that.toInfo1(that.infoNum,res.data.data.openid);
           }else {
             Indicator.close();
             Toast({
@@ -74,6 +75,29 @@ export default {
       this.axios({
          method: 'get',
          url: '/api/getdreambyid?openid='+localStorage.openid1+'&dream_id='+m,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           //store.commit('infoFun2',res.data.data);
+           that.infoData=res.data.data;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
+    toInfo1(m,n){
+      let that =this;
+      //console.log(this.value);
+      Indicator.open('加载中');
+      sessionStorage.dream_id=m;
+      this.axios({
+         method: 'get',
+         url: '/api/getdreambyid?openid='+n+'&dream_id='+m,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -140,7 +164,6 @@ export default {
     if(this.isIndex==5){
       if(this.$route.query.code!=''){
         this.getUserInfo();
-        this.toInfo(this.infoNum,1);
       }else {
         //  this.getWxconfig();
       }
