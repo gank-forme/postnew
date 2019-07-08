@@ -4,11 +4,11 @@
     <div class="registBox">
       <div class="userBox">
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
-        <input @blur='inputBlur' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
-        <input @blur='inputBlur' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
+        <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
+        <input @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
-          <picker :data='years' v-model='year3' @on-change='change'></picker>
+          <picker :data='years' v-model='year3' @on-change='changeFun'></picker>
         </div>
         <p>请填写真实信息</p>
         <div class="subBtn" @click='goHome'>确认提交</div>
@@ -30,19 +30,19 @@ import store from '../store.js'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 
 let years = []
-for (var i = 2000; i <= 2030; i++) {
-  years.push({
-    name: i + '年',
-    value: i + ''
-  })
-}
+// for (var i = 2000; i <= 2030; i++) {
+//   years.push({
+//     name: i + '年',
+//     value: i + ''
+//   })
+// }
 
 export default {
   name: 'app',
   data () {
     return {
       years: [years],
-      year3: ['2005'],
+      year3: ['1'],
       usernum:'',
       username:'',
       usercard:''
@@ -51,13 +51,21 @@ export default {
   methods: {
 
     goHome(){
+      console.log(this.year3[0]);
       let that =this;
       Indicator.open('加载中');
       this.axios({
          method: 'POST',
-         url: '/api/userupdate',
-         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-         data: qs.stringify({name:that.username,phone:that.usernum,openid:localStorage.openid1})
+         url: '/api/customer/bind',
+         // headers: { 'content-type': 'application/x-www-form-urlencoded' },
+         data: {
+           name:that.username,
+           phone:that.usernum,
+           openid:localStorage.openid1,
+           area_id:that.year3[0],
+           birthday:that.usercard,
+           is_read:1
+         }
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){//无绑定
@@ -80,12 +88,39 @@ export default {
     inputBlur(){
       window.scrollTo(0, 0)
     },
-    change (value) {
-      console.log('new Value', value)
+    changeFun (value) {
+      console.log(value);
     },
+    getList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/area/list?openid='+localStorage.openid1,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+          for (var i = 0; i<res.data.data.list.length; i++) {
+            years.push({
+              name: res.data.data.list[i].name,
+              value: res.data.data.list[i].id
+            })
+          }
+          console.log(that.years);
+        }else {
+          Indicator.close();
+          Toast({
+            message: res.data.msg,
+            duration: 1500
+          });
+        }
+       })
+    }
   },
   created:function(){
-    sessionStorage.homeIndex=2;
+    this.getList();
   }
 }
 </script>

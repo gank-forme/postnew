@@ -101,7 +101,7 @@ export default {
   },
   data () {
     return {
-      popupVisible:true,
+      popupVisible:false,
       imgUrl:'',
       txt1:'',
       show1:false,
@@ -194,10 +194,10 @@ export default {
       let data = new FormData()
       //data.append("openid",localStorage.openid);
       data.append("openid",localStorage.openid1);
-      data.append("image",that.images);
+      data.append("file",that.images);
       this.axios({
          method: 'post',
-         url: '/api/fileupload',
+         url: '/api/works/upload',
          headers: { 'content-type': 'multipart/form-data' },
          data: data
        }).then(function (res) {

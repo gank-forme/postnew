@@ -13,15 +13,15 @@
     </div>
     <div class="listIndex" v-if='loadIndex==2'>
       <div class="swi">
-        <span class="upload">上传照片</span>
+        <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <li class="liItem relative" v-for='i in 10' @click='liCli'>
-        <img class="photo" src="" alt="">
+      <li class="liItem relative" v-for='i in homeList' @click='liCli'>
+        <img class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
         <em class="absolute">热门</em>
         <div class="op absolute"></div>
         <p>
-          <span>林素梅</span>
-          <span><img src="" alt="">123123</span>
+          <span>{{i.authorname}}</span>
+          <span><img src="" alt="">{{i.vote}}</span>
           <span>投TA一票</span>
         </p>
       </li>
@@ -59,6 +59,7 @@ export default {
   name: 'app',
   data () {
     return {
+      homeList:[],
       appId:'',
       loadIndex:2,
       index:0,
@@ -123,6 +124,9 @@ export default {
     },
     sub1Fun(){
       this.popupVisible=false;
+      this.$router.push({
+        name:'login'
+      })
     },
     getUserInfo(){
       let that =this;
@@ -148,9 +152,31 @@ export default {
             });
           }
        })
+    },
+    getList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=10'
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           that.homeList=res.data.data.list;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
   created:function(){
+    localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
     Indicator.close();
     console.log(this.$route.query.code==undefined);
     if(this.$route.query.code==undefined){
@@ -159,7 +185,7 @@ export default {
     }else{
        this.getUserInfo();
     };
-    //this.numFun();
+    this.getList();
   }
 }
 
@@ -218,6 +244,7 @@ export default {
   #load .listIndex {
     clear: both;
     overflow: hidden;
+    padding-bottom: 60px;
   }
   #load .liItem {
     width: 48%;
@@ -225,6 +252,11 @@ export default {
 
     margin-top: 10px;
     background: #ddd;
+  }
+  #load .liItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   #load .liItem em {
     left: 0px;
