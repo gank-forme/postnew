@@ -173,7 +173,7 @@ export default {
             });
            wx.ready(function(){
 
-             let shareUrl = window.location.protocol+'//'+window.location.host+'/static/index.html';
+             let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind0.html';
              //alert(shareUrl);
              wx.onMenuShareAppMessage({
                  title: sessionStorage.shareTitle, // 分享标题
@@ -215,7 +215,7 @@ export default {
     }
   },
   created:function(){
-    if(this.$route.query.code!='' && this.homeIndex!=2){
+    if(this.$route.query.code!=undefined && this.homeIndex!=2){
       this.getUserInfo();
     }else {
       if(localStorage.openid1){
