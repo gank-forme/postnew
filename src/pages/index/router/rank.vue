@@ -272,6 +272,10 @@ function getResult (val) {
 </script>
 
 <style>
+.rank {
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
+}
 .weui-search-bar__cancel-btn {
   display: none !important;
 }
