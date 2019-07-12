@@ -46,7 +46,7 @@ export default {
     name: 'app',
     data () {
         return {
-          popupVisible:true,
+          popupVisible:false,
           lotteryStart: 0,
           prizeNo: 1,
           prizeNum: 6,
@@ -99,7 +99,7 @@ export default {
 
 }
 #lottery .mint-popup {
-  width: 70%;
+  width: 77%;
   text-align: center;
   color: #fff;
   background: none !important;

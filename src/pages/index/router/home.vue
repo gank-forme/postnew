@@ -27,11 +27,11 @@
       <p>3：凡在其他各类摄影大赛中已经获奖的作品(含收藏作品)，谢绝再次参评。</p>
       <p>4：本次活动所有参赛作品,邮储银行作为主办方,对所有参赛作品拥有商业使用权，作者享有署名权!</p>
       <div class="inpBox">
-        <input type="text" placeholder="请为照片命名  " name="" value="">
+        <input type="text" maxlength="8" v-model='titles' placeholder="请为照片命名  " name="" value="">
         <p>照片命名长度控制在8个汉字内</p>
       </div>
       <div class="textareaBox inpBox">
-        <textarea @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请为照片添加描述 " name="name"></textarea>
+        <textarea maxlength="500" @blur='inputBlur' id='textarea' v-model='txt1' placeholder="请为照片添加描述 " name="name"></textarea>
         <p>照片内容表述在500个汉字内</p>
       </div>
       <div class="xlog1" @click='xLog1'>
@@ -43,10 +43,11 @@
 
     <div v-transfer-dom>
       <x-dialog v-model="show1" class="dialog-demo" :hide-on-blur='true'>
-        <div class="preImg" @click = 'xLog1'>
+        <div class="preImg" >
           <img src="../assets/suc.png" alt="">
-          <h1>您已成功上传过梦想</h1>
-          <p>You have successfully <br>uploaded the dream</p>
+          <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
+          <p>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.  </p>
+          <img @click = 'xLog2' src="../assets/gb1.png" alt="">
         </div>
       </x-dialog>
     </div>
@@ -101,10 +102,11 @@ export default {
   },
   data () {
     return {
+      titles:'',
       popupVisible:false,
       imgUrl:'',
       txt1:'',
-      show1:false,
+      show1:true,
       show2:false,
       pVisible:false,
       subFlag:false,
@@ -288,15 +290,19 @@ export default {
 
        this.axios({
           method: 'post',
-          url: '/api/createdream',
-          headers: { 'content-type': 'multipart/form-data' },
-          data: data
+          url: '/api/works/add',
+          // headers: { 'content-type': 'multipart/form-data' },
+          data: {
+            openid:localStorage.openid1,
+            image:that.imgUrl,
+            s_image:that.s_imgUrl,
+            name:that.titles,
+            describe:that.txt1
+          }
         }).then(function (res) {
           Indicator.close();
           if(res.data.code==1){
-            that.$router.push({
-              name:"result"
-            });
+            that.show2=true;
             sessionStorage.res=1;
            }else {
              Indicator.close();
@@ -308,7 +314,9 @@ export default {
         })
      },
      xLog2(){
-       this.show2=!this.show2;
+       this.$router.push({
+         name:'lot'
+       })
      }
   },
   created:function(){
@@ -438,13 +446,12 @@ textarea::-webkit-textarea-placeholder {
 .preImg {
   position: fixed;
   width: 70%;
-  background: #fff;
   padding: 2%;
   text-align: center;
   top: 25%;
   left: 50%;
   margin-left: -37%;
-  color: #03764D;
+  color: #fff;
   border-radius: 10px;
   opacity: 0.9;
 }
@@ -480,7 +487,7 @@ textarea::-webkit-textarea-placeholder {
 }
 #passport .imgBox {
   width: 235px;
-  height: 322px;
+  min-height: 100px;
   background: #ddd;
   margin: 0 auto;
   margin-top: 50px;

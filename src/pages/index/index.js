@@ -82,7 +82,7 @@ const router = new VueRouter({
   routes: [
     // 动态路径参数 以冒号开头
     { path: '/home', component: home,name:'home'},
-    { path: '/lottery', component: lot,name:'lot'},
+    { path: '/lot', component: lot,name:'lot'},
     { path: '/load', component: load,name:'load'},
     { path: '/detail', component: detail,name:'detail' },
     { path: '/result', component: result,name:'result' },
