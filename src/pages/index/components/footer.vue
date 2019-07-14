@@ -4,7 +4,7 @@
       <img class="w90" slot="icon" src="../assets/nav1.png">
       <span slot="label">活动</span>
     </tabbar-item>
-    <tabbar-item  :link="nav2" >
+    <tabbar-item  link="/lot" >
       <img class="w90" slot="icon" src="../assets/nav2.png">
       <span slot="label">抽奖</span>
     </tabbar-item>
@@ -12,7 +12,7 @@
       <img slot="icon" src="../assets/nav4.png">
       <span slot="label">排行榜</span>
     </tabbar-item>
-    <tabbar-item  :link="nav5" @click.native='nav5Fun'>
+    <tabbar-item  link="/info" >
       <img class="w90" slot="icon" src="../assets/nav5.png">
       <span slot="label">我的</span>
     </tabbar-item>

@@ -7,6 +7,7 @@
 
     <search v-if='ind==2'
     @on-change="getResult"
+    @on-focus='focusFun'
     v-model="value"
     position="absolute"
     auto-scroll-to-top
@@ -26,14 +27,14 @@
     <div v-if='ind==2' class="content relative">
 
       <div :class="searchFlag?'listBox':'listBox sea'">
-        <div v-for='i in 20' class="listItem clearfix">
-          <img class="fl peo"  alt="">
-          <em v-if='i<=3'><img :src="numList[i-1]" alt=""></em>
-          <em v-else >{{i}}</em>
+        <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
+          <img class="fl peo" :src="i.icon"  alt="">
+          <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
+          <em v-else >{{i.ranking}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
-              <span class="fl">123123</span>
-              <span class="fr">票数：123</span>
+              <span class="fl">{{i.user_name}}</span>
+              <span class="fr">票数：{{i.vote}}</span>
             </h1>
           </div>
         </div>
@@ -42,7 +43,7 @@
     </div>
     <div v-if='ind==1' class="content content1 relative clearfix">
       <h1>请选择您所在的赛区</h1>
-      <span  class="addItem" v-for='(i,index) in add' :key='index' @click='addFun(i)'>{{i}}赛区</span>
+      <span  class="addItem" v-for='(i,index) in add' :key='index' @click='addFun(i.name,i.id)'>{{i.name}}</span>
 
     </div>
     <app-footer></app-footer>
@@ -76,19 +77,48 @@ export default {
       numList:[num1,num2,num3],
       addFlag:false,
       addTxt:'',
-      add:['北京','天津','河北省','山西省','内蒙古区','辽宁省','吉林省','浙江省','安徽省','江苏省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西省','海南省','重庆','四川省','贵州省','云南省','西藏区','陕西省','甘肃省','青海省','宁夏区','新疆区','大连区','厦门','宁波','青岛','深圳']
+      add:[]
     }
   },
   created:function(){
-
+    this.areaList();
   },
   mounted(){
     window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
+    detailFun(e){
+      sessionStorage.detailId= e;
+      this.$router.push({
+        name:'detail'
+      })
+    },
+    areaList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: 'api/area/list?openid='+localStorage.openid1,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.add=res.data.data.list;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+            that.listArr=[];
+          }
+       })
+    },
+
     focusFun(){
-      this.searchFlag=false;
-      this.list=1;
+      this.$router.push({
+        name:'before'
+      })
       // this.listArr=[];
     },
     blurFun(){
@@ -220,39 +250,36 @@ export default {
     },
     navFun(e){
       this.ind = e;
+      if(e==2){
+        this.toInfo();
+      }
     },
-    addFun(e){
+    addFun(e,m){
       this.addFlag=true;
       sessionStorage.addTxt =e;
+      sessionStorage.addId =m;
       this.$router.push({
         name:'list'
-      })
+      });
     },
-    toInfo(m,n){
+    toInfo(){
       let that =this;
-      console.log(this.value);
-      //Indicator.open('加载中');
-      sessionStorage.userImg=n;
-      sessionStorage.isIndex=1;
+      Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/getdreambyid?openid='+localStorage.openid1+'&dream_id='+m,
+         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10',
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           store.commit('infoFun2',res.data.data);
-           sessionStorage.userImg=n;
-           that.$router.push({
-             name:'info'
-           });
-           sessionStorage.dream_id=m;
+           that.listArr=res.data.data.list;
           }else {
             Indicator.close();
             Toast({
               message: res.data.msg,
               duration: 1500
             });
+            that.listArr=[];
           }
        })
     }

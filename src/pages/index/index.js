@@ -30,6 +30,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import {ImageUpload , ImagePreview} from 'vue-image-upload-preview'
 import {XHeader,XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,ConfirmPlugin,LoadingPlugin,Cell, Flow, FlowState, FlowLine, XInput, Group ,PopupPicker,Picker} from 'vux'
+// 以 plugin 形式使用时，请在入口处引入：
+import { DatetimePlugin } from 'vux'
+Vue.use(DatetimePlugin)
 import 'mint-ui/lib/style.css'
 import {Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false

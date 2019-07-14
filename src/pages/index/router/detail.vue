@@ -1,35 +1,35 @@
 <template>
   <div id="detail" class='comon'>
-    <x-header :left-options="{backText: ''}">信息提交</x-header>
+    <x-header :left-options="{backText: ''}">照片展示</x-header>
 
     <div class="registBox relative">
       <div class="userBox ">
         <div class="clearfix">
           <img class="headImg fl" :src="icon" alt="">
-          <p class="fl p1">驱蚊器翁</p>
-          <p class="fl p2">20123123</p>
+          <p class="fl p1">{{name}}</p>
+          <p class="fl p2">发布于 {{time}}</p>
         </div>
         <div v-if='status!=4 && status!=3' style="padding-bottom:20px;">
           <div class="infoBox">
-            <img :src="deatilData.image" alt="">
+            <img :src="img" alt="">
             <!-- <img src="../assets/banner1_02.jpg" alt=""> -->
           </div>
           <h3>
-            <p>《说的方法》</p>
+            <p>《{{name1}}》</p>
           </h3>
           <img class="log" src="../assets/logo.png" alt="">
           <div class="clearfix relative">
             <div class="liBox fl">
               <img src="../assets/de2.png" alt="">
-              <h1>123123</h1>
+              <h1>{{voto}}</h1>
               <p>当前点赞数</p>
             </div>
             <div class="liBox absolute">
               <img src="../assets/de1.png" alt="">
-              <h1>123123</h1>
+              <h1>{{rank}}</h1>
               <p>当前全国排名</p>
             </div>
-            <div class="liBox fr">
+            <div class="liBox fr" @click='shareBtn'>
               <img src="../assets/de3.png" alt="">
               <h1>分享</h1>
               <p>帮TA分享</p>
@@ -50,7 +50,6 @@
     <div v-transfer-dom>
       <x-dialog v-model="show2" class="dialog-demo3">
         <div class="img0">
-          <img src="../assets/more.png" alt="">
         </div>
         <div class="img1">
           <img src="../assets/guide.png" alt="">
@@ -78,15 +77,23 @@ export default {
   name: 'app',
   data () {
     return {
-      status:sessionStorage.status,
-      txt:'',
       show2:false,
-      name:localStorage.nickname,
-      icon:localStorage.icon,
+      status:1,
+      txt:'',
+      name:'',
+      name1:'',
+      time:'',
+      icon:'',
+      img:'',
+      voto:'',
+      rank:'',
       deatilData:''
     }
   },
   methods: {
+    shareBtn(){
+      this.show2 =true;
+    },
     xLog2(){
       this.show2=!this.show2
     },
@@ -101,12 +108,19 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/getdreambyuser?openid='+localStorage.openid1,
+         url: '/api/works/info?openid='+localStorage.openid1+'&id='+sessionStorage.detailId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-            that.deatilData=res.data.data;
+           that.icon = res.data.data.author_icon;
+           that.name =res.data.data.author_name;
+           that.time =res.data.data.create_time;
+           that.img ='http://photo.marketservice.cn'+res.data.data.img;
+           that.name1 =res.data.data.name;
+           that.voto =res.data.data.vote;
+           that.rank =res.data.data.total_ranking;
+
           }else {
             Indicator.close();
             Toast({
@@ -115,31 +129,10 @@ export default {
             });
           }
        })
-    },
-    wxShare(e){
-      let that = this;
-      console.log(wx);
-      wx.ready(function(){
-        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind.html?info='+e+'&sd='+sessionStorage.appId;
-        wx.onMenuShareAppMessage({
-            title: that.deatilData.title, // 分享标题
-            desc: that.deatilData.detail, // 分享描述
-            link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: that.deatilData.image, // 分享图标
-            success: function () {
-              // 设置成功
-            }
-        });
-
-      });
-      wx.error(function(res){
-        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-        console.log(res);
-      });
     }
   },
   created:function(){
-
+    this.detailFu();
   }
 }
 </script>
@@ -149,6 +142,8 @@ export default {
   min-height: 100%;
   clear: both;
   overflow: hidden;
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #detail .registBox {
   text-align: center;

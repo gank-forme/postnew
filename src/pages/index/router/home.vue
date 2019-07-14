@@ -44,7 +44,7 @@
     <div v-transfer-dom>
       <x-dialog v-model="show1" class="dialog-demo" :hide-on-blur='true'>
         <div class="preImg" >
-          <img src="../assets/suc.png" alt="">
+          <img src="../assets/Succ.png" alt="">
           <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
           <p>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.  </p>
           <img @click = 'xLog2' src="../assets/gb1.png" alt="">

@@ -1,35 +1,48 @@
 <template>
   <div id="info" class='comon'>
-    <x-header :left-options="{backText: ''}"></x-header>
-
+    <x-header >作者信息<a slot="right" @click='shareBtn'>分享</a></x-header>
     <div class="registBox">
       <div class="userBox">
-        <img class="headImg" src="" alt="">
-        <p>说的方法</p>
+        <img class="headImg" :src="icon" alt="">
+        <p>{{name}}</p>
         <div class="infoBox">
-          <h1 class='clearfix'><span class="fl">北京 赛区</span>  <span class="fr">女 65</span></h1>
+          <h1 class='clearfix'><span class="fl">{{area}}</span>  <span class="fr">{{sex}} {{age}}</span></h1>
           <h2>希望每个人都可以在自己的分享中得到快乐</h2>
         </div>
       </div>
       <div class="userBox clearfix">
-        <img @click='navFun(1)' class="navl" src="../assets/111.png" alt="">
-        <img @click='navFun(2)' class="navl" src="../assets/222.png" alt="">
+        <img @click='navFun(2)' class="navl" src="../assets/111.png" alt="">
+        <img @click='navFun(1)' class="navl" src="../assets/222.png" alt="">
       </div>
       <div v-if='ind==1' class="userBox">
         <div class="txt">
           <h1>当前北京赛区排名</h1>
           <h2>Current ranking of Beijing Branch</h2>
-          <h3>16</h3>
+          <h3>{{local_ranking}}</h3>
           <h1>当前全国排名</h1>
           <h2>Current National Ranking</h2>
-          <h3>16123</h3>
+          <h3>{{total_ranking}}</h3>
         </div>
       </div>
       <div v-else class="picBox clearfix">
-        <img v-for='i in 10' src="" alt="">
+        <img  :src="imgs" alt="">
       </div>
     </div>
+    <img  id="rec" src="../assets/rec.png" @click='toRec' alt="">
     <app-footer message='zan'></app-footer>
+
+    <div v-transfer-dom>
+      <x-dialog v-model="show2" class="dialog-demo3">
+
+        <div class="img1">
+          <img width="80%" src="../assets/guide.png" alt="">
+        </div>
+        <p>将梦想分享给更多的人<br>Share your dreams with more people </p>
+        <div class="img2">
+          <img width="30px" @click = 'xLog2' src="../assets/gb1.png" alt="">
+        </div>
+      </x-dialog>
+    </div>
   </div>
 </template>
 
@@ -37,22 +50,70 @@
 import qs from 'qs'
 import axios from 'axios'
 import store from '../store.js'
-import { MessageBox,Toast,Indicator } from 'mint-ui'
+import { MessageBox,Toast,Indicator,TransferDomDirective as TransferDom} from 'mint-ui'
 export default {
+  directives: {
+    TransferDom
+  },
   name: 'app',
   data () {
     return {
-      ind:1
+      show2:false,
+      ind:1,
+      area:'',
+      sex:'',
+      age:'',
+      icon:'',
+      name:'',
+      total_ranking:'',
+      local_ranking:'',
+      imgs:''
       //infoData:''
     }
   },
   methods: {
     navFun(e){
       this.ind =e;
-    }
+    },
+    toRec(){
+      this.$router.push({
+        name:'result'
+      })
+    },
+    shareBtn(){
+      this.show2 =true;
+    },
+    xLog2(){
+      this.show2 =false;
+    },
   },
   created:function(){
+    let that =this;
+    Indicator.open('加载中');
+    this.axios({
+       method: 'get',
+       url: '/api/customer/info?openid='+localStorage.openid1
+       //data: qs.stringify(data)
+     }).then(function (res) {
 
+       Indicator.close();
+       if(res.data.code==1){
+         that.icon=res.data.data.icon;
+         that.name=res.data.data.name;
+         that.area=res.data.data.area;
+         that.sex=res.data.data.sex;
+         that.local_ranking=res.data.data.works.local_ranking;
+         that.total_ranking=res.data.data.works.total_ranking;
+         that.age=res.data.data.age;
+         that.imgs='http://photo.marketservice.cn'+res.data.data.works.img;
+        }else {
+          Indicator.close();
+          Toast({
+            message: res.data.msg,
+            duration: 1500
+          });
+        }
+     })
   }
 }
 </script>
@@ -205,5 +266,34 @@ export default {
 }
 #info .picBox img:nth-child(even) {
   float: right;
+}
+#rec {
+  width: 40px;
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+}
+.dialog-demo3 .weui-dialog{
+  background: none;
+  color: #fff;
+  font-size: 13px;
+}
+#info .img0 {
+  text-align: right;
+}
+#info .img1 {
+  text-align: right;
+}
+#info .img1 img{
+  width: 60%;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+#info .img2 {
+  text-align: center;
+  margin-top: 150px;
+}
+#info .img2 img {
+  width: 40px;
 }
 </style>

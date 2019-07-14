@@ -1,10 +1,15 @@
 <template>
   <div id="before" class='comon'>
-    <app-header></app-header>
+    <div class="header clearfix" >
+      <span class="fr" @click='goback'>返回</span>
+      <span class="fl">
+        <input v-model='rst' @input='changeFun' placeholder="搜索照片名称或作者" type="text" name="" value="">
+      </span>
+    </div>
     <div v-if='ind==1' class="registBox">
       <div class="userBox">
         <h1>热门搜索</h1>
-        <span class='spanItem' v-for='i in spanList'>{{i}}</span>
+        <span class='spanItem' v-for='i in spanList'>{{i.keyword}}</span>
       </div>
     </div>
 
@@ -43,15 +48,68 @@ export default {
   name: 'app',
   data () {
     return {
-      ind:2,
-      spanList:['有深度','啥电','啥电费发啥电','啥的','sdfsfsdf','啛啛喳喳','有深度','啥电','啥电费发啥电','啥的','sdfsfsdf','啛啛喳喳']
+      rst:'',
+      ind:1,
+      spanList:[]
     }
   },
   methods: {
+    goback(){
+      history.go(-1);
+    },
+    hotList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/works/hsearch?openid='+localStorage.openid1,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.spanList=res.data.data.list;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+            that.listArr=[];
+          }
+       })
+    },
+    getResult(e){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/works/search?openid='+localStorage.openid1+'&keyword='+e+'&length=10',
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
 
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+            that.listArr=[];
+          }
+       })
+    },
+    changeFun(){
+      if(this.rst!=''){
+        this.ind =2;
+        this.getResult(this.rst);
+      }else{
+        this.ind=1;
+      }
+    }
   },
   created:function(){
-
+    this.hotList();
   }
 }
 </script>
@@ -134,5 +192,14 @@ export default {
   width: 15px;
 }
 
+.header input {
+  width: 303px;
+  font-size: 13px;
+  padding: 0 10px;
+  height: 22px;
+  border-radius: 22px;
+  color: #028458;
+  text-align: center;
+}
 
 </style>

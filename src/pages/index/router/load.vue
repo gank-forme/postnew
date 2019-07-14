@@ -1,5 +1,5 @@
 <template>
-  <div id="load" :class="loadIndex==2?'comon':''">
+  <div id="load" :class="loadIndex==2?'':''">
     <app-header v-if='loadIndex==2'></app-header>
     <div class="load " v-if='loadIndex==0'>
       <img class="logo" src="../assets/logo.png" alt="">
@@ -13,16 +13,17 @@
     </div>
     <div class="listIndex" v-if='loadIndex==2'>
       <div class="swi">
+        <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <li class="liItem relative" v-for='i in homeList' @click='liCli'>
-        <img class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
+      <li class="liItem relative" v-for='i in homeList' >
+        <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
         <em class="absolute">热门</em>
         <div class="op absolute"></div>
         <p>
-          <span>{{i.authorname}}</span>
-          <span><img src="" alt="">{{i.vote}}</span>
-          <span>投TA一票</span>
+          <span class="scaName">{{i.authorname}}</span>
+          <span class="sca">当前票数 <em>{{i.vote}}</em></span>
+          <span class='vote' @click="votCli(i.id)">投TA一票</span>
         </p>
       </li>
     </div>
@@ -80,6 +81,7 @@ export default {
     }
   },
   methods: {
+
     numFun(){
       let that =this;
       let timer = setInterval(function(){
@@ -173,6 +175,40 @@ export default {
             });
           }
        })
+    },
+    detailFun(e){
+      sessionStorage.detailId= e;
+      this.$router.push({
+        name:'detail'
+      })
+    },
+    votCli(e){
+      let that =this;
+    //  Indicator.open('加载中');
+      this.axios({
+         method: 'put',
+         url: '/api/works/vote',
+         data: {
+           openid:localStorage.openid1,
+           id:e
+         }
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           Toast({
+             message: '投票成功',
+             duration: 1500
+           });
+           that.getList();
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
   created:function(){
@@ -197,7 +233,7 @@ export default {
     clear: both;
     overflow: auto;
     height: 100%;
-    background: url('../assets/image/ban.png') no-repeat center;
+    background: url('../assets/combg.png') no-repeat center;
     background-size: 100% 100%;
   }
   #load .logo {
@@ -247,7 +283,7 @@ export default {
     padding-bottom: 60px;
   }
   #load .liItem {
-    width: 48%;
+    width: 49%;
     height: 180px;
 
     margin-top: 10px;
@@ -270,7 +306,7 @@ export default {
     width: 100%;
     height: 30px;
     background: #fff;
-    opacity: 0.5;
+    opacity: 0.9;
     bottom:0px;
   }
   #load .liItem p {
@@ -283,9 +319,7 @@ export default {
     color: #028458;
     text-align: center;
   }
-  #load li p span {
-    margin-right: 7px;
-  }
+
   #load .liItem:nth-child(even){
     float: left;
   }
@@ -301,10 +335,10 @@ export default {
 .vux-slider,.vux-swiper {
   height: 100%;
 }
-.alerCon {
+#load .alerCon {
   width: 250px;
 }
-.alerCon span {
+#load .alerCon span {
   width: 120px;
   display: block;
   margin: 0 auto;
@@ -312,5 +346,38 @@ export default {
 }
 #load .mint-popup {
   background: none !important;
+}
+#load p span.vote {
+  position: absolute;
+  right: -5px;
+  display: inline-block;
+  transform: scale(0.8);
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  width: 70px;
+  background: #028458;
+  color: #fff;
+  margin-top: 5px;
+  border-radius: 20px;
+}
+#load p span.sca em {
+  font-size: 14px;
+  background: none;
+    padding: 0;
+}
+#load span.sca {
+  display: inline-block;
+  transform: scale(0.8);
+  float: left;
+}
+#load span.scaName {
+  float: left;
+  display: inline-block;
+  width: 48px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 5px;
 }
 </style>

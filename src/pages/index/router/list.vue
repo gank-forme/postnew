@@ -6,6 +6,7 @@
 
     <search
     @on-change="getResult"
+    @on-focus="onFocus"
     v-model="value"
     position="absolute"
     auto-scroll-to-top
@@ -21,14 +22,14 @@
     <div class="content relative">
 
       <div :class="searchFlag?'listBox':'listBox sea'">
-        <div v-for='i in 20' class="listItem clearfix">
-          <img class="fl peo"  alt="">
-          <em v-if='i<=3'><img :src="numList[i-1]" alt=""></em>
-          <em v-else >{{i}}</em>
+        <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
+          <img class="fl peo" :src="i.icon"  alt="">
+          <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
+          <em v-else >{{i.ranking}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
-              <span class="fl">123123</span>
-              <span class="fr">票数：123</span>
+              <span class="fl">{{i.user_name}}</span>
+              <span class="fr">票数：{{i.vote}}</span>
             </h1>
           </div>
         </div>
@@ -70,15 +71,43 @@ export default {
     }
   },
   created:function(){
-
+    this.rankList();
   },
   mounted(){
     window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
-    focusFun(){
-      this.searchFlag=false;
-      this.list=1;
+    detailFun(e){
+      sessionStorage.detailId= e;
+      this.$router.push({
+        name:'detail'
+      })
+    },
+    rankList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10&area_id='+sessionStorage.addId,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           that.listArr=res.data.data.list;
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+            that.listArr=[];
+          }
+       })
+    },
+    onFocus(){
+      this.$router.push({
+        name:'before'
+      })
       // this.listArr=[];
     },
     blurFun(){
@@ -215,34 +244,7 @@ export default {
       this.addFlag=true;
       this.addTxt =e;
     },
-    toInfo(m,n){
-      let that =this;
-      console.log(this.value);
-      //Indicator.open('加载中');
-      sessionStorage.userImg=n;
-      sessionStorage.isIndex=1;
-      this.axios({
-         method: 'get',
-         url: '/api/getdreambyid?openid='+localStorage.openid1+'&dream_id='+m,
-         //data: qs.stringify(data)
-       }).then(function (res) {
-         Indicator.close();
-         if(res.data.code==1){
-           store.commit('infoFun2',res.data.data);
-           sessionStorage.userImg=n;
-           that.$router.push({
-             name:'info'
-           });
-           sessionStorage.dream_id=m;
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
-    }
+
   },
 
 }
@@ -494,5 +496,9 @@ span.act {
 .content1 .addItem:nth-child(odd){
   float: right;
   margin-right: 20px;
+}
+.rank {
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 </style>

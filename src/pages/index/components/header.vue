@@ -2,7 +2,7 @@
   <div class="header clearfix" >
     <span class="fl">活动</span>
     <span class="fr">
-      <input placeholder="搜索照片名称或作者" type="text" name="" value="">
+      <input @focus="onFocus" placeholder="搜索照片名称或作者" type="text" name="" value="">
     </span>
   </div>
 </template>
@@ -12,6 +12,14 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods:{
+    onFocus(){
+      this.$router.push({
+        name:'before'
+      })
+      // this.listArr=[];
     }
   }
 }

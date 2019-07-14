@@ -1,17 +1,14 @@
 <template>
-  <div id="result" class="comon">
-    <app-header></app-header>
+  <div id="result" class="">
+    <x-header >中奖纪录</x-header>
 
     <div class="content">
-      <img v-if='res==1' class="res_logo" src="../assets/suc.png" alt="">
-      <img v-if='res==2' class="res_logo" src="../assets/zan1.png" alt="">
-      <h1>您已成功{{res==1?'上传':'点赞'}}</h1>
-      <p>You have successfully uploaded </p>
-
-      <div class="btns" @click='goRank'>查看排行</div>
-      <div class="btns" @click='goOn'>继续点赞</div>
-
-      <img class='gbBtn' @click='goback' src="../assets/gb.png" alt="">
+      <h1>您的中奖信息如下</h1>
+      <p>Your winning information is as follows</p>
+      <div v-for='(i,index) in listArr'  class="reslist">
+        <img :src='"http://photo.marketservice.cn"+i.prize_img' alt="">
+        <span>{{i.prize_name}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -26,45 +23,39 @@ export default {
   name: 'app',
   data () {
     return {
-      res:sessionStorage.res,
-      resultSrc:''
+      listArr:[],
+      img:'',
+      prize_name:''
     }
 
   },
 
   methods:{
-    goback(){
-      history.go(-1);
+    getList(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: 'api/prize/win?openid='+localStorage.openid1,
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           //that.add=res.data.data.list;
+           that.listArr = res.data.data.list
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+            that.listArr=[];
+          }
+       })
     },
-    goOn(){
-      history.go(-2);
-    },
-    goRank(){
-      this.$router.push({
-        name:'rank'
-      });
-      sessionStorage.toZan=2;
-    }
   },
   created:function(){
-    sessionStorage.homeIndex=2;
-     // this.axios({
-     //    method: 'get',
-     //    url: '/api/list?page=10',
-     //    //data: qs.stringify(data)
-     //  }).then(function (res) {
-     //
-     //    Indicator.close();
-     //    if(res.data.code==1){
-     //
-     //     }else {
-     //       Indicator.close();
-     //       Toast({
-     //         message: res.data.msg,
-     //         duration: 1500
-     //       });
-     //     }
-     //  })
+    this.getList();
   }
 }
 </script>
@@ -89,39 +80,41 @@ export default {
   bottom: 0px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: url('../assets/logBg.png') no-repeat center;
   background-size: 100% 100%;
 }
-#result .content .res_logo{
-  margin-top: 50px;
-  margin-bottom: 20px;
-  width: 30px;
-}
+
 #result .content h1{
-  font-size: 14px
+  font-size: 18px;
+  font-weight:600;
+  padding-top: 20px;
 }
 #result .content p{
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 20px;
 }
-#result .content .btns{
-  width: 250px;
-  height: 32px;
-  color: #fff;
-  font-size: 13px;
-  text-align: center;
-  line-height: 32px;
+#result .reslist {
+  clear: both;
+  overflow: hidden;
+  line-height: 60px;
+  text-align: left;
+  width: 96%;
   margin: 0 auto;
-  margin-top: 10px;
-  background: #03764D;
+  background-color: rgba(255,255,255,0.5);
+  padding: 5px;
+  margin-bottom: 10px;
 }
-#result .content img.gbBtn{
-  width: 30px;
-  height: 30px;
+#result .reslist img{
   display: block;
-  left: 50%;
-  margin-left: -15px;
-  position: absolute;
-  bottom: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  background: #C8DCDB;
+  float: left;
+
+}
+#result .reslist span{
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
 }
 </style>

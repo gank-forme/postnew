@@ -5,16 +5,17 @@
       <div class="userBox">
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
-        <input @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
+        <input @focus='showPlugin' @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
           <picker :data='years' v-model='year3' @on-change='changeFun'></picker>
         </div>
         <p>请填写真实信息</p>
         <div class="subBtn" @click='goHome'>确认提交</div>
-        <h5 class="clearfix">
-          <em class="fl"></em>
-          <span class="fl">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
+        <h5 @click='selFun' class="clearfix">
+          <em  v-if='!sel' class=""></em>
+          <img class="" width="15px" v-else src="../assets/seled.png" alt="">
+          <span class="">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
         </h5>
       </div>
     </div>
@@ -27,20 +28,21 @@
 import qs from 'qs'
 import axios from 'axios'
 import store from '../store.js'
+import { Datetime} from 'vux'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 
 let years = []
-// for (var i = 2000; i <= 2030; i++) {
-//   years.push({
-//     name: i + '年',
-//     value: i + ''
-//   })
-// }
+
 
 export default {
+  components: {
+    Datetime
+  },
   name: 'app',
   data () {
     return {
+      sel:false,
+      value1: '2015-11-12',
       years: [years],
       year3: ['1'],
       usernum:'',
@@ -49,7 +51,27 @@ export default {
     }
   },
   methods: {
-
+    selFun (){
+      this.sel =!this.sel;
+    },
+    showPlugin () {
+      let that =this;
+      this.$vux.datetime.show({
+        cancelText: '取消',
+        confirmText: '确定',
+        format: 'YYYY-MM-DD',
+        value: '2000-01-01',
+        onConfirm (val) {
+          that.usercard=val;
+        },
+        onShow () {
+          console.log('plugin show')
+        },
+        onHide () {
+          console.log('plugin hide')
+        }
+      })
+    },
     goHome(){
       console.log(this.year3[0]);
       let that =this;
@@ -64,7 +86,7 @@ export default {
            openid:localStorage.openid1,
            area_id:that.year3[0],
            birthday:that.usercard,
-           is_read:1
+           is_read:that.sel?1:0
          }
        }).then(function (res) {
          Indicator.close();
@@ -235,16 +257,23 @@ export default {
 }
 #login .userBox h5 em {
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 9px;
   border: 1px solid #03764D;
   border-radius: 2px;
-  margin-top: -3px;
-  margin-right: 5px;
+  margin-top: 0px;
+  margin-right: 2px;
 }
 #login .userBox h5 span {
   font-size: 12px;
   width: 90%;
 
+}
+#login .userBox h5 img{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  margin-right: 0px;
 }
 </style>
