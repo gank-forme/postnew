@@ -29,8 +29,8 @@
         url:url,
         type: "POST",
         timeout: 15000,
-        contentType:"application/x-www-form-urlencoded",
-        data: {url:urls},
+        // contentType:"application/x-www-form-urlencoded",
+        // data: {url:urls},
         success:function (res) {
           sessionStorage.shareTitle=res.data.title,
           sessionStorage.shareCon=res.data.content,
@@ -77,7 +77,7 @@
 
 
   $(function(){
-    //getWx();
+    getWx();
   })
   </script>
 </html>

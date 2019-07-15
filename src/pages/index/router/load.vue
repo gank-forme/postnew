@@ -62,7 +62,7 @@ export default {
     return {
       homeList:[],
       appId:'',
-      loadIndex:2,
+      loadIndex:0,
       index:0,
       num:0,
       popupVisible:false,
@@ -216,10 +216,11 @@ export default {
     Indicator.close();
     console.log(this.$route.query.code==undefined);
     if(this.$route.query.code==undefined){
-
+      this.loadIndex=2;
       //console.log(222);
     }else{
        this.getUserInfo();
+       this.numFun();
     };
     this.getList();
   }
