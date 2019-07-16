@@ -74,7 +74,20 @@ export default {
     this.rankList();
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll,true);
+    let that =this;
+    window.onscroll = function(){
+   		//变量scrollTop是滚动条滚动时，距离顶部的距离
+     		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+     		//变量windowHeight是可视区的高度
+     		var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+     		//变量scrollHeight是滚动条的总高度
+     		var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+                 //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+                  //写后台加载数据的函数
+         
+        }   
+     }
   },
   methods:{
     detailFun(e){
@@ -114,26 +127,7 @@ export default {
       this.searchFlag=true;
       this.list=2;
     },
-    handleScroll(e){
-      let that =this;
-        //变量scrollTop是滚动条滚动时，距离顶部的距离
-        var scrollTop = e.target.scrollTop;
-        //变量windowHeight是可视区的高度
-        var windowHeight = e.target.clientHeight;
-        //变量scrollHeight是滚动条的总高度
-   		var scrollHeight = e.target.scrollHeight;
-        //滚动条到底部的条件
-        if(scrollTop+windowHeight==scrollHeight){
-            //写后台加载数据的函数
-            console.log(0);
-            if((location.hash.indexOf('list')<0)){
-              // alert(1);
-            }else{
 
-            };
-
-        }
-    },
     myZan(){
       let that =this;
       Indicator.open('加载中');
@@ -160,32 +154,7 @@ export default {
           }
        })
     },
-    page(){
-      let that =this;
-      Indicator.open('加载中');
-      this.axios({
-         method: 'get',
-         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid1,
-         //data: qs.stringify(data)
-       }).then(function (res) {
-         Indicator.close();
-         if(res.data.code==1){
-           if(that.ind==1){
-             that.listArr=res.data.data;
-           }else{
-             that.listArr =that.listArr.concat(res.data.data);
-           }
-           that.has_next_page =res.data.has_next_page;
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-            that.listArr=[];
-          }
-       })
-    },
+    
     getList(e){
       this.ind=1,this.ind1=1;
 
