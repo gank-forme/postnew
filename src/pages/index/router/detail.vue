@@ -38,10 +38,7 @@
           <h4>照片详情</h4>
           <h5>Photo details</h5>
           <div class="blank">
-
-          </div>
-          <div class="blank">
-
+            {{dec}}
           </div>
         </div>
       </div>
@@ -87,7 +84,8 @@ export default {
       img:'',
       voto:'',
       rank:'',
-      deatilData:''
+      deatilData:'',
+      dec:''
     }
   },
   methods: {
@@ -120,7 +118,7 @@ export default {
            that.name1 =res.data.data.name;
            that.voto =res.data.data.vote;
            that.rank =res.data.data.total_ranking;
-
+           that.dec = res.data.data.describe;
           }else {
             Indicator.close();
             Toast({
@@ -310,10 +308,11 @@ export default {
   width: 30px;
 }
 #detail .blank {
-  width: 100%;
+  font-style: 15px;
   background: #fff;
   opacity: 0.7;
-  height: 82px;
   margin-top: 10px;
+  text-align: left;
+  padding: 10px;
 }
 </style>

@@ -106,7 +106,7 @@ export default {
       popupVisible:false,
       imgUrl:'',
       txt1:'',
-      show1:true,
+      show1:false,
       show2:false,
       pVisible:false,
       subFlag:false,

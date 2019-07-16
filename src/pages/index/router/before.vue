@@ -13,26 +13,28 @@
       </div>
     </div>
 
-    <div v-else class="registBox">
+    <div v-else class="registBox" >
       <div class="userBox userBox1">
         <span class='fl'>综合</span>
         <span class=''>作者</span>
         <span class='fr'>作品名</span>
       </div>
-      <div class="userBox userBox2">
-        <h1>您可能在寻找</h1>
-        <div class="clearfix peoBox">
-          <img src="" alt="">
-          <span>作者：啥电费 北京赛区</span>
+      <div v-for='(i,index) in listArr'>
+        <div v-if='index==0' class="userBox userBox2" @click='toInfo(i.id)'>
+          <h1>您可能在寻找</h1>
+          <div class="clearfix peoBox">
+            <img :src="i.icon" alt="">
+            <span>作者：{{i.name}} {{i.area}}</span>
+          </div>
+        </div>
+        <div class="userBox userBox3" @click='toInfo(i.id)'>
+          <img src="../assets/big.png" alt="">
+          <span>{{i.name}}</span>
         </div>
       </div>
-      <div v-for='i in 4' class="userBox userBox3">
-        <img src="../assets/big.png" alt="">
-        <span>啥电费啥电费</span>
-      </div>
+
 
     </div>
-
 
     <app-footer></app-footer>
   </div>
@@ -50,12 +52,19 @@ export default {
     return {
       rst:'',
       ind:1,
-      spanList:[]
+      spanList:[],
+      listArr:[]
     }
   },
   methods: {
     goback(){
       history.go(-1);
+    },
+    toInfo(e){
+      sessionStorage.detailId =e;
+      this.$router.push({
+        name:'detail'
+      })
     },
     hotList(){
       let that =this;
@@ -74,7 +83,6 @@ export default {
               message: res.data.msg,
               duration: 1500
             });
-            that.listArr=[];
           }
        })
     },
@@ -88,7 +96,7 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-
+           that.listArr=res.data.data.author.list;
           }else {
             Indicator.close();
             Toast({
