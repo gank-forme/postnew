@@ -123,6 +123,8 @@ export default {
   min-height: 100%;
   clear: both;
   overflow: hidden;
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #info .registBox {
   text-align: center;

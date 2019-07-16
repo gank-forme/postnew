@@ -46,8 +46,7 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           background-size: 100% 100%;
         }
         .comon {
-          /* background: url('../combg.png') no-repeat center !important; */
-          /* background-size: 100% 100%; */
+          
           padding: 0 10px;
 
           height: auto !important;

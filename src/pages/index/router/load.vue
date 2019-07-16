@@ -160,7 +160,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=10'
+         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=50'
          //data: qs.stringify(data)
        }).then(function (res) {
 
@@ -213,12 +213,13 @@ export default {
   },
   created:function(){
     localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
+
     Indicator.close();
-    console.log(this.$route.query.code==undefined);
-    if(this.$route.query.code==undefined){
+    if(this.$route.query.code==undefined || sessionStorage.fistFlag==1){
       this.loadIndex=2;
       //console.log(222);
     }else{
+      sessionStorage.fistFlag=1;
        this.getUserInfo();
        this.numFun();
     };

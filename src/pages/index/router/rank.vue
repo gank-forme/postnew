@@ -139,17 +139,8 @@ export default {
             if((location.hash.indexOf('rank')<0)){
               // alert(1);
             }else{
-              if(that.has_next_page==1){
-                if(that.list==2){
-                  that.ind++;
-                  that.page();
-                }else{
-                  that.ind1++;
-                  that.myZan();
-                }
-              }
+              console.log(1);
             };
-
         }
     },
     myZan(){
@@ -267,7 +258,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10',
+         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=50',
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

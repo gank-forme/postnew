@@ -22,7 +22,7 @@
     <div class="content relative">
 
       <div :class="searchFlag?'listBox':'listBox sea'">
-        <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
+        <div v-for='(i,index) in 30' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
           <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
           <em v-else >{{i.ranking}}</em>
@@ -125,18 +125,11 @@ export default {
         //滚动条到底部的条件
         if(scrollTop+windowHeight==scrollHeight){
             //写后台加载数据的函数
-            if((location.hash.indexOf('rank')<0)){
+            console.log(0);
+            if((location.hash.indexOf('list')<0)){
               // alert(1);
             }else{
-              if(that.has_next_page==1){
-                if(that.list==2){
-                  that.ind++;
-                  that.page();
-                }else{
-                  that.ind1++;
-                  that.myZan();
-                }
-              }
+
             };
 
         }

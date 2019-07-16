@@ -9,7 +9,7 @@
     <div v-if='ind==1' class="registBox">
       <div class="userBox">
         <h1>热门搜索</h1>
-        <span class='spanItem' v-for='i in spanList'>{{i.keyword}}</span>
+        <span class='spanItem' v-for='i in spanList' @click='getR(i.keyword)'>{{i.keyword}}</span>
       </div>
     </div>
 
@@ -32,8 +32,6 @@
           <span>{{i.name}}</span>
         </div>
       </div>
-
-
     </div>
 
     <app-footer></app-footer>
@@ -86,6 +84,10 @@ export default {
           }
        })
     },
+    getR(e){
+      this.ind =2;
+      this.getResult(e);
+    },
     getResult(e){
       let that =this;
       Indicator.open('加载中');
@@ -97,6 +99,14 @@ export default {
          Indicator.close();
          if(res.data.code==1){
            that.listArr=res.data.data.author.list;
+           if(res.data.data.author.list.length==0){
+             Toast({
+               message: '没有结果',
+               duration: 1500
+             });
+             that.ind = 1;
+           }
+
           }else {
             Indicator.close();
             Toast({

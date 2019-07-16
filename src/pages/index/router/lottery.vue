@@ -236,7 +236,7 @@ export default {
 }
 #lottery {
   width: 100%;
-  height: 100%;
+  padding-bottom: 70px;
   background:url('../assets/lotBg.png') no-repeat;
   background-size: 100% 100%;
   font-size: 13px;

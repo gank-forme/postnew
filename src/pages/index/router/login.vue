@@ -5,7 +5,7 @@
       <div class="userBox">
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
-        <input @focus='showPlugin' @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请输入您的身份证号" name="" value="">
+        <input @focus='showPlugin' @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
           <picker :data='years' v-model='year3' @on-change='changeFun'></picker>
@@ -258,10 +258,10 @@ export default {
 #login .userBox h5 em {
   display: inline-block;
   width: 8px;
-  height: 9px;
+  height: 8px;
   border: 1px solid #03764D;
   border-radius: 2px;
-  margin-top: 0px;
+  margin-top: 2px;
   margin-right: 2px;
 }
 #login .userBox h5 span {
