@@ -84,7 +84,7 @@ export default {
     this.areaList();
   },
   mounted(){
-    window.addEventListener('scroll',this.handleScroll,true);
+    // window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
     detailFun(e){

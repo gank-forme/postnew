@@ -16,16 +16,21 @@
         <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <li class="liItem relative" v-for='i in homeList' >
-        <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
-        <em class="absolute">热门</em>
-        <div class="op absolute"></div>
-        <p>
-          <span class="scaName">{{i.authorname}}</span>
-          <span class="sca">当前票数 <em>{{i.vote}}</em></span>
-          <span class='vote' @click="votCli(i.id)">投TA一票</span>
-        </p>
-      </li>
+      <ul
+
+      >
+        <li class="liItem relative" v-for='(i,index) in homeList' >
+          <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
+          <em v-if='index<3' class="absolute">热门</em>
+          <div class="op absolute"></div>
+          <p>
+            <span class="scaName">{{i.authorname}}</span>
+            <span class="sca">当前票数 <em>{{i.vote}}</em></span>
+            <span class='vote' @click="votCli(i.id)">投TA一票</span>
+          </p>
+        </li>
+      </ul>
+
     </div>
 
     <mt-popup
@@ -47,7 +52,7 @@
 import store from '../store.js'
 import qs from 'qs'
 import axios from 'axios'
-import { MessageBox,Toast,Indicator } from 'mint-ui'
+import { MessageBox,Toast,Indicator} from 'mint-ui'
 import banner1 from '../assets/1.jpg'
 import banner2 from '../assets/2.jpg'
 import banner3 from '../assets/3.jpg'
@@ -60,6 +65,13 @@ export default {
   name: 'app',
   data () {
     return {
+      isMoreLoad: false,  // 是否显示加载更多
+      loadingImg: false,  // 加载更多时显示loading图
+      loadLastText: false, // 到底了
+      definePageNum: 1,// 默认加载页数
+      definePafeSize: 10, // 默认每页数量
+      totals: null, // 用来存放总数量
+
       homeList:[],
       appId:'',
       loadIndex:0,
@@ -80,8 +92,58 @@ export default {
       listIndex:[list1,list2,list3,list4]
     }
   },
+  mounted(){
+    var _this = this;
+    window.addEventListener('scroll', function(){      
+       var scr = document.documentElement.scrollTop || document.body.scrollTop; // 向上滚动的那一部分高度
+       var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
+       var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
+       if(scr + clientHeight + 10 >= scrHeight){
+         if(_this.isMoreLoad){
+           _this.scrollLoadMore();
+         }else{
+           return;
+         }
+       }
+     });
+  },
   methods: {
+    scrollLoadMore(){
 
+  	// 防止多次加载
+       if(this.loadingImg){
+         return;
+       }
+       this.loadingImg = true;
+       this.definePageNum = _this.definePageNum + 1; // 第一次获取时为默认值
+       console.log(this.definePageNum);
+       // this.$http.get('url',{
+       //       params:{
+       //           'pageNum': _this.definePageNum,
+       //           'pageSize': _this.definePageSize,
+       //       }
+       //   }).then((res) =>{
+       //     if(res.data.code == 'success'){
+       //       this.totals = res.data.data.total;
+       //       if(this.totals - this.definePageNum*definePafeSize > 0){
+       //         this.isMoreLoad = true;
+       //       }else{
+       //         this.isMoreLoad = false;
+       //         this.loadLastText = true;
+       //       }
+       //       this.loadingImg = false;
+       //     }
+       //   })
+     },
+    loadMore() {
+      let that= this;
+      this.loading = true;
+      setTimeout(() => {
+        that.page++;
+        console.log(that.page);
+        this.loading = false;
+      }, 1000);
+    },
     numFun(){
       let that =this;
       let timer = setInterval(function(){
@@ -183,7 +245,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=50'
+         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=10'
          //data: qs.stringify(data)
        }).then(function (res) {
 

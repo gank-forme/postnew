@@ -34,7 +34,7 @@ import {XHeader,XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,
 import { DatetimePlugin } from 'vux'
 Vue.use(DatetimePlugin)
 import 'mint-ui/lib/style.css'
-import {Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
+import {InfiniteScroll,Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
 
 Vue.component(Header.name, Header);
@@ -78,6 +78,7 @@ Vue.component(Popup.name, Popup)
 Vue.component('image-preview', ImagePreview)
 Vue.component('image-upload', ImageUpload)
 
+Vue.use(InfiniteScroll);
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 
