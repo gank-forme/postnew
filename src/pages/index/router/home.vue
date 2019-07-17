@@ -1,5 +1,5 @@
 <template>
-  <div id="passport" class="comon">
+  <div id="passport">
     <x-header ><a @click='goBack' slot="overwrite-left">取消</a><a slot="right" @click='xLog1'>发布</a></x-header>
 
     <div class="con relative">
@@ -333,6 +333,8 @@ export default {
   min-height: 100%;
   clear: both;
   overflow: hidden;
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #passport .con  {
   width: 240px;

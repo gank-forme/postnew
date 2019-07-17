@@ -4,7 +4,7 @@
       <img class="w90" slot="icon" src="../assets/nav1.png">
       <span slot="label">活动</span>
     </tabbar-item>
-    <tabbar-item  link="/lot" >
+    <tabbar-item  @click.native='nav2Fun'>
       <img class="w90" slot="icon" src="../assets/nav2.png">
       <span slot="label">抽奖</span>
     </tabbar-item>
@@ -12,7 +12,7 @@
       <img slot="icon" src="../assets/nav4.png">
       <span slot="label">排行榜</span>
     </tabbar-item>
-    <tabbar-item  link="/info" >
+    <tabbar-item  @click.native='nav5Fun'>
       <img class="w90" slot="icon" src="../assets/nav5.png">
       <span slot="label">我的</span>
     </tabbar-item>
@@ -46,64 +46,21 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/createcheck?page_type=1&openid='+localStorage.openid1,
+         url: '/api/customer/info?openid='+localStorage.openid1
          //data: qs.stringify(data)
        }).then(function (res) {
-         console.log(res.data);
-         Indicator.close();
-         if(res.data.code==-1){//已发起后台审核过
-           //that.detailFu();
-           store.commit('detailFun',res.data.data);
-           that.$router.push({
-             name:'detail'
-           });
-          sessionStorage.status=1;
-        }else if (res.data.code==-2){//审核中
-          //that.detailFu();
-          store.commit('detailFun',res.data.data);
-           that.$router.push({
-             name:'detail'
-           });
-           sessionStorage.status=2;
-         }else if (res.data.code==-4){
-            //that.detailFu();
-            store.commit('detailFun',res.data.data);
-            that.$router.push({
-              name:'detail'
-            });
-            sessionStorage.status=4;
-         }else if(res.data.code==0){
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }else if(res.data.code==1){
-            store.commit('detailFun',res.data.data);
-            that.$router.push({
-              name:'detail'
-            });
-            sessionStorage.status=3;
-          }else{
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
-    },
-    detailFu(){
-      let that =this;
-      Indicator.open('加载中');
-      this.axios({
-         method: 'get',
-         url: '/api/getdreambyuser?openid='+localStorage.openid1,
-         //data: qs.stringify(data)
-       }).then(function (res) {
+
          Indicator.close();
          if(res.data.code==1){
-           store.commit('detailFun',res.data.data);
+           if(res.data.data.status==0){
+             that.$router.push({
+               name:'login'
+             })
+           }else{
+             that.$router.push({
+               name:'info'
+             })
+           }
           }else {
             Indicator.close();
             Toast({
@@ -113,37 +70,36 @@ export default {
           }
        })
     },
-    nav3Fun(){
-      if(this.nav3){
-        // Indicator.open('jia');
-        let that =this;
-        console.log(this.value);
-        Indicator.open('加载中');
-        axios({
-           method: 'get',
-           url: '/api/dreamhits?dream_id='+sessionStorage.dream_id+'&openid='+localStorage.openid1,
-           //data: qs.stringify(data)
-         }).then(function (res) {
-           Indicator.close();
-           if(res.data.code==1){
+    nav2Fun(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/customer/info?openid='+localStorage.openid1
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           if(res.data.data.status!=0){
              that.$router.push({
-               name:'result'
+               name:'login'
              })
-             sessionStorage.res=2;
-            }else {
-              Indicator.close();
-              Toast({
-                message: res.data.msg,
-                duration: 1500
-              });
-            }
-         })
-      }else{
-        this.$router.push({
-          name:'list'
-        })
-      }
+           }else{
+             that.$router.push({
+               name:'lot'
+             })
+           }
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
+
   },
   created:function(){
     let that =this;
@@ -156,7 +112,7 @@ export default {
 
     if((location.hash.indexOf('detail')<0)){
       wx.ready(function(){
-        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/index.html';
+        let shareUrl = window.location.protocol+'//'+window.location.host+'/static/ind0.html';
         //alert(shareUrl);
         wx.onMenuShareAppMessage({
             title: that.shareTitle, // 分享标题

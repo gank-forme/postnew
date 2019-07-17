@@ -34,9 +34,11 @@ import {XHeader,XDialog,Search, Tabbar, TabbarItem,Swiper,TimelineItem,Timeline,
 import { DatetimePlugin } from 'vux'
 Vue.use(DatetimePlugin)
 import 'mint-ui/lib/style.css'
-import {InfiniteScroll,Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
+import {Swipe, SwipeItem,InfiniteScroll,Header,TabItem, TabContainer, TabContainerItem, Field, Button,Actionsheet,Radio,Checklist,DatetimePicker,Popup} from 'mint-ui'
 Vue.config.productionTip = false
 
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Header.name, Header);
 
 Vue.component(header.name, header)

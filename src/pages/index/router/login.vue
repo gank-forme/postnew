@@ -5,7 +5,7 @@
       <div class="userBox">
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
-        <input @focus='showPlugin' @blur='inputBlur' maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
+        <input readonly @click='showPlugin'  maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
           <picker :data='years' v-model='year3' @on-change='changeFun'></picker>
@@ -149,16 +149,15 @@ export default {
 
 <style>
 #login {
-  height: 100%;
-  clear: both;
-  overflow: hidden;
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #login .registBox {
   text-align: center;
   font-size: 13px;
   color: #fff;
   background: #fff;
-  width: 98%;
+  width: 93%;
   margin: 0 auto;
   margin-top: 60px;
   border-radius: 10px;

@@ -200,7 +200,6 @@ export default {
 }
 #detail .infoBox img{
   width: 100%;
-  min-height: 413px;
   display: block;
 }
 #detail .userBox h3{

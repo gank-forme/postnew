@@ -37,6 +37,7 @@
             </h1>
           </div>
         </div>
+        <h3 v-if='nomore' class='nomore'>没有更多数据啦~</h3>
       </div>
 
     </div>
@@ -56,6 +57,7 @@ export default {
   name: 'app',
   data () {
     return {
+      nomore:false,
       page:1,
       pages:'',
       ind:1,
@@ -87,9 +89,12 @@ export default {
       let that= this;
       this.loading = true;
       setTimeout(() => {
-        that.page++;
-        if(that.page<4){
-          that.rankList()
+        that.page++;        
+        if(that.page<=parseInt(that.pages)){
+          that.rankList();
+        }else if(that.page==parseInt(that.pages)){
+          that.rankList();
+          that.nomore=true;
         };
         this.loading = false;
       }, 1000);
@@ -105,12 +110,18 @@ export default {
       //滚动条到底部的条件
       if(scrollTop+windowHeight==scrollHeight){
           //写后台加载数据的函数
-          if((location.hash.indexOf('list')>=0)){
-            that.page++;
-            if(that.page<=parseInt(that.pages)){
-              that.rankList()
-            }
-          }
+          // if((location.hash.indexOf('list')>=0)){
+          //   that.page++;
+          //   if(that.page<=parseInt(that.pages)){
+          //     that.rankList();
+          //     console.log(that.page+'s');
+          //     console.log(that.pages+'s1');
+          //
+          //     if(that.page==parseInt(that.pages)){
+          //         that.nomore=true;
+          //     }
+          //   }
+          // }
       }
     },
     detailFun(e){
@@ -486,5 +497,13 @@ span.act {
 .rank {
   background: url('../assets/combg.png') no-repeat center;
   background-size: 100% 100%;
+}
+.nomore{
+  width: 100%;
+  display: block;
+  float: left;
+  padding: 10px;
+  color: #333;
+  text-align: center;
 }
 </style>

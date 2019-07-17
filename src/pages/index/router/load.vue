@@ -9,11 +9,14 @@
     </div>
 
     <div class="swiperDiv" v-if='loadIndex==1'>
-      <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
+      <mt-swipe :auto="4000" @change="swiperFun2">
+        <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'><img :src="i.img" alt="">  </mt-swipe-item>
+      </mt-swipe>
+      <!-- <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper> -->
     </div>
     <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
       <div class="swi">
-        <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
+        <swiper @click.native='swiFun(index)' :auto='false' v-model='index'  :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
       <ul class="clearfix"
@@ -28,9 +31,10 @@
           <p>
             <span class="scaName">{{i.authorname}}</span>
             <span class="sca">当前票数 <em>{{i.vote}}</em></span>
-            <span class='vote' @click="votCli(i.id)">投TA一票</span>
+            <span class='vote' @click="votCli(i.id,i,i.vote)">投TA一票</span>
           </p>
         </li>
+        <h3 v-if='nomore' class='nomore'>没有更多数据啦~</h3>
       </ul>
 
     </div>
@@ -73,6 +77,8 @@ export default {
       definePageNum: 1,// 默认加载页数
       definePafeSize: 10, // 默认每页数量
       totals: null, // 用来存放总数量
+
+      nomore:false,
 
       page:1,
       pages:'',
@@ -124,8 +130,11 @@ export default {
       this.loading = true;
       setTimeout(() => {
         that.page++;
-        if(that.page<4){
-          that.getList()
+        if(that.page<=parseInt(that.pages)){
+          that.getList();
+        }else if(that.page==parseInt(that.pages)){
+          that.getList();
+          that.nomore=true;
         };
         this.loading = false;
       }, 1000);
@@ -152,21 +161,21 @@ export default {
       })
 
     },
-    swiperFun(){
+    swiperFun2(e){
       let that = this;
-      if(this.index==1){
+      if(e==2){
         setTimeout(function(){
           that.loadIndex=2;
-
-        },700);
+        },1500);
       }
     },
+
     swiFun(e){
       if(e==2){
         setTimeout(function(){
           that.loadIndex=2;
 
-        },500);
+        },1000);
       }
     },
     liCli(){
@@ -254,7 +263,7 @@ export default {
         name:'detail'
       })
     },
-    votCli(e){
+    votCli(e,item,vote){
       let that =this;
     //  Indicator.open('加载中');
       this.axios({
@@ -272,7 +281,8 @@ export default {
              message: '投票成功',
              duration: 1500
            });
-           that.getList();
+           item.vote++;
+           //that.getList();
           }else {
             Indicator.close();
             Toast({
@@ -361,8 +371,6 @@ export default {
   }
   #load .liItem {
     width: 49%;
-    height: 180px;
-
     margin-top: 10px;
     background: #ddd;
   }
@@ -456,5 +464,12 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-left: 5px;
+}
+#load .nomore{
+  width: 100%;
+  display: block;
+  float: left;
+  padding: 10px;
+  color: #333;
 }
 </style>
