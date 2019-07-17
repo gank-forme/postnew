@@ -227,6 +227,7 @@ export default {
     width: 80%;
     margin: 0 auto;
     padding-top: 50px;
+    padding-bottom: 60px;
 }
 #lottery .titleImg {
   display: block;
@@ -235,10 +236,10 @@ export default {
 }
 #lottery {
   width: 100%;
-  padding-bottom: 70px;
   background:url('../assets/lotBg.png') no-repeat;
   background-size: 100% 100%;
   font-size: 13px;
+  min-height: 100%;
 }
 #lottery .titleImgs {
   margin: 20px auto;

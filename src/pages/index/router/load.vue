@@ -11,13 +11,15 @@
     <div class="swiperDiv" v-if='loadIndex==1'>
       <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
     </div>
-    <div class="listIndex" v-if='loadIndex==2'>
+    <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
       <div class="swi">
         <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <ul
-
+      <ul class="clearfix"
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="10"
       >
         <li class="liItem relative" v-for='(i,index) in homeList' >
           <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
@@ -65,13 +67,15 @@ export default {
   name: 'app',
   data () {
     return {
-      isMoreLoad: false,  // 是否显示加载更多
+      isMoreLoad: true,  // 是否显示加载更多
       loadingImg: false,  // 加载更多时显示loading图
       loadLastText: false, // 到底了
       definePageNum: 1,// 默认加载页数
       definePafeSize: 10, // 默认每页数量
       totals: null, // 用来存放总数量
 
+      page:1,
+      pages:'',
       homeList:[],
       appId:'',
       loadIndex:0,
@@ -93,54 +97,36 @@ export default {
     }
   },
   mounted(){
-    var _this = this;
-    window.addEventListener('scroll', function(){      
-       var scr = document.documentElement.scrollTop || document.body.scrollTop; // 向上滚动的那一部分高度
-       var clientHeight = document.documentElement.clientHeight; // 屏幕高度也就是当前设备静态下你所看到的视觉高度
-       var scrHeight = document.documentElement.scrollHeight || document.body.scrollHeight; // 整个网页的实际高度，兼容Pc端
-       if(scr + clientHeight + 10 >= scrHeight){
-         if(_this.isMoreLoad){
-           _this.scrollLoadMore();
-         }else{
-           return;
-         }
-       }
-     });
+
+     //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods: {
-    scrollLoadMore(){
+    handleScroll(e){
 
-  	// 防止多次加载
-       if(this.loadingImg){
-         return;
-       }
-       this.loadingImg = true;
-       this.definePageNum = _this.definePageNum + 1; // 第一次获取时为默认值
-       console.log(this.definePageNum);
-       // this.$http.get('url',{
-       //       params:{
-       //           'pageNum': _this.definePageNum,
-       //           'pageSize': _this.definePageSize,
-       //       }
-       //   }).then((res) =>{
-       //     if(res.data.code == 'success'){
-       //       this.totals = res.data.data.total;
-       //       if(this.totals - this.definePageNum*definePafeSize > 0){
-       //         this.isMoreLoad = true;
-       //       }else{
-       //         this.isMoreLoad = false;
-       //         this.loadLastText = true;
-       //       }
-       //       this.loadingImg = false;
-       //     }
-       //   })
-     },
+      let that =this;
+        //变量scrollTop是滚动条滚动时，距离顶部的距离
+      var scrollTop = e.target.scrollTop;
+      //变量windowHeight是可视区的高度
+      var windowHeight = e.target.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+   	    	var scrollHeight = e.target.scrollHeight;
+      //滚动条到底部的条件
+      if(scrollTop+windowHeight==scrollHeight){
+          //写后台加载数据的函数
+          if((location.hash.indexOf('load')>=0)){
+
+          }
+      }
+    },
+
     loadMore() {
       let that= this;
       this.loading = true;
       setTimeout(() => {
         that.page++;
-        console.log(that.page);
+        if(that.page<4){
+          that.getList()
+        };
         this.loading = false;
       }, 1000);
     },
@@ -245,13 +231,14 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/home?openid='+localStorage.openid1+'&page=1&length=10'
+         url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
          //data: qs.stringify(data)
        }).then(function (res) {
 
          Indicator.close();
          if(res.data.code==1){
-           that.homeList=res.data.data.list;
+           that.pages=res.data.data.pages;
+           that.homeList = that.homeList.concat(res.data.data.list);
           }else {
             Indicator.close();
             Toast({
@@ -297,7 +284,7 @@ export default {
     }
   },
   created:function(){
-    localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
+    // localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
 
     Indicator.close();
     if(this.$route.query.code==undefined || sessionStorage.fistFlag==1){
@@ -317,8 +304,6 @@ export default {
 <style>
   #load {
     text-align: center;
-    clear: both;
-    overflow: auto;
     height: 100%;
     background: url('../assets/combg.png') no-repeat center;
     background-size: 100% 100%;
@@ -327,7 +312,7 @@ export default {
     display: block;
     margin: 0 auto;
     width: 180px;
-    margin-top: 73px;
+    padding-top: 73px;
   }
   #load .cen {
     width: 100px;
@@ -369,6 +354,11 @@ export default {
     overflow: hidden;
     padding-bottom: 60px;
   }
+  #load .listIndex.com {
+
+    background: url('../assets/combg.png') no-repeat center;
+    background-size: 100% 100%;
+  }
   #load .liItem {
     width: 49%;
     height: 180px;
@@ -407,10 +397,10 @@ export default {
     text-align: center;
   }
 
-  #load .liItem:nth-child(even){
+  #load .liItem:nth-child(odd){
     float: left;
   }
-  #load .liItem:nth-child(odd){
+  #load .liItem:nth-child(even){
     float: right;
   }
 #load .load h2 {

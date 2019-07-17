@@ -21,7 +21,11 @@
 
     <div class="content relative">
 
-      <div :class="searchFlag?'listBox':'listBox sea'">
+      <div :class="searchFlag?'listBox':'listBox sea'"
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="10"
+      >
         <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
           <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
@@ -52,6 +56,8 @@ export default {
   name: 'app',
   data () {
     return {
+      page:1,
+      pages:'',
       ind:1,
       searchFlag:true,
       toZan:sessionStorage.toZan,
@@ -74,9 +80,39 @@ export default {
     this.rankList();
   },
   mounted(){
-    
+    //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
+    loadMore() {
+      let that= this;
+      this.loading = true;
+      setTimeout(() => {
+        that.page++;
+        if(that.page<4){
+          that.rankList()
+        };
+        this.loading = false;
+      }, 1000);
+    },
+    handleScroll(e){
+      let that =this;
+        //变量scrollTop是滚动条滚动时，距离顶部的距离
+      var scrollTop = e.target.scrollTop;
+      //变量windowHeight是可视区的高度
+      var windowHeight = e.target.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+   	    	var scrollHeight = e.target.scrollHeight;
+      //滚动条到底部的条件
+      if(scrollTop+windowHeight==scrollHeight){
+          //写后台加载数据的函数
+          if((location.hash.indexOf('list')>=0)){
+            that.page++;
+            if(that.page<=parseInt(that.pages)){
+              that.rankList()
+            }
+          }
+      }
+    },
     detailFun(e){
       sessionStorage.detailId= e;
       this.$router.push({
@@ -88,12 +124,13 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10&area_id='+sessionStorage.addId,
+         url: 'api/works/ranking?openid='+localStorage.openid1+'&page='+that.page+'&length=10&area_id='+sessionStorage.addId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.listArr=res.data.data.list;
+           that.pages=res.data.data.pages;
+           that.listArr=that.listArr.concat(res.data.data.list);
           }else {
             Indicator.close();
             Toast({

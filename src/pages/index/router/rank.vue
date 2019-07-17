@@ -84,7 +84,7 @@ export default {
     this.areaList();
   },
   mounted(){
-    // window.addEventListener('scroll',this.handleScroll,true);
+     //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods:{
     detailFun(e){
@@ -258,7 +258,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=50',
+         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10',
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

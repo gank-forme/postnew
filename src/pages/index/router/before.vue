@@ -106,7 +106,7 @@ export default {
          Indicator.close();
          if(res.data.code==1){
            that.listArr=res.data.data.list;
-           if(res.data.data.author.list.length==0){
+           if(res.data.data.list.length==0){
              Toast({
                message: '没有结果',
                duration: 1500
@@ -141,9 +141,11 @@ export default {
 
 <style>
 #before {
-  height: 100%;
+  min-height: 100%;
   clear: both;
   overflow: hidden;
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #before .registBox {
   text-align: center;
@@ -151,7 +153,7 @@ export default {
   color: #fff;
   width: 100%;
   margin-top: 50px;
-  padding-bottom: 30px;
+  padding-bottom: 60px;
 }
 #before .userBox {
   color: #fff;
