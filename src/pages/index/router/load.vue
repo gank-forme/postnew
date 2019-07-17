@@ -122,7 +122,30 @@ export default {
       }
     },
     liCli(){
-      this.popupVisible=true;
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/customer/info?openid='+localStorage.openid1
+         //data: qs.stringify(data)
+       }).then(function (res) {
+         Indicator.close();
+         if(res.data.code==1){
+           if(res.data.data.status==0){
+             that.popupVisible=true;
+           }else{
+             that.$router.push({
+               name:'home'
+             })
+           }
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     },
     sub1Fun(){
       this.popupVisible=false;

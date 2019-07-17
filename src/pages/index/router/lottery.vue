@@ -179,7 +179,6 @@ export default {
         },
         toNext(){
           let that =this;
-          that.popupVisible=false;
           Indicator.open('加载中');
           this.axios({
              method: 'put',
@@ -195,7 +194,7 @@ export default {
            }).then(function (res) {
              Indicator.close();
              if(res.data.code==1){
-
+               that.popupVisible=false;
                that.show1 =true;
               }else {
                 Indicator.close();
@@ -245,7 +244,7 @@ export default {
   margin: 20px auto;
 }
 #lottery .mint-popup {
-  width: 77%;
+  width: 90%;
   text-align: center;
   color: #fff;
   background: none !important;

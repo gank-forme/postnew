@@ -31,7 +31,8 @@ export default {
     width: 303px;
     font-size: 13px;
     padding: 0 10px;
-    height: 22px;
+    height: 26px;
+    line-height: 26px;
     border-radius: 22px;
     color: #028458;
     text-align: center;

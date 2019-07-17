@@ -1,6 +1,6 @@
 <template>
   <div id="passport" class="comon">
-    <x-header ><a slot="overwrite-left">取消</a><a slot="right">发布</a></x-header>
+    <x-header ><a @click='goBack' slot="overwrite-left">取消</a><a slot="right" @click='xLog1'>发布</a></x-header>
 
     <div class="con relative">
       <div class="imgBox">
@@ -317,6 +317,9 @@ export default {
        this.$router.push({
          name:'lot'
        })
+     },
+     goBack(){
+       history.go(-1);
      }
   },
   created:function(){

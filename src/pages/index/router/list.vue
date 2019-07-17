@@ -22,7 +22,7 @@
     <div class="content relative">
 
       <div :class="searchFlag?'listBox':'listBox sea'">
-        <div v-for='(i,index) in 30' class="listItem clearfix" @click='detailFun(i.works_id)'>
+        <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
           <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
           <em v-else >{{i.ranking}}</em>
@@ -154,7 +154,7 @@ export default {
           }
        })
     },
-    
+
     getList(e){
       this.ind=1,this.ind1=1;
 

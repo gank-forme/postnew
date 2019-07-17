@@ -20,16 +20,16 @@
         <span class='fr'>作品名</span>
       </div>
       <div v-for='(i,index) in listArr'>
-        <div v-if='index==0' class="userBox userBox2" @click='toInfo(i.id)'>
+        <div v-if='index==0' class="userBox userBox2" @click='toInfo(i.works_id)'>
           <h1>您可能在寻找</h1>
           <div class="clearfix peoBox">
             <img :src="i.icon" alt="">
-            <span>作者：{{i.name}} {{i.area}}</span>
+            <span>作者：{{i.author_name}} {{i.area}}</span>
           </div>
         </div>
-        <div class="userBox userBox3" @click='toInfo(i.id)'>
+        <div class="userBox userBox3" @click='toInfo(i.works_id)'>
           <img src="../assets/big.png" alt="">
-          <span>{{i.name}}</span>
+          <span>{{i.author_name}} {{i.works_name}}</span>
         </div>
       </div>
     </div>
@@ -59,10 +59,17 @@ export default {
       history.go(-1);
     },
     toInfo(e){
-      sessionStorage.detailId =e;
-      this.$router.push({
-        name:'detail'
-      })
+      if(e==null||e==undefined){
+        Toast({
+          message: '该用户还未发表作品哦',
+          duration: 1500
+        });
+      }else{
+        sessionStorage.detailId =e;
+        this.$router.push({
+          name:'detail'
+        })
+      }
     },
     hotList(){
       let that =this;
@@ -98,7 +105,7 @@ export default {
        }).then(function (res) {
          Indicator.close();
          if(res.data.code==1){
-           that.listArr=res.data.data.author.list;
+           that.listArr=res.data.data.list;
            if(res.data.data.author.list.length==0){
              Toast({
                message: '没有结果',
@@ -214,8 +221,8 @@ export default {
   width: 303px;
   font-size: 13px;
   padding: 0 10px;
-  height: 22px;
-  border-radius: 22px;
+  height: 26px;
+  border-radius: 26px;
   color: #028458;
   text-align: center;
 }

@@ -98,14 +98,20 @@ export default {
 
        Indicator.close();
        if(res.data.code==1){
-         that.icon=res.data.data.icon;
-         that.name=res.data.data.name;
-         that.area=res.data.data.area;
-         that.sex=res.data.data.sex;
-         that.local_ranking=res.data.data.works.local_ranking;
-         that.total_ranking=res.data.data.works.total_ranking;
-         that.age=res.data.data.age;
-         that.imgs='http://photo.marketservice.cn'+res.data.data.works.img;
+         if(res.data.data.status==0){
+           that.$router.push({
+             name:'login'
+           })
+         }else{
+           that.icon=res.data.data.icon;
+           that.name=res.data.data.name;
+           that.area=res.data.data.area;
+           that.sex=res.data.data.sex;
+           that.local_ranking=res.data.data.works.local_ranking;
+           that.total_ranking=res.data.data.works.total_ranking;
+           that.age=res.data.data.age;
+           that.imgs='http://photo.marketservice.cn'+res.data.data.works.img;
+         }
         }else {
           Indicator.close();
           Toast({
