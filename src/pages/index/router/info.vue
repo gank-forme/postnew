@@ -1,6 +1,6 @@
 <template>
   <div id="info" class='comon'>
-    <x-header >作者信息<a slot="right" @click='shareBtn'>分享</a></x-header>
+    <x-header :left-options="{backText: ''}">作者信息<a slot="right" @click='shareBtn'>分享</a></x-header>
     <div class="registBox">
       <div class="userBox">
         <img class="headImg" :src="icon" alt="">

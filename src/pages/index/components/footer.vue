@@ -81,7 +81,7 @@ export default {
 
          Indicator.close();
          if(res.data.code==1){
-           if(res.data.data.status!=0){
+           if(res.data.data.status==0){
              that.$router.push({
                name:'login'
              })
