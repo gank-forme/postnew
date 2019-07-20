@@ -16,7 +16,7 @@
     </div>
     <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
       <div class="swi">
-        <swiper @click.native='swiFun(index)' :auto='false' v-model='index'  :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
+        <swiper @click.native='swiFun(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
       <ul class="clearfix"
@@ -62,10 +62,8 @@ import { MessageBox,Toast,Indicator} from 'mint-ui'
 import banner1 from '../assets/1.jpg'
 import banner2 from '../assets/2.jpg'
 import banner3 from '../assets/3.jpg'
-import list1 from '../assets/list1_03.jpg'
-import list2 from '../assets/list2_06.jpg'
-import list3 from '../assets/list3_08.jpg'
-import list4 from '../assets/list4_03.jpg'
+import list1 from '../assets/banTest.png'
+import list2 from '../assets/banTest1.png'
 
 export default {
   name: 'app',
@@ -99,7 +97,14 @@ export default {
           img: banner3,
         }
       ],
-      listIndex:[list1,list2,list3,list4]
+      listIndex:[{
+          url: 'javascript:',
+          img: list1,
+        }, {
+          url: 'javascript:',
+          img: list2,
+        }
+      ],
     }
   },
   mounted(){
@@ -392,13 +397,13 @@ export default {
     height: 30px;
     background: #fff;
     opacity: 0.9;
-    bottom:0px;
+    bottom:-1px;
   }
   #load .liItem p {
     position: absolute;
     width: 100%;
     height: 30px;
-    bottom:0px;
+    bottom:-1px;
     font-size: 12px;
     line-height: 30px;
     color: #028458;
@@ -436,7 +441,7 @@ export default {
   position: absolute;
   right: -5px;
   display: inline-block;
-  transform: scale(0.8);
+  transform: scale(0.9);
   font-size: 12px;
   height: 20px;
   line-height: 20px;
@@ -453,8 +458,9 @@ export default {
 }
 #load span.sca {
   display: inline-block;
-  transform: scale(0.8);
+  transform: scale(0.85);
   float: left;
+  margin-left: -3px;
 }
 #load span.scaName {
   float: left;
@@ -463,7 +469,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left: 5px;
+  margin-left: 2px;
 }
 #load .nomore{
   width: 100%;

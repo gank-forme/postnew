@@ -4,13 +4,7 @@
 
     <x-header :left-options="{backText: ''}">{{addTxt}}榜单</x-header>
 
-    <search
-    @on-change="getResult"
-    @on-focus="onFocus"
-    v-model="value"
-    position="absolute"
-    auto-scroll-to-top
-    ref="search"></search>
+    <input id='seachid' readonly @click='onFocus' type="text" placeholder="请输入搜索内容" name="" value="">
     <div class="topBox">
       <div >
         <img class="topBg" src="../assets/images/bgSq_02.jpg" alt="">
@@ -28,7 +22,7 @@
       >
         <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
-          <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
+          <em v-if='index<3'><img :src="numList[index]" alt=""></em>
           <em v-else >{{i.ranking}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
@@ -89,7 +83,7 @@ export default {
       let that= this;
       this.loading = true;
       setTimeout(() => {
-        that.page++;        
+        that.page++;
         if(that.page<=parseInt(that.pages)){
           that.rankList();
         }else if(that.page==parseInt(that.pages)){
@@ -205,35 +199,7 @@ export default {
         this.list=1;
       }
     },
-    getResult (val) {
-      if(val==''){
-        this.page();
-      }else{
-        let that =this;
-        Indicator.open('加载中');
-        this.axios({
-           method: 'get',
-           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid1+'&page='+that.ind
-           //data: qs.stringify(data)
-         }).then(function (res) {
-           Indicator.close();
-           if(res.data.code==1){
-             that.list=1;
-             that.listArr = res.data.data;
-            }else {
-              Indicator.close();
-              Toast({
-                message: res.data.msg,
-                duration: 1500
-              });
-              that.listArr=[];
-            }
-         })
-      }
 
-      // console.log('on-change', val)
-      // this.results = val ? getResult(this.value) : []
-    },
     navFun(e){
       this.ind = e;
     },
@@ -505,5 +471,19 @@ span.act {
   padding: 10px;
   color: #333;
   text-align: center;
+}
+#seachid {
+  text-align: center;
+  padding: 7px 0;
+  border-radius: 30px;
+  font-size: 14px;
+  display: block;
+  left: 50%;
+  margin-left: -48%;
+  width: 96%;
+  background: #fff;
+  position: fixed;
+  top: 50px;
+  z-index: 10;
 }
 </style>

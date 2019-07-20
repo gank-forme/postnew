@@ -29,7 +29,7 @@
       <div :class="searchFlag?'listBox':'listBox sea'">
         <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
-          <em v-if='index<=3'><img :src="numList[index]" alt=""></em>
+          <em v-if='index<3'><img :src="numList[index]" alt=""></em>
           <em v-else >{{i.ranking}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
