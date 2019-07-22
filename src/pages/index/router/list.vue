@@ -23,7 +23,7 @@
         <div v-for='(i,index) in listArr' class="listItem clearfix" @click='detailFun(i.works_id)'>
           <img class="fl peo" :src="i.icon"  alt="">
           <em v-if='index<3'><img :src="numList[index]" alt=""></em>
-          <em v-else >{{i.ranking}}</em>
+          <em v-else >{{index+1}}</em>
           <div class="fl itemInfo">
             <h1 class="clearfix">
               <span class="fl">{{i.user_name}}</span>
@@ -84,10 +84,10 @@ export default {
       this.loading = true;
       setTimeout(() => {
         that.page++;
+        console.log(that.page+'sss')
         if(that.page<=parseInt(that.pages)){
           that.rankList();
-        }else if(that.page==parseInt(that.pages)){
-          that.rankList();
+        }else if(that.page>parseInt(that.pages)){          
           that.nomore=true;
         };
         this.loading = false;
@@ -135,6 +135,7 @@ export default {
          Indicator.close();
          if(res.data.code==1){
            that.pages=res.data.data.pages;
+           console.log(that.pages);
            that.listArr=that.listArr.concat(res.data.data.list);
           }else {
             Indicator.close();

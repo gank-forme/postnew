@@ -10,13 +10,13 @@
 
     <div class="swiperDiv" v-if='loadIndex==1'>
       <mt-swipe :auto="4000" @change="swiperFun2">
-        <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'><img :src="i.img" alt="">  </mt-swipe-item>
+        <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'><img :src="i.img" alt="" >  </mt-swipe-item>
       </mt-swipe>
       <!-- <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper> -->
     </div>
     <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
       <div class="swi">
-        <swiper @click.native='swiFun(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
+        <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
       <ul class="clearfix"
@@ -25,13 +25,16 @@
       infinite-scroll-distance="10"
       >
         <li class="liItem relative" v-for='(i,index) in homeList' >
+          <div v-if='ind==index' class="abs">
+            +1
+          </div>
           <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
           <em v-if='index<3' class="absolute">热门</em>
           <div class="op absolute"></div>
           <p>
             <span class="scaName">{{i.authorname}}</span>
             <span class="sca">当前票数 <em>{{i.vote}}</em></span>
-            <span class='vote' @click="votCli(i.id,i,i.vote)">投TA一票</span>
+            <span class='vote' @click="votCli(i.id,i,i.vote,index)">投TA一票</span>
           </p>
         </li>
         <h3 v-if='nomore' class='nomore'>没有更多数据啦~</h3>
@@ -69,6 +72,7 @@ export default {
   name: 'app',
   data () {
     return {
+      ind:-1,
       isMoreLoad: true,  // 是否显示加载更多
       loadingImg: false,  // 加载更多时显示loading图
       loadLastText: false, // 到底了
@@ -112,6 +116,13 @@ export default {
      //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods: {
+    toCon(e){
+      console.log(e);
+      sessionStorage.conId=e;
+      this.$router.push({
+        name:'content'
+      })
+    },
     handleScroll(e){
 
       let that =this;
@@ -137,8 +148,7 @@ export default {
         that.page++;
         if(that.page<=parseInt(that.pages)){
           that.getList();
-        }else if(that.page==parseInt(that.pages)){
-          that.getList();
+        }else if(that.page>parseInt(that.pages)){
           that.nomore=true;
         };
         this.loading = false;
@@ -158,14 +168,7 @@ export default {
         }
       },50);
     },
-    toCon(e){
-      sessionStorage.homeIndex=2;
-      store.commit('infoFun1',e);
-      this.$router.push({
-        name:'content'
-      })
 
-    },
     swiperFun2(e){
       let that = this;
       if(e==2){
@@ -268,7 +271,7 @@ export default {
         name:'detail'
       })
     },
-    votCli(e,item,vote){
+    votCli(e,item,vote,index){
       let that =this;
     //  Indicator.open('加载中');
       this.axios({
@@ -282,10 +285,14 @@ export default {
 
          Indicator.close();
          if(res.data.code==1){
+           that.ind = index;
            Toast({
              message: '投票成功',
              duration: 1500
            });
+           setTimeout(function(){
+             that.ind=-1;
+           },1500)
            item.vote++;
            //that.getList();
           }else {
@@ -378,6 +385,7 @@ export default {
     width: 49%;
     margin-top: 10px;
     background: #ddd;
+    overflow: hidden;
   }
   #load .liItem img {
     width: 100%;
@@ -477,5 +485,16 @@ export default {
   float: left;
   padding: 10px;
   color: #333;
+}
+#load .abs {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  background-color:rgba(225,225,225,0.5);
+  z-index: 10;
+  line-height: 100px;
+  font-size: 20px;
+  color: #eee;
+  font-weight: 600;
 }
 </style>

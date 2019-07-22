@@ -100,7 +100,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/search?openid='+localStorage.openid1+'&keyword='+e+'&length=10',
+         url: '/api/works/search?openid='+localStorage.openid1+'&keyword='+e+'&area_id='+sessionStorage.addId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

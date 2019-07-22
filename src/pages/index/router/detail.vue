@@ -35,6 +35,9 @@
               <p>帮TA分享</p>
             </div>
           </div>
+          <div class="voteBtn" @click ='votCli(id)'>
+            投他（她）一票
+          </div>
           <h4>照片详情</h4>
           <h5>Photo details</h5>
           <div class="blank">
@@ -85,10 +88,41 @@ export default {
       voto:'',
       rank:'',
       deatilData:'',
-      dec:''
+      dec:'',
+      id:''
     }
   },
   methods: {
+    votCli(e){
+      let that =this;
+    //  Indicator.open('加载中');
+      this.axios({
+         method: 'put',
+         url: '/api/works/vote',
+         data: {
+           openid:localStorage.openid1,
+           id:e
+         }
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           Toast({
+             message: '投票成功',
+             duration: 1500
+           });
+
+           that.voto++;
+           //that.getList();
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
     shareBtn(){
       this.show2 =true;
     },
@@ -119,6 +153,7 @@ export default {
            that.voto =res.data.data.vote;
            that.rank =res.data.data.total_ranking;
            that.dec = res.data.data.describe;
+           that.id = res.data.data.id;
           }else {
             Indicator.close();
             Toast({
@@ -313,5 +348,14 @@ export default {
   margin-top: 10px;
   text-align: left;
   padding: 10px;
+}
+#detail .voteBtn {
+  background: #028458;
+  font-size: 14px;
+  color: #fff;
+  width: 200px;
+  padding: 5px;
+  margin: 15px auto;
+  border-radius: 30px;
 }
 </style>

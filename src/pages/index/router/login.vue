@@ -12,10 +12,10 @@
         </div>
         <p>请填写真实信息</p>
         <div class="subBtn" @click='goHome'>确认提交</div>
-        <h5 @click='selFun' class="clearfix">
-          <em  v-if='!sel' class=""></em>
-          <img class="" width="15px" v-else src="../assets/seled.png" alt="">
-          <span class="">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
+        <h5 class="clearfix">
+          <em  v-if='!sel' @click='selFun'  class=""></em>
+          <img class="" @click='selFun'  width="15px" v-else src="../assets/seled.png" alt="">
+          <span @click='toCon(0)' class="">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
         </h5>
       </div>
     </div>
@@ -51,6 +51,12 @@ export default {
     }
   },
   methods: {
+    toCon(e){
+      sessionStorage.conId=e;
+      this.$router.push({
+        name:'content'
+      })
+    },
     selFun (){
       this.sel =!this.sel;
     },

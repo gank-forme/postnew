@@ -4,7 +4,7 @@
       <img class="w90" slot="icon" src="../assets/nav1.png">
       <span slot="label">活动</span>
     </tabbar-item>
-    <tabbar-item  @click.native='nav2Fun'>
+    <tabbar-item  :link='logFlag?"/lot":"login"'>
       <img class="w90" slot="icon" src="../assets/nav2.png">
       <span slot="label">抽奖</span>
     </tabbar-item>
@@ -12,7 +12,7 @@
       <img slot="icon" src="../assets/nav4.png">
       <span slot="label">排行榜</span>
     </tabbar-item>
-    <tabbar-item  @click.native='nav5Fun'>
+    <tabbar-item  :link='logFlag?"/info":"login"'>
       <img class="w90" slot="icon" src="../assets/nav5.png">
       <span slot="label">我的</span>
     </tabbar-item>
@@ -37,7 +37,8 @@ export default {
       centerImg:'',
       nav2:'/before',
       nav3:true,
-      nav5:''
+      nav5:'',
+      logFlag:false
     }
   },
   methods:{
@@ -82,13 +83,9 @@ export default {
          Indicator.close();
          if(res.data.code==1){
            if(res.data.data.status==0){
-             that.$router.push({
-               name:'login'
-             })
+             that.logFlag=false;
            }else{
-             that.$router.push({
-               name:'lot'
-             })
+             that.logFlag=true;
            }
           }else {
             Indicator.close();
@@ -102,6 +99,7 @@ export default {
 
   },
   created:function(){
+    this.nav2Fun();
     let that =this;
     if((location.hash.indexOf('info')<0)){
       this.nav3=false
