@@ -129,45 +129,51 @@ export default {
          })
       },
       getPrize(){
-        if(!this.clc){
-          this.clc=true;
-          let that =this;
-          Indicator.open('加载中');
-          this.axios({
-             method: 'post',
-             url: 'api/prize/draw',
-             data: {
-               openid:localStorage.openid1
-             }
-           }).then(function (res) {
-             Indicator.close();
-             if(res.data.code==1){
-               that.lotteryStart = 1
-               // let randomNum = 1 + parseInt(Math.random() * this.prizeNum)
-               // this.prizeNo = randomNum
-               let pri = {
-                 1:1,
-                 6:2,
-                 5:3,
-                 4:4,
-                 3:5,
-                 2:6
+        if(sessionStorage.draw_limit>0){
+          if(!this.clc){
+            this.clc=true;
+            let that =this;
+            Indicator.open('加载中');
+            this.axios({
+               method: 'post',
+               url: 'api/prize/draw',
+               data: {
+                 openid:localStorage.openid1
                }
-               that.prizeNo = pri[res.data.data.id]; //<10中  >10空
-               that.priImg = 'http://photo.marketservice.cn'+res.data.data.img;
-               that.priName = res.data.data.name;
-               sessionStorage.priId = res.data.data.id;
-              }else {
-                Indicator.close();
-                Toast({
-                  message: res.data.msg,
-                  duration: 1500
-                });
-                that.listArr=[];
-              }
-           })
+             }).then(function (res) {
+               Indicator.close();
+               if(res.data.code==1){
+                 that.lotteryStart = 1
+                 // let randomNum = 1 + parseInt(Math.random() * this.prizeNum)
+                 // this.prizeNo = randomNum
+                 let pri = {
+                   1:1,
+                   6:2,
+                   5:3,
+                   4:4,
+                   3:5,
+                   2:6
+                 }
+                 that.prizeNo = pri[res.data.data.id]; //<10中  >10空
+                 that.priImg = 'http://photo.marketservice.cn'+res.data.data.img;
+                 that.priName = res.data.data.name;
+                 sessionStorage.priId = res.data.data.id;
+                }else {
+                  Indicator.close();
+                  Toast({
+                    message: res.data.msg,
+                    duration: 1500
+                  });
+                  that.listArr=[];
+                }
+             })
+          }
+        }else{
+          Toast({
+            message: '你的抽奖次数用光啦！',
+            duration: 1500
+          });
         }
-
       },
 
         lotteryDone (res) {

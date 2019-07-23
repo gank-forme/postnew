@@ -84,6 +84,7 @@ export default {
          if(res.data.code==1){
            if(res.data.data.status==0){
              that.logFlag=false;
+             sessionStorage.draw_limit=res.data.data.draw_limit;
            }else{
              that.logFlag=true;
            }

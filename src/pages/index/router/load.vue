@@ -19,12 +19,12 @@
         <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <ul class="clearfix"
+      <ul class="clearfix" style="column-count: 2;"
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
       >
-        <li class="liItem relative" v-for='(i,index) in homeList' >
+        <li style="break-inside: avoid;" class="liItem relative" v-for='(i,index) in homeList' >
           <div v-if='ind==index' class="abs">
             +1
           </div>
@@ -382,7 +382,7 @@ export default {
     background-size: 100% 100%;
   }
   #load .liItem {
-    width: 49%;
+    /* width: 49%; */
     margin-top: 10px;
     background: #ddd;
     overflow: hidden;
