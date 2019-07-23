@@ -19,6 +19,7 @@
         <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
+      <!-- <vue-waterfall-easy :imgsArr="imgAr" @scrollReachBottom="getData"></vue-waterfall-easy> -->
       <ul class="clearfix" style="column-count: 2;"
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-
+import vueWaterfallEasy from 'vue-waterfall-easy'
 import store from '../store.js'
 import qs from 'qs'
 import axios from 'axios'
@@ -70,8 +71,13 @@ import list2 from '../assets/banTest1.png'
 
 export default {
   name: 'app',
+  components: {
+    vueWaterfallEasy
+  },
   data () {
     return {
+      imgsArr:[],
+      imgAr:[],
       ind:-1,
       isMoreLoad: true,  // 是否显示加载更多
       loadingImg: false,  // 加载更多时显示loading图
@@ -256,6 +262,9 @@ export default {
          if(res.data.code==1){
            that.pages=res.data.data.pages;
            that.homeList = that.homeList.concat(res.data.data.list);
+           for(var i=0;i<that.homeList.length;i++){
+             that.imgAr.push('http://photo.marketservice.cn'+that.homeList[i].img);
+           }
           }else {
             Indicator.close();
             Toast({
@@ -303,7 +312,32 @@ export default {
             });
           }
        })
-    }
+    },
+    getData() {
+      let that =this;
+      this.axios({
+         method: 'get',
+         url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           that.pages=res.data.data.pages;
+           that.homeList = that.homeList.concat(res.data.data.list);
+           for(var i=0;i<that.homeList.length;i++){
+             that.imgAr = that.imgAr.concat('http://photo.marketservice.cn'+that.homeList[i].img);
+           }
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+
+    },
   },
   created:function(){
     // localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
@@ -418,12 +452,12 @@ export default {
     text-align: center;
   }
 
-  #load .liItem:nth-child(odd){
+  /* #load .liItem:nth-child(odd){
     float: left;
   }
   #load .liItem:nth-child(even){
     float: right;
-  }
+  } */
 #load .load h2 {
   font-size: 20px;
   margin-top: 25px;

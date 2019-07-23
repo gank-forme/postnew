@@ -25,7 +25,7 @@
         </div>
       </div>
       <div v-else class="picBox clearfix">
-        <img  :src="imgs" alt="">
+        <img @click='toDetail(i.id)' v-for='i in imgs'  :src="'http://photo.marketservice.cn'+i.img" alt="">
       </div>
     </div>
     <img  id="rec" src="../assets/rec.png" @click='toRec' alt="">
@@ -67,7 +67,7 @@ export default {
       name:'',
       total_ranking:'',
       local_ranking:'',
-      imgs:''
+      imgs:[]
       //infoData:''
     }
   },
@@ -86,6 +86,9 @@ export default {
     xLog2(){
       this.show2 =false;
     },
+    toDetail(e){
+
+    }
   },
   created:function(){
     let that =this;
@@ -110,7 +113,7 @@ export default {
            that.local_ranking=res.data.data.works.local_ranking;
            that.total_ranking=res.data.data.works.total_ranking;
            that.age=res.data.data.age;
-           that.imgs='http://photo.marketservice.cn'+res.data.data.works.img;
+           that.imgs=res.data.data.works.list;
          }
         }else {
           Indicator.close();
@@ -266,7 +269,6 @@ export default {
   display: block;
   width: 49%;
   height: 175px;
-  background: #ddd;
   margin-top: 5px;
 }
 #info .picBox img:nth-child(odd) {

@@ -21,6 +21,8 @@
           @click.native='picFun(0)'
         />
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
+        <p class="addTxt" v-if="uploadData['images0'].length==0">请上传您的作品</p>
+
       </div>
       <p>1：上传照片小于20M，照片格式不限。
       <p>2：含有暴力、色情、宗教禁忌等法律不允许内容的作品不予参评。</p>
@@ -47,7 +49,9 @@
           <img src="../assets/Succ.png" alt="">
           <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
           <p>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.  </p>
-          <img @click = 'xLog2' src="../assets/gb1.png" alt="">
+          <img v-if='lotFlag==false' @click = 'xLog3' src="../assets/gb1.png" alt="">
+          <img v-else  style="width:100px;" @click = 'xLog2' src="../assets/lot.png" alt="">
+
         </div>
       </x-dialog>
     </div>
@@ -102,11 +106,12 @@ export default {
   },
   data () {
     return {
+      lotFlag:false,
       titles:'',
       popupVisible:false,
       imgUrl:'',
       txt1:'',
-      show1:false,
+      show1:true,
       show2:false,
       pVisible:false,
       subFlag:false,
@@ -302,8 +307,13 @@ export default {
         }).then(function (res) {
           Indicator.close();
           if(res.data.code==1){
-            that.show2=true;
+            that.show1=true;
             sessionStorage.res=1;
+            if(res.data.data.draw==1){
+              that.lotFlag=true;
+            }else{
+              that.lotFlag=false;
+            }
            }else {
              Indicator.close();
              Toast({
@@ -317,6 +327,9 @@ export default {
        this.$router.push({
          name:'lot'
        })
+     },
+     xLog3(){
+       this.show1=!this.show1;
      },
      goBack(){
        history.go(-1);
@@ -343,6 +356,9 @@ export default {
 #passport .addBtn {
   width: 100%;
   height: 214px;
+  background: url('../assets/down.png') no-repeat center;
+  background-size: 10%;
+
 }
 #passport img.addBtn {
   object-fit:cover;
@@ -493,7 +509,7 @@ textarea::-webkit-textarea-placeholder {
 #passport .imgBox {
   width: 235px;
   min-height: 100px;
-  background: #ddd;
+  background: url('../assets/combg.png') no-repeat center;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 10px;
@@ -559,5 +575,12 @@ textarea::-webkit-textarea-placeholder {
 }
 #passport .mint-popup {
   background: none !important;
+}
+#passport .addTxt {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 140px;
+
 }
 </style>
