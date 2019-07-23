@@ -51,7 +51,6 @@
           <p>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.  </p>
           <img v-if='lotFlag==false' @click = 'xLog3' src="../assets/gb1.png" alt="">
           <img v-else  style="width:100px;" @click = 'xLog2' src="../assets/lot.png" alt="">
-
         </div>
       </x-dialog>
     </div>
