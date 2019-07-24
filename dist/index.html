@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title>中国邮储银行“金晖”摄影大赛</title><link href=/static/css/index.40059a2e76b05b60f928b843ea48e85f.css rel=stylesheet></head><script type=text/javascript src=//s.quanmin110.com/s/js/vconsole.min.js></script><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.b685c12e0d4c4bb713af.js></script><script type=text/javascript src=/static/js/index.f4b63e2e896febc2db35.js></script></body><script type=text/javascript>function getWx(){
+<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><meta name=format-detection content="telephone=no"><meta http-equiv=cache-control content="no-cache, no-store, must-revalidate"><meta http-equiv=pragma content=no-cache><meta http-equiv=expires content=0><title>中国邮储银行“金晖”摄影大赛</title><link href=/static/css/index.57b582309d6d557ba4e21178ebeb0cf9.css rel=stylesheet></head><script type=text/javascript src=//s.quanmin110.com/s/js/vconsole.min.js></script><script src=//libs.baidu.com/jquery/2.1.1/jquery.min.js></script><script src=//res2.wx.qq.com/open/js/jweixin-1.4.0.js charset=utf-8></script><body><div id=app></div><script type=text/javascript src=/static/js/manifest.0c1cd46d93b12dcd0191.js></script><script type=text/javascript src=/static/js/vendor.5e52d9910738015675c2.js></script><script type=text/javascript src=/static/js/index.3688c861da32b934a517.js></script></body><script type=text/javascript>function getWx(){
     //var urls = encodeURIComponent(window.location.href.split('#')[0]);
     var urls = encodeURIComponent(window.location.href.split('#')[0]);
 
@@ -10,6 +10,7 @@
         // contentType:"application/x-www-form-urlencoded",
         data: {url:urls},
         success:function (res) {
+          sessionStorage.appId =res.data.appId,
           sessionStorage.shareTitle=res.data.title,
           sessionStorage.shareCon=res.data.content,
           sessionStorage.shareImg=res.data.image;
@@ -53,6 +54,7 @@
     });
   };
 
+  // putSmartWater("#contentId",3);
 
   $(function(){
     getWx();

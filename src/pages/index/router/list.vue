@@ -87,7 +87,7 @@ export default {
         console.log(that.page+'sss')
         if(that.page<=parseInt(that.pages)){
           that.rankList();
-        }else if(that.page>parseInt(that.pages)){          
+        }else if(that.page>parseInt(that.pages)){
           that.nomore=true;
         };
         this.loading = false;
@@ -470,8 +470,9 @@ span.act {
   display: block;
   float: left;
   padding: 10px;
-  color: #333;
+  color: #999;
   text-align: center;
+  font-size: 14px;
 }
 #seachid {
   text-align: center;

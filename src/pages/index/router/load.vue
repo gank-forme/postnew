@@ -19,22 +19,26 @@
         <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <vue-waterfall-easy :loadingDotCount='0' hrefKey :imgsArr="imgsArr" @scrollReachBottom="getData">
-        <template slot-scope="scope">
-          <div v-if='ind ==scope.index' class="abs">
-            +1
-          </div>
-          <em v-if='scope.index<3' class="absolute">热门</em>
-          <div  class="op absolute">
+      <div style="width:100%;height:62%;padding: 1% 0;">
+        <vue-waterfall-easy ref="waterfall" id='text' @click='detailFun' :loadingDotCount='0' hrefKey :imgsArr="imgsArr" @scrollReachBottom="getData">
+          <template slot-scope="scope">
+            <div v-if='ind ==scope.index' class="abs">
+              +1
+            </div>
+            <em v-if='scope.index<3' class="absolute">热门</em>
+            <div  class="op absolute">
 
-          </div>
-          <p class="absolute">
-            <span class="scaName">{{scope.value.authorname}}</span>
-            <span class="sca">当前票数 <em>{{scope.value.vote}}</em></span>
-            <span class='vote' @click="votCli(scope)">投TA一票</span>
-          </p>
-        </template>
-      </vue-waterfall-easy>
+            </div>
+            <p class="absolute">
+              <span class="scaName">{{scope.value.authorname}}</span>
+              <span class="sca">当前票数 <em>{{scope.value.vote}}</em></span>
+              <span class='vote' @click="votCli(scope)">投TA一票</span>
+            </p>
+          </template>
+          <div slot="waterfall-over">没有更多数据咯</div>
+        </vue-waterfall-easy>
+      </div>
+
 
     </div>
 
@@ -82,7 +86,7 @@ export default {
       definePafeSize: 10, // 默认每页数量
       totals: null, // 用来存放总数量
 
-      nomore:false,
+      nomore:true,
 
       page:1,
       pages:'1',
@@ -271,11 +275,17 @@ export default {
           }
        })
     },
-    detailFun(e){
-      sessionStorage.detailId= e;
-      this.$router.push({
-        name:'detail'
-      })
+
+    detailFun(event, { index, value }){
+      event.preventDefault()
+      // 只有当点击到图片时才进行操作
+      if (event.target.tagName.toLowerCase() == 'img') {
+        sessionStorage.detailId= value.id;
+        this.$router.push({
+          name:'detail'
+        })
+      }
+
     },
     votCli(scope){
       let that =this;
@@ -345,7 +355,7 @@ export default {
             }
          })
       }else{
-
+        this.$refs.waterfall.waterfallOver()
       }
     },
   },
@@ -401,7 +411,7 @@ export default {
     margin: 0 auto;
     background: #ddd;
     height: 150px;
-    margin-top: 50px;
+    margin-top: 45px;
     position: relative;
   }
   #load .swi .upload {
@@ -417,19 +427,19 @@ export default {
   #load .listIndex {
     clear: both;
     overflow: auto;
-    padding-bottom: 60px;
     height: 100%;
     background: url(/static/img/combg.5cfc27d.png) no-repeat center;
     background-size: 100% 100%;
   }
   #load .vue-waterfall-easy-container{
     width: 100%;
-    height: 98%;
-    padding: 1% 0;
+    height: 100%;
+
     background: url(/static/img/combg.5cfc27d.png) no-repeat center;
     background-size: 100% 100%;
+
   }
-  #load .listIndex.com {
+  #load .vue-waterfall-easy-container .vue-waterfall-easy-scroll{
 
   }
   #load .liItem {
@@ -444,8 +454,8 @@ export default {
     object-fit: cover;
   }
   #load  em.absolute {
-    left: 3px;
-    top: 3px;
+    left: 0px;
+    top: 0px;
     background: #fff;
     color: #028458;
     padding: 2px 10px;
@@ -537,7 +547,7 @@ export default {
   padding: 10px;
   color: #333;
 }
-#load .vue-waterfall-easy-container .vue-waterfall-easy {
+#load .vue-waterfall-easy-container .vue-waterfall-easy a.img-inner-box{
   position: relative;
 }
 #load .abs {

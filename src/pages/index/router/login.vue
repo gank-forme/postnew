@@ -15,7 +15,7 @@
         <h5 class="clearfix">
           <em  v-if='!sel' @click='selFun'  class=""></em>
           <img class="" @click='selFun'  width="15px" v-else src="../assets/seled.png" alt="">
-          <span @click='toCon(0)' class="">我已阅读并同意中国邮政储蓄银行《银发客户摄影大赛》活动规则</span>
+          <span  class="">我已阅读并同意中国邮政储蓄银行<i @click='toCon(0)' style="opacity:0.7;font-style:normal;">《银发客户摄影大赛》活动规则</i></span>
         </h5>
       </div>
     </div>
@@ -66,7 +66,9 @@ export default {
         cancelText: '取消',
         confirmText: '确定',
         format: 'YYYY-MM-DD',
-        value: '1989-01-01',
+        value: '1969-01-01',
+        minYear:'1900',
+        maxYear:'1969',
         onConfirm (val) {
           that.usercard=val;
         },
