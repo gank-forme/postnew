@@ -66,7 +66,7 @@ export default {
         cancelText: '取消',
         confirmText: '确定',
         format: 'YYYY-MM-DD',
-        value: '2000-01-01',
+        value: '1989-01-01',
         onConfirm (val) {
           that.usercard=val;
         },

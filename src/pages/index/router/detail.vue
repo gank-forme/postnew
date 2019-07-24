@@ -46,6 +46,8 @@
         </div>
       </div>
     </div>
+    <app-footer message='zan'></app-footer>
+
 
     <div v-transfer-dom>
       <x-dialog v-model="show2" class="dialog-demo3">
@@ -60,6 +62,7 @@
         </div>
       </x-dialog>
     </div>
+
   </div>
 </template>
 
@@ -239,6 +242,7 @@ export default {
   margin:0 auto;
   margin-top: 5px;
   margin-bottom: 50px;
+  padding-bottom: 40px;
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #detail .headImg {

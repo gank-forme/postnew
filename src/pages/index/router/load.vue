@@ -19,27 +19,22 @@
         <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <!-- <vue-waterfall-easy  :imgsArr="imgAr" @scrollReachBottom="getData"></vue-waterfall-easy> -->
-      <ul class="clearfix " style="column-count: 2;"
-      v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="loading"
-      infinite-scroll-distance="10"
-      >
-        <li style="break-inside: avoid;" class="liItem relative" v-for='(i,index) in homeList' >
-          <div v-if='ind==index' class="abs">
+      <vue-waterfall-easy :loadingDotCount='0' hrefKey :imgsArr="imgsArr" @scrollReachBottom="getData">
+        <template slot-scope="scope">
+          <div v-if='ind ==scope.index' class="abs">
             +1
           </div>
-          <img @click='detailFun(i.id)' class="photo" :src="'http://photo.marketservice.cn'+i.img" alt="">
-          <em v-if='index<3' class="absolute">热门</em>
-          <div class="op absolute"></div>
-          <p>
-            <span class="scaName">{{i.authorname}}</span>
-            <span class="sca">当前票数 <em>{{i.vote}}</em></span>
-            <span class='vote' @click="votCli(i.id,i,i.vote,index)">投TA一票</span>
+          <em v-if='scope.index<3' class="absolute">热门</em>
+          <div  class="op absolute">
+
+          </div>
+          <p class="absolute">
+            <span class="scaName">{{scope.value.authorname}}</span>
+            <span class="sca">当前票数 <em>{{scope.value.vote}}</em></span>
+            <span class='vote' @click="votCli(scope)">投TA一票</span>
           </p>
-        </li>
-        <h3 v-if='nomore' class='nomore'>没有更多数据啦~</h3>
-      </ul>
+        </template>
+      </vue-waterfall-easy>
 
     </div>
 
@@ -56,7 +51,7 @@
     <app-footer v-if='loadIndex==2'></app-footer>
   </div>
 </template>
-
+<script src="../css/uid.js" charset="utf-8"></script>
 <script>
 import vueWaterfallEasy from 'vue-waterfall-easy'
 import store from '../store.js'
@@ -68,6 +63,7 @@ import banner2 from '../assets/2.jpg'
 import banner3 from '../assets/3.jpg'
 import list1 from '../assets/banTest.png'
 import list2 from '../assets/banTest1.png'
+
 
 export default {
   name: 'app',
@@ -89,7 +85,7 @@ export default {
       nomore:false,
 
       page:1,
-      pages:'',
+      pages:'1',
       homeList:[],
       appId:'',
       loadIndex:0,
@@ -122,6 +118,7 @@ export default {
      //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods: {
+
     toCon(e){
       console.log(e);
       sessionStorage.conId=e;
@@ -280,21 +277,23 @@ export default {
         name:'detail'
       })
     },
-    votCli(e,item,vote,index){
+    votCli(scope){
       let that =this;
+      console.log(scope);
+
     //  Indicator.open('加载中');
       this.axios({
          method: 'put',
          url: '/api/works/vote',
          data: {
            openid:localStorage.openid1,
-           id:e
+           id:scope.value.id
          }
        }).then(function (res) {
 
          Indicator.close();
          if(res.data.code==1){
-           that.ind = index;
+           that.ind = scope.index;
            Toast({
              message: '投票成功',
              duration: 1500
@@ -302,7 +301,7 @@ export default {
            setTimeout(function(){
              that.ind=-1;
            },1500)
-           item.vote++;
+           scope.value.vote++;
            //that.getList();
           }else {
             Indicator.close();
@@ -315,33 +314,43 @@ export default {
     },
     getData() {
       let that =this;
-      this.axios({
-         method: 'get',
-         url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
-         //data: qs.stringify(data)
-       }).then(function (res) {
+      if(that.page<=parseInt(that.pages)){
+        this.axios({
+           method: 'get',
+           url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
+           //data: qs.stringify(data)
+         }).then(function (res) {
 
-         Indicator.close();
-         if(res.data.code==1){
-           that.pages=res.data.data.pages;
-           that.homeList = that.homeList.concat(res.data.data.list);
-           for(var i=0;i<that.homeList.length;i++){
-             that.imgAr = that.imgAr.concat('http://photo.marketservice.cn'+that.homeList[i].img);
-           }
-          }else {
-            Indicator.close();
-            Toast({
-              message: res.data.msg,
-              duration: 1500
-            });
-          }
-       })
+           Indicator.close();
+           if(res.data.code==1){
+             that.page ++;
+             that.pages=res.data.data.pages;
+             that.homeList = that.homeList.concat(res.data.data.list);
+             for(var i=0;i<that.homeList.length;i++){
+               that.imgsArr = that.imgsArr.concat({
+                 'src':'http://photo.marketservice.cn'+that.homeList[i].img,
+                 'href':'http://photo.marketservice.cn'+that.homeList[i].img,
+                 'id':that.homeList[i].id,
+                 'vote':that.homeList[i].vote,
+                 'worksname':that.homeList[i].worksname,
+                 'authorname':that.homeList[i].authorname,
+               });
+             }
+            }else {
+              Indicator.close();
+              Toast({
+                message: res.data.msg,
+                duration: 1500
+              });
+            }
+         })
+      }else{
 
+      }
     },
   },
   created:function(){
     // localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
-
     Indicator.close();
     if(this.$route.query.code==undefined || sessionStorage.fistFlag==1){
       this.loadIndex=2;
@@ -355,7 +364,6 @@ export default {
     this.getData();
   }
 }
-
 </script>
 
 <style>
@@ -408,13 +416,21 @@ export default {
   }
   #load .listIndex {
     clear: both;
-    overflow: hidden;
+    overflow: auto;
     padding-bottom: 60px;
+    height: 100%;
+    background: url(/static/img/combg.5cfc27d.png) no-repeat center;
+    background-size: 100% 100%;
+  }
+  #load .vue-waterfall-easy-container{
+    width: 100%;
+    height: 98%;
+    padding: 1% 0;
+    background: url(/static/img/combg.5cfc27d.png) no-repeat center;
+    background-size: 100% 100%;
   }
   #load .listIndex.com {
 
-    background: url('../assets/combg.png') no-repeat center;
-    background-size: 100% 100%;
   }
   #load .liItem {
     /* width: 49%; */
@@ -427,9 +443,9 @@ export default {
     height: 100%;
     object-fit: cover;
   }
-  #load .liItem em {
-    left: 0px;
-    top: 0px;
+  #load  em.absolute {
+    left: 3px;
+    top: 3px;
     background: #fff;
     color: #028458;
     padding: 2px 10px;
@@ -440,9 +456,9 @@ export default {
     height: 30px;
     background: #fff;
     opacity: 0.9;
-    bottom:-1px;
+    bottom:0px;
   }
-  #load .liItem p {
+  #load p.absolute {
     position: absolute;
     width: 100%;
     height: 30px;
@@ -482,7 +498,7 @@ export default {
 }
 #load p span.vote {
   position: absolute;
-  right: -5px;
+  right: 0px;
   display: inline-block;
   transform: scale(0.9);
   font-size: 12px;
@@ -521,13 +537,17 @@ export default {
   padding: 10px;
   color: #333;
 }
+#load .vue-waterfall-easy-container .vue-waterfall-easy {
+  position: relative;
+}
 #load .abs {
+  top: 0;
   width: 100%;
   position: absolute;
   height: 100%;
   background-color:rgba(225,225,225,0.5);
   z-index: 10;
-  line-height: 100px;
+  line-height: 4em;
   font-size: 20px;
   color: #eee;
   font-weight: 600;

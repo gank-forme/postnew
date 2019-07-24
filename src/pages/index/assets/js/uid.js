@@ -1,38 +1,7 @@
-var u = navigator.userAgent;
-var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-var uid = null,token=null;
-
-export function getUid(callback){
-    // console.log("UA++++"+u);
-    // console.log("isAndroid++++"+isAndroid);
-    // console.log("uidObj.get_value()++++"+uidObj.get_value());
-    if (isAndroid) {
-        // console.log(uidObj);
-        uid = uidObj.get_value();
-        callback(uid)
-    } else if (isiOS) {
-       function setupWebViewJavascriptBridge(callback) {
-          if (window.WebViewJavascriptBridge) {
-              return callback(WebViewJavascriptBridge);
-          }
-          if (window.WVJBCallbacks) {
-              return window.WVJBCallbacks.push(callback);
-          }
-          window.WVJBCallbacks = [callback];
-          var WVJBIframe = document.createElement('iframe');
-          WVJBIframe.style.display = 'none';
-          WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
-          document.documentElement.appendChild(WVJBIframe);
-          setTimeout(function () {
-              document.documentElement.removeChild(WVJBIframe)
-          }, 0)
-       }
-       setupWebViewJavascriptBridge(function (bridge) {
-         bridge.callHandler('getUid', null, function (response) {
-            uid=response;
-            callback(uid);
-          })
-        })
-    }
-}
+(function($){var $window=$(window),pluginName='waterfall',defaults={itemClass:"waterfall-item",spacingWidth:10,spacingHeight:10,minColCount:2,resizeable:false,itemAlign:"center",isFadeIn:true,ajaxCallback:null};function Waterfall(element,options){this.$element=$(element);this.options=$.extend(true,{},defaults,options);this.ajaxLoading=false;this.colHeightArray=[];this._init();}
+Waterfall.prototype={constructor:Waterfall,_init:function(){var $this=this;$window.on("load",function(){$this._positionAll();});if(this.options.resizeable){$window.on("resize",function(){$this._positionAll();});}
+this._doScroll();},_getColumnCount:function(){var parentWidth=this.$element.width(),$item=$(this.options.itemClass),itemWidth=$item.eq(0).outerWidth(),iCol=Math.floor(parentWidth/(itemWidth+this.options.spacingWidth)),realWidth=0,leftOffset=0;iCol=iCol>this.options.minColCount?iCol:this.options.minColCount;realWidth=iCol*itemWidth;if(parentWidth>realWidth){leftOffset=Math.floor((parentWidth-realWidth-iCol*this.options.spacingWidth)/2);}
+this.itemWidth=itemWidth;this.cols=iCol;this.leftOffset=this.options.itemAlign=="center"?leftOffset:0;},_positionAll:function(){var $this=this,$item=$(this.options.itemClass),minHeight,minIndex;this._getColumnCount();this.colHeightArray=[];$item.each(function(index){$(this).css("position","absolute");if(index<$this.cols){$(this).css("top",0);$(this).css("left",$this.leftOffset+index*$this.itemWidth+index*$this.options.spacingWidth);$this.colHeightArray.push($(this).outerHeight());}else{minHeight=Math.min.apply(null,$this.colHeightArray);minIndex=$.inArray(minHeight,$this.colHeightArray);$(this).css("top",minHeight+$this.options.spacingHeight);$(this).css("left",$item.eq(minIndex).offset().left);$this.colHeightArray[minIndex]+=$(this).outerHeight()+$this.options.spacingHeight;}
+if($this.options.isFadeIn){$(this).animate({"opacity":1},300);}});this.$element.css("height",Math.max.apply(null,$this.colHeightArray));},_doScroll:function(){var $this=this,scrollTimer;$window.on("scroll",function(){if(scrollTimer){clearTimeout(scrollTimer);}
+scrollTimer=setTimeout(function(){var $last=$($this.options.itemClass).last(),scrollTop=$window.scrollTop()+$window.height();if(!$this.ajaxLoading&&scrollTop>$last.offset().top+$last.outerHeight()/2){$this.ajaxLoading=true;$this.options.ajaxCallback&&$this.options.ajaxCallback(function(){$this._positionAll();},function(){$this.ajaxLoading=false;});}},100);});}}
+$.fn[pluginName]=function(options){this.each(function(){if(!$.data(this,"plugin_"+pluginName)){$.data(this,"plugin_"+pluginName,new Waterfall(this,options));}});return this;}})(jQuery);
