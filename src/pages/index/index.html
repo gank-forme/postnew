@@ -32,6 +32,7 @@
         // contentType:"application/x-www-form-urlencoded",
         data: {url:urls},
         success:function (res) {
+          sessionStorage.appId =res.data.appId,
           sessionStorage.shareTitle=res.data.title,
           sessionStorage.shareCon=res.data.content,
           sessionStorage.shareImg=res.data.image;
