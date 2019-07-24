@@ -19,8 +19,8 @@
         <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
-      <!-- <vue-waterfall-easy :imgsArr="imgAr" @scrollReachBottom="getData"></vue-waterfall-easy> -->
-      <ul class="clearfix" style="column-count: 2;"
+      <!-- <vue-waterfall-easy  :imgsArr="imgAr" @scrollReachBottom="getData"></vue-waterfall-easy> -->
+      <ul class="clearfix " style="column-count: 2;"
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="10"
@@ -351,7 +351,8 @@ export default {
        this.getUserInfo();
        this.numFun();
     };
-    this.getList();
+    //this.getList();
+    this.getData();
   }
 }
 
