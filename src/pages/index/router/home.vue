@@ -8,18 +8,9 @@
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div> -->
-        <image-upload
-          v-if="uploadData['images0'].length==0"
-          class="addBtn"
-          ref='imgaeUpload'
-          :touch-size = 1
-          :lrz-options = {width:500}
-          :multiple = false
-          field-name = 'fileBase64'
-          :max-count = 1
-          @chooseImages='bindtap_chooseImages'
-          @click.native='picFun(0)'
-        />
+        <div v-if="uploadData['images0'].length==0" class="addBtn">
+          <input    type="file" name="avatar" accept="image/*"  @change="chooseImg($event)" >
+        </div>
         <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
         <p class="addTxt" v-if="uploadData['images0'].length==0">请上传您的作品</p>
 
@@ -110,7 +101,7 @@ export default {
       popupVisible:false,
       imgUrl:'',
       txt1:'',
-      show1:true,
+      show1:false,
       show2:false,
       pVisible:false,
       subFlag:false,
@@ -357,7 +348,16 @@ export default {
   height: 214px;
   background: url('../assets/down.png') no-repeat center;
   background-size: 10%;
+  position: relative;
 
+}
+#passport .addBtn input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  opacity: 0;
 }
 #passport img.addBtn {
   object-fit:cover;
