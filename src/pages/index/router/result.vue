@@ -1,5 +1,5 @@
 <template>
-  <div id="result" class="">
+  <div id="result" class="relative">
     <x-header >中奖纪录</x-header>
 
     <div class="content">
@@ -10,6 +10,8 @@
         <span>{{i.prize_name}}</span>
       </div>
     </div>
+    <h2 class='ques'>如有疑问请联系客服QQ：2086568209</h2>
+
   </div>
 </template>
 <script>
@@ -62,31 +64,25 @@ export default {
 
 <style>
 #result {
-  height: 100%;
+  min-height: 100%;
   clear: both;
   overflow: hidden;
-
+  background: url('../assets/combg.png') no-repeat center;
+  background-size: 100% 100%;
 }
 #result .content {
-
+  min-height: 100%;
   text-align: center;
   color: #03764D;
-
   width: 96%;
-  position: absolute;
-  left: 50%;
-  margin-left: -48%;
-  top: 45px;
-  bottom: 0px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background-size: 100% 100%;
+  margin: 0 auto;
+  padding-bottom: 30px;
 }
 
 #result .content h1{
   font-size: 18px;
   font-weight:600;
-  padding-top: 20px;
+  padding-top: 60px;
 }
 #result .content p{
   font-size: 14px;
@@ -117,4 +113,13 @@ export default {
   font-weight: 500;
   margin-left: 10px;
 }
+#result .ques {
+  color: #03764D;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+}
+
 </style>

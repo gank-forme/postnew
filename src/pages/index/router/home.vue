@@ -46,15 +46,7 @@
       </x-dialog>
     </div>
 
-    <div v-transfer-dom>
-      <x-dialog v-model="show2" class="dialog-demo2">
-        <img class="img1" src="../assets/ex1.png" alt="">
-        <div class="img2">
-          <img @click = 'xLog2' src="../assets/gb1.png" alt="">
 
-        </div>
-      </x-dialog>
-    </div>
 
     <!-- 图片预览 -->
     <image-preview
@@ -73,7 +65,8 @@
         <img class="suc" src="../assets/Succ.png" alt="">
         <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
         <h2>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.</h2>
-        <span @click = 'xLog2'>立即抽奖</span>
+        <img style="width:30px;margin-top:30px;" v-if='lotFlag==false' @click = 'goBack' src="../assets/gb1.png" alt="">
+        <span v-if='lotFlag==true' @click = 'xLog2'>立即抽奖</span>
       </div>
     </mt-popup>
   </div>

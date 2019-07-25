@@ -1,19 +1,23 @@
 <template>
   <tabbar>
-    <tabbar-item  link="/load">
+    <tabbar-item :selected='path=="load"' link="/load">
       <img class="w90" slot="icon" src="../assets/nav1.png">
+      <img class="w90" src="../assets/1-11.png" slot='icon-active' alt="">
       <span slot="label">活动</span>
     </tabbar-item>
-    <tabbar-item  :link='logFlag?"/lot":"login"'>
-      <img class="w90" slot="icon" src="../assets/nav2.png">
+    <tabbar-item :selected='path=="lot"' :link='logFlag?"/lot":"login"'>
+      <img  slot="icon" src="../assets/2222.png">
+      <img  src="../assets/2-22.png" slot='icon-active' alt="">
       <span slot="label">抽奖</span>
     </tabbar-item>
-    <tabbar-item link="/rank">
-      <img slot="icon" src="../assets/nav4.png">
+    <tabbar-item :selected='path=="rank"' link="/rank">
+      <img slot="icon" src="../assets/3333.png">
+      <img  src="../assets/3-33.png" slot='icon-active' alt="">
       <span slot="label">排行榜</span>
     </tabbar-item>
-    <tabbar-item  :link='logFlag?"/info":"login"'>
-      <img class="w90" slot="icon" src="../assets/nav5.png">
+    <tabbar-item :selected='path=="info"' :link='logFlag?"/info":"login"'>
+      <img slot="icon" src="../assets/nav5.png">
+      <img  src="../assets/4-44.png" slot='icon-active' alt="">
       <span slot="label">我的</span>
     </tabbar-item>
   </tabbar>
@@ -31,6 +35,7 @@ export default {
   name: 'AppFooter',
   data () {
     return {
+      path:'',
       shareTitle:sessionStorage.shareTitle,
       shareCon:sessionStorage.shareCon,
       shareImg:sessionStorage.shareImg,
@@ -100,6 +105,8 @@ export default {
 
   },
   created:function(){
+    this.path = this.$route.name;
+    console.log(this.path=='lot');
     this.nav2Fun();
     let that =this;
     if((location.hash.indexOf('info')<0)){

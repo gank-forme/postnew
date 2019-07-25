@@ -75,7 +75,6 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           display: none !important;
         }
         .weui-tabbar__label {
-          color: #fff !important;
         }
         .centerTab {
           width: 48px;
@@ -93,5 +92,11 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
           z-index: 10;
         }
         .vux-header a {
+          color: #fff ;
+        }
+        .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i, .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+          color:#f08000 !important;
+        }
+        .weui-tabbar__label {
           color: #fff !important;
         }
