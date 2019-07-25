@@ -115,7 +115,9 @@ export default {
              duration: 1500
            });
 
-           that.voto++;
+           that.voto= res.data.data.vote;
+           that.rank= res.data.data.total_ranking;
+
            //that.getList();
           }else {
             Indicator.close();

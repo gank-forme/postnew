@@ -8,11 +8,11 @@
           <img src="../assets/down.png" alt="">
           <p>请在此上传您的 <br> 梦想加邮站详情截图 </p>
         </div> -->
-        <div v-if="uploadData['images0'].length==0" class="addBtn">
+        <div v-if="!avatar" class="addBtn">
           <input    type="file" name="avatar" accept="image/*"  @change="chooseImg($event)" >
         </div>
-        <img v-else class="addBtn fr" :src="image.src" alt="" v-for="(image , j) in uploadData['images0']" @click="bingtap_preview(0,j)">
-        <p class="addTxt" v-if="uploadData['images0'].length==0">请上传您的作品</p>
+        <img v-else class="addBtn fr" :src="avatar" alt="" >
+        <p class="addTxt" v-if="!avatar">请上传您的作品</p>
 
       </div>
       <p>1：上传照片小于20M，照片格式不限。
@@ -73,7 +73,7 @@
         <img class="suc" src="../assets/Succ.png" alt="">
         <h1>您已成功上传<br>在审核成功后会在页面显示</h1>
         <h2>You have successfully uploaded <br>After the audit is successful, it will be displayed on the page.</h2>
-        <span >立即抽奖</span>
+        <span @click = 'xLog2'>立即抽奖</span>
       </div>
     </mt-popup>
   </div>
@@ -96,6 +96,7 @@ export default {
   },
   data () {
     return {
+      avatar:'',
       lotFlag:false,
       titles:'',
       popupVisible:false,
@@ -271,9 +272,32 @@ export default {
      lookFun(){
 
      },
+     chooseImg(e){
+       var file = e.target.files[0];
+       console.log(file);
+       this.images =file;
+        var reader = new FileReader()
+        var that = this
+        reader.readAsDataURL(file)
+        reader.onload = function(e) {
+          that.avatar= this.result
+        }
+        that.fileupload();
+       // wx.chooseImage({
+       //    count: 1, // 默认9
+       //    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+       //    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+       //    success: function (res) {
+       //      var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+       //    }
+       //  });
+     },
      xLog1(){
+
        //this.show1=!this.show1;
        let that =this;
+
+
        Indicator.open('加载中');
        console.log(that.images);
        let data = new FormData()
@@ -297,7 +321,7 @@ export default {
         }).then(function (res) {
           Indicator.close();
           if(res.data.code==1){
-            that.show1=true;
+            that.popupVisible=true;
             sessionStorage.res=1;
             if(res.data.data.draw==1){
               that.lotFlag=true;
@@ -351,6 +375,7 @@ export default {
   position: relative;
 
 }
+
 #passport .addBtn input {
   width: 100%;
   height: 100%;
@@ -361,6 +386,7 @@ export default {
 }
 #passport img.addBtn {
   object-fit:cover;
+  background:none;
 }
 #passport .loadCon {
   position: absolute;

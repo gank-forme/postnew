@@ -65,8 +65,8 @@ import { MessageBox,Toast,Indicator} from 'mint-ui'
 import banner1 from '../assets/1.jpg'
 import banner2 from '../assets/2.jpg'
 import banner3 from '../assets/3.jpg'
-import list1 from '../assets/banTest.png'
-import list2 from '../assets/banTest1.png'
+import list1 from '../assets/banTest1.jpg'
+import list2 from '../assets/banTest11.jpg'
 
 
 export default {
@@ -335,7 +335,7 @@ export default {
            if(res.data.code==1){
              that.page ++;
              that.pages=res.data.data.pages;
-             that.homeList = that.homeList.concat(res.data.data.list);
+             that.homeList = res.data.data.list;
              for(var i=0;i<that.homeList.length;i++){
                that.imgsArr = that.imgsArr.concat({
                  'src':'http://photo.marketservice.cn'+that.homeList[i].img,
@@ -371,7 +371,11 @@ export default {
        this.numFun();
     };
     //this.getList();
-    this.getData();
+    if(localStorage.openid1==''||localStorage.openid1==undefined){
+
+    }else{
+      this.getData();
+    }
   }
 }
 </script>
@@ -425,6 +429,8 @@ export default {
     top: 10px;
   }
   #load .listIndex {
+    position: fixed;
+    width: 100%;
     clear: both;
     overflow: auto;
     height: 100%;

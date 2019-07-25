@@ -1,5 +1,5 @@
 <template>
-  <div id="content" class="comon">
+  <div id="content" class="">
     <x-header :left-options="{backText: ''}">{{title}}</x-header>
 
     <div class="content">
