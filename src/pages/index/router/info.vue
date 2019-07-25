@@ -228,10 +228,10 @@ export default {
 #info .headImg {
   display: block;
   margin: 0 auto;
-  width: 53px;
-  height: 53px;
+  width: 75px;
+  height: 75px;
   border: 1px solid #fff;
-  border-radius: 53px;
+  border-radius: 75px;
   margin-top: 40px;
 }
 #info .infoBox{

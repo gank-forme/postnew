@@ -5,13 +5,8 @@
     <x-header v-if='addFlag' :left-options="{backText: ''}">{{addTxt}}榜单</x-header>
     <x-header v-else :left-options="{backText: ''}"><span :class='ind==2?"act":""' @click='navFun(1)'>赛区榜单</span><span :class='ind==1?"act":""' @click='navFun(2)'>全国榜单</span> </x-header>
 
-    <search v-if='ind==2'
-    @on-change="getResult"
-    @on-focus='focusFun'
-    v-model="value"
-    position="absolute"
-    auto-scroll-to-top
-    ref="search"></search>
+    <input v-if='ind==2' id='seachid' readonly @click='focusFun' type="text" placeholder="请输入搜索内容" name="" value="">
+
     <div v-if='ind==2' class="topBox">
       <div v-if='ind==2' >
         <img class="topBg" src="../assets/images/bgAll_02.jpg" alt="">
@@ -530,5 +525,19 @@ span.act {
 .content1 .addItem:nth-child(odd){
   float: right;
   margin-right: 20px;
+}
+#seachid {
+  text-align: center;
+  padding: 7px 0;
+  border-radius: 30px;
+  font-size: 14px;
+  display: block;
+  left: 50%;
+  margin-left: -48%;
+  width: 96%;
+  background: #fff;
+  position: fixed;
+  top: 50px;
+  z-index: 10;
 }
 </style>
