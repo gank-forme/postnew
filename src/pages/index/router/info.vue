@@ -11,8 +11,11 @@
         </div>
       </div>
       <div class="userBox clearfix">
-        <img @click='navFun(2)' class="navl" src="../assets/111.png" alt="">
-        <img @click='navFun(1)' class="navl" src="../assets/222.png" alt="">
+        <img v-if='ind==2' @click='navFun(2)' class="navl" src="../assets/111.png" alt="">
+        <img v-if='ind==1' @click='navFun(2)' class="navl" src="../assets/l1hover.png" alt="">
+
+        <img v-if='ind==2' @click='navFun(1)' class="navl" src="../assets/l2hover.png" alt="">
+        <img v-if='ind==1' @click='navFun(1)' class="navl" src="../assets/222.png" alt="">
       </div>
       <div v-if='ind==1' class="userBox">
         <div class="txt">

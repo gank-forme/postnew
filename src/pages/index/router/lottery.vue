@@ -340,4 +340,7 @@ export default {
 .mint-indicator-mask {
   z-index: 2200 !important;
 }
+.wraper p {
+  text-align: center;
+}
 </style>
