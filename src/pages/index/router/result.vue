@@ -6,7 +6,7 @@
       <h1>您的中奖信息如下</h1>
       <p>Your winning information is as follows</p>
       <div v-for='(i,index) in listArr'  class="reslist">
-        <img :src='"http://photo.marketservice.cn"+i.prize_img' alt="">
+        <img :src='i.prize_img' alt="">
         <span>{{i.prize_name}}</span>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/prize/win?openid='+localStorage.openid1,
+         url: 'api/prize/win?openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

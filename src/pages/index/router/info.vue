@@ -25,7 +25,7 @@
         </div>
       </div>
       <div v-else class="picBox clearfix">
-        <img @click='toDetail(i.id)' v-for='i in imgs'  :src="'http://photo.marketservice.cn'+i.img" alt="">
+        <img @click='toDetail(i.id)' v-for='i in imgs'  :src="i.img" alt="">
       </div>
     </div>
     <img  id="rec" src="../assets/rec.png" @click='toRec' alt="">
@@ -139,7 +139,7 @@ export default {
     Indicator.open('加载中');
     this.axios({
        method: 'get',
-       url: '/api/customer/info?openid='+localStorage.openid1
+       url: '/api/customer/info?openid='+localStorage.openid3
        //data: qs.stringify(data)
      }).then(function (res) {
 

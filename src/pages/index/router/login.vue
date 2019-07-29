@@ -91,7 +91,7 @@ export default {
          data: {
            name:that.username,
            phone:that.usernum,
-           openid:localStorage.openid1,
+           openid:localStorage.openid3,
            area_id:that.year3[0],
            birthday:that.usercard,
            is_read:that.sel?1:0
@@ -126,7 +126,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/area/list?openid='+localStorage.openid1,
+         url: '/api/area/list?openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
 

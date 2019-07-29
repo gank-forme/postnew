@@ -184,7 +184,7 @@ export default {
       console.log(that.images);
       let data = new FormData()
       //data.append("openid",localStorage.openid);
-      data.append("openid",localStorage.openid1);
+      data.append("openid",localStorage.openid3);
       data.append("file",that.images);
       this.axios({
          method: 'post',
@@ -294,7 +294,7 @@ export default {
        Indicator.open('加载中');
        console.log(that.images);
        let data = new FormData()
-       data.append("openid",localStorage.openid1);
+       data.append("openid",localStorage.openid3);
        data.append("title",that.title);
        data.append("detail",that.txt1);
        data.append("image",that.imgUrl);
@@ -305,7 +305,7 @@ export default {
           url: '/api/works/add',
           // headers: { 'content-type': 'multipart/form-data' },
           data: {
-            openid:localStorage.openid1,
+            openid:localStorage.openid3,
             image:that.imgUrl,
             s_image:that.s_imgUrl,
             name:that.titles,

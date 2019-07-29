@@ -198,7 +198,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/customer/info?openid='+localStorage.openid1
+         url: '/api/customer/info?openid='+localStorage.openid3
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -236,7 +236,7 @@ export default {
          that.homeIndex=2;
          Indicator.close();
          if(res.data.code==1){
-           localStorage.openid1 = res.data.data.openid;
+           localStorage.openid3 = res.data.data.openid;
            localStorage.city = res.data.data.city;
            localStorage.icon = res.data.data.icon;
            localStorage.nickname = res.data.data.nickname;
@@ -255,7 +255,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
+         url: '/api/works/home?openid='+localStorage.openid3+'&page='+that.page+'&length=10'
          //data: qs.stringify(data)
        }).then(function (res) {
 
@@ -264,7 +264,7 @@ export default {
            that.pages=res.data.data.pages;
            that.homeList = that.homeList.concat(res.data.data.list);
            for(var i=0;i<that.homeList.length;i++){
-             that.imgAr.push('http://photo.marketservice.cn'+that.homeList[i].img);
+             that.imgAr.push(that.homeList[i].img);
            }
           }else {
             Indicator.close();
@@ -296,7 +296,7 @@ export default {
          method: 'put',
          url: '/api/works/vote',
          data: {
-           openid:localStorage.openid1,
+           openid:localStorage.openid3,
            id:scope.value.id
          }
        }).then(function (res) {
@@ -327,7 +327,7 @@ export default {
       if(that.page<=parseInt(that.pages)){
         this.axios({
            method: 'get',
-           url: '/api/works/home?openid='+localStorage.openid1+'&page='+that.page+'&length=10'
+           url: '/api/works/home?openid='+localStorage.openid3+'&page='+that.page+'&length=10'
            //data: qs.stringify(data)
          }).then(function (res) {
 
@@ -338,8 +338,8 @@ export default {
              that.homeList = res.data.data.list;
              for(var i=0;i<that.homeList.length;i++){
                that.imgsArr = that.imgsArr.concat({
-                 'src':'http://photo.marketservice.cn'+that.homeList[i].img,
-                 'href':'http://photo.marketservice.cn'+that.homeList[i].img,
+                 'src':that.homeList[i].img,
+                 'href':that.homeList[i].img,
                  'id':that.homeList[i].id,
                  'vote':that.homeList[i].vote,
                  'worksname':that.homeList[i].worksname,
@@ -360,7 +360,7 @@ export default {
     },
   },
   created:function(){
-    // localStorage.openid1 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
+    // localStorage.openid3 = 'og2xL6PsxIGg2CMpBUymIcMMBOys';
     Indicator.close();
     if(this.$route.query.code==undefined || sessionStorage.fistFlag==1){
       this.loadIndex=2;
@@ -371,7 +371,7 @@ export default {
        this.numFun();
     };
     //this.getList();
-    if(localStorage.openid1==''||localStorage.openid1==undefined){
+    if(localStorage.openid3==''||localStorage.openid3==undefined){
 
     }else{
       this.getData();

@@ -76,7 +76,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/hsearch?openid='+localStorage.openid1,
+         url: '/api/works/hsearch?openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -100,7 +100,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/search?openid='+localStorage.openid1+'&keyword='+e+'&area_id='+sessionStorage.addId,
+         url: '/api/works/search?openid='+localStorage.openid3+'&keyword='+e+'&area_id='+sessionStorage.addId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

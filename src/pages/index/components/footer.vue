@@ -52,7 +52,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/customer/info?openid='+localStorage.openid1
+         url: '/api/customer/info?openid='+localStorage.openid3
          //data: qs.stringify(data)
        }).then(function (res) {
 
@@ -81,7 +81,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/customer/info?openid='+localStorage.openid1
+         url: '/api/customer/info?openid='+localStorage.openid3
          //data: qs.stringify(data)
        }).then(function (res) {
 

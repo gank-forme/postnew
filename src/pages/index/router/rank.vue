@@ -93,7 +93,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/area/list?openid='+localStorage.openid1,
+         url: 'api/area/list?openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -144,7 +144,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid1,
+         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -170,7 +170,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid1,
+         url: '/api/list?page='+that.ind+'&openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -214,7 +214,7 @@ export default {
         Indicator.open('加载中');
         this.axios({
            method: 'get',
-           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid1+'&page='+that.ind
+           url: '/api/search?keyword='+that.value+'&openid='+localStorage.openid3+'&page='+that.ind
            //data: qs.stringify(data)
          }).then(function (res) {
            Indicator.close();
@@ -254,7 +254,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/works/ranking?openid='+localStorage.openid1+'&page=1&length=10',
+         url: 'api/works/ranking?openid='+localStorage.openid3+'&page=1&length=10',
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();

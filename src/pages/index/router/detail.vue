@@ -103,7 +103,7 @@ export default {
          method: 'put',
          url: '/api/works/vote',
          data: {
-           openid:localStorage.openid1,
+           openid:localStorage.openid3,
            id:e
          }
        }).then(function (res) {
@@ -145,7 +145,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/works/info?openid='+localStorage.openid1+'&id='+sessionStorage.detailId,
+         url: '/api/works/info?openid='+localStorage.openid3+'&id='+sessionStorage.detailId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -153,7 +153,7 @@ export default {
            that.icon = res.data.data.author_icon;
            that.name =res.data.data.author_name;
            that.time =res.data.data.create_time;
-           that.img ='http://photo.marketservice.cn'+res.data.data.img;
+           that.img =res.data.data.img;
            that.name1 =res.data.data.name;
            that.voto =res.data.data.vote;
            that.rank =res.data.data.total_ranking;

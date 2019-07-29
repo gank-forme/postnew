@@ -108,7 +108,7 @@ export default {
         Indicator.open('加载中');
         this.axios({
            method: 'get',
-           url: 'api/prize/list?openid='+localStorage.openid1,
+           url: 'api/prize/list?openid='+localStorage.openid3,
            //data: qs.stringify(data)
          }).then(function (res) {
            Indicator.close();
@@ -138,7 +138,7 @@ export default {
                method: 'post',
                url: 'api/prize/draw',
                data: {
-                 openid:localStorage.openid1
+                 openid:localStorage.openid3
                }
              }).then(function (res) {
                Indicator.close();
@@ -155,7 +155,7 @@ export default {
                    2:6
                  }
                  that.prizeNo = pri[res.data.data.id]; //<10中  >10空
-                 that.priImg = 'http://photo.marketservice.cn'+res.data.data.img;
+                 that.priImg = res.data.data.img;
                  that.priName = res.data.data.name;
                  sessionStorage.priId = res.data.data.id;
                 }else {
@@ -195,7 +195,7 @@ export default {
              method: 'put',
              url: 'api/prize/receive',
              data: {
-               openid:localStorage.openid1,
+               openid:localStorage.openid3,
                id	:sessionStorage.priId,
                receive_name:that.rName,
                receive_phone:that.rPhone,

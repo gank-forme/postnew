@@ -129,7 +129,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: 'api/works/ranking?openid='+localStorage.openid1+'&page='+that.page+'&length=10&area_id='+sessionStorage.addId,
+         url: 'api/works/ranking?openid='+localStorage.openid3+'&page='+that.page+'&length=10&area_id='+sessionStorage.addId,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
@@ -163,7 +163,7 @@ export default {
       Indicator.open('加载中');
       this.axios({
          method: 'get',
-         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid1,
+         url: '/api/myhitslist?page='+that.ind1+'&openid='+localStorage.openid3,
          //data: qs.stringify(data)
        }).then(function (res) {
          Indicator.close();
