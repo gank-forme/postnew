@@ -241,6 +241,7 @@ export default {
            localStorage.icon = res.data.data.icon;
            localStorage.nickname = res.data.data.nickname;
            localStorage.user_id = res.data.data.user_id;
+           that.getData();
           }else {
             Indicator.close();
             Toast({

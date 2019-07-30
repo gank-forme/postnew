@@ -1,6 +1,6 @@
 <template>
   <div id="result" class="relative">
-    <x-header >中奖纪录</x-header>
+    <x-header :left-options="{backText: ''}">中奖纪录</x-header>
 
     <div class="content">
       <h1>您的中奖信息如下</h1>
