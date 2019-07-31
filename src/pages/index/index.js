@@ -21,8 +21,8 @@ import content from './router/content.vue'
 import rank from './router/rank.vue'
 import before from './router/before.vue'
 
-
-
+import VueTouch from 'vue-touch'
+Vue.use(VueTouch, {name: 'v-touch'})
 
 
 

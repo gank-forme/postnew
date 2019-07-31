@@ -26,6 +26,7 @@
     "vue-axios": "^2.1.4",
     "vue-lottery": "^1.0.3",
     "vue-router": "^3.0.1",
+    "vue-touch": "^2.0.0-beta.4",
     "vuex": "^3.1.0",
     "vux": "^2.9.4",
     "weixin-js-sdk": "^1.4.0-test"

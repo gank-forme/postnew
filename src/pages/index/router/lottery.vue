@@ -16,10 +16,11 @@
             :lottery-width="['100%','20%']"
         />
         <img class="titleImg titleImgs" src="../assets/logo.png" alt="">
-        <p>本次奖品全部由中国邮政储蓄银行提供。</p>
-        <p>如您所抽中的是实物奖品，请您再次提交真实身份和地址信息，我们将在兑奖和公示时使用，若您未真实填写并提交身份和地址信息，我们将认为您自愿放弃获得该奖项的权利。</p>
-        <p>如您抽中的是奖券类奖品，请您直接按页面说明与要求点击领取使用。</p>
-        <p>本次活动最终解释权归中国邮政储蓄银行所有。</p>
+        <p>本次奖品全部由中国邮政储蓄银行提供</p>
+        <p>如您所抽中的是实物奖品，请您再次提交真实身份和地址信息，我们将在兑奖和公示时使用，若您未真实填写并提交身份和地址</p>
+        <p>我们将认为您自愿放弃获得该奖项的权利</p>
+        <p>如您抽中的是奖券类奖品，请您直接按页面说明点击领取使用</p>
+        <h3>本次活动最终解释权归中国邮政储蓄银行所有</h3>
       </div>
 
 
@@ -87,7 +88,7 @@ export default {
         return {
           clc:false,
           rName:'',rPhone:'',rCard:'',rAdd:'',
-          show2:false,
+          show2:true,
           show1:false,
           popupVisible:false,
           lotteryStart: 0,
@@ -182,6 +183,7 @@ export default {
           let index = res.prizeNo - 1;
 
           this.show2=true;
+          this.clc=false;
           if(this.prizeNo<10){
             //that.popupVisible=true;
           }else{
@@ -259,6 +261,7 @@ export default {
   width: 90%;
   text-align: center;
   color: #fff;
+  top: 300px;
   background: none !important;
 }
 #lottery .mint-popup h1{
@@ -342,5 +345,13 @@ export default {
 }
 .wraper p {
   text-align: center;
+  color: #333;
+  font-size: 12px;
+}
+.wraper h3 {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  padding-top: 10px;
 }
 </style>

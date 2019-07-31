@@ -5,6 +5,7 @@
     <div class="content">
       <h1>您的中奖信息如下</h1>
       <p>Your winning information is as follows</p>
+      <h2 v-if='listArr.length==0' style="font-size:14px;">您还没有奖品哟</h2>
       <div v-for='(i,index) in listArr'  class="reslist">
         <img :src='i.prize_img' alt="">
         <span>{{i.prize_name}}</span>

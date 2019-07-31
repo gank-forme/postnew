@@ -9,9 +9,17 @@
     </div>
 
     <div class="swiperDiv" v-if='loadIndex==1'>
-      <mt-swipe :auto="4000" @change="swiperFun2">
-        <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'><img :src="i.img" alt="" >  </mt-swipe-item>
-      </mt-swipe>
+        <mt-swipe  :auto="0" :continuous='false' @change="swiperFun2">
+
+            <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'>
+              <img v-if='index<2' :src="i.img" alt="" >
+              <v-touch v-else v-on:swipeleft='left' v-on:swiperight='right'>
+                <img :src="i.img" alt="" >
+              </v-touch>
+            </mt-swipe-item>
+
+        </mt-swipe>
+
       <!-- <swiper @click.native='swiFun(index)' :auto='false' v-model='index' @on-index-change='swiperFun' :loop='false' :list="demo01_list" height='100%' :show-desc-mask='false' dots-position='center'></swiper> -->
     </div>
     <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
@@ -122,7 +130,12 @@ export default {
      //window.addEventListener('scroll',this.handleScroll,true);
   },
   methods: {
-
+    left(){
+      this.loadIndex=2;
+    },
+    right(){
+      console.log('right');
+    },
     toCon(e){
       console.log(e);
       sessionStorage.conId=e;
@@ -178,11 +191,12 @@ export default {
 
     swiperFun2(e){
       let that = this;
-      if(e==2){
-        setTimeout(function(){
-          that.loadIndex=2;
-        },1500);
-      }
+      console.log(e);
+      // if(e==2){
+      //   setTimeout(function(){
+      //     that.loadIndex=2;
+      //   },1500);
+      // }
     },
 
     swiFun(e){

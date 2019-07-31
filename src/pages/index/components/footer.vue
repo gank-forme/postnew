@@ -59,10 +59,12 @@ export default {
          Indicator.close();
          if(res.data.code==1){
            if(res.data.data.status==0){
+             that.logFlag=false;
              that.$router.push({
                name:'login'
              })
            }else{
+             that.logFlag=true;
              that.$router.push({
                name:'info'
              })
@@ -87,11 +89,12 @@ export default {
 
          Indicator.close();
          if(res.data.code==1){
-           if(res.data.data.status==0){
-             that.logFlag=false;
-             sessionStorage.draw_limit=res.data.data.draw_limit;
-           }else{
+           if(res.data.data.status==1){
              that.logFlag=true;
+             sessionStorage.draw_limit=res.data.data.draw_limit;
+             console.log(sessionStorage.draw_limit);
+           }else{
+             that.logFlag=false;
            }
           }else {
             Indicator.close();
