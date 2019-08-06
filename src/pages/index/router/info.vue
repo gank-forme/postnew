@@ -31,6 +31,7 @@
         <img @click='toDetail(i.id)' v-for='i in imgs'  :src="i.img" alt="">
       </div>
     </div>
+    <img id='my' src="../assets/my.png" @click='toMy' alt="">
     <img  id="rec" src="../assets/rec.png" @click='toRec' alt="">
     <app-footer message='zan'></app-footer>
 
@@ -82,6 +83,9 @@ export default {
       this.$router.push({
         name:'result'
       })
+    },
+    toMy(){
+      location.href= 'http://Ycyh.fulizhongxin.net'
     },
     shareBtn(){
       this.show2 =true;
@@ -328,6 +332,12 @@ export default {
   width: 40px;
   position: fixed;
   bottom: 120px;
+  right: 20px;
+}
+#my {
+  width: 40px;
+  position: fixed;
+  bottom: 170px;
   right: 20px;
 }
 .dialog-demo3 .weui-dialog{
