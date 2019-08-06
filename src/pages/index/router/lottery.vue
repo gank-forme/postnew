@@ -32,8 +32,8 @@
           <img class="suc" src="../assets/headlogo.png" alt="">
           <h1>恭喜您抽中邮储银行为您准备的超级丰厚奖品一份,请准确提交个人信息,以免错过奖品</h1>
           <li class="clearfix"><span class="fl">姓名</span><input v-model='rName' class="fl" type="text" name="" value=""> </li>
-          <li><span>电话</span><input type="text" maxlength="11" name="" v-model='rPhone' value=""> </li>
-          <li><span>身份证号</span><input type="text" maxlength="18" name="" v-model='rCard' value=""> </li>
+          <li><span>电话</span><input type="number" maxlength="11" name="" v-model='rPhone' value=""> </li>
+          <li><span>身份证号</span><input type="number" maxlength="18" name="" v-model='rCard' value=""> </li>
           <li><span>邮寄地址</span><input type="text" name="" v-model='rAdd' value=""> </li>
           <p>对于中奖用户,我们会发送中奖短信通知,请再次核对信息,确认提交</p>
           <span class="btn" @click='toNext'>确认提交</span>
@@ -88,7 +88,7 @@ export default {
         return {
           clc:false,
           rName:'',rPhone:'',rCard:'',rAdd:'',
-          show2:true,
+          show2:false,
           show1:false,
           popupVisible:false,
           lotteryStart: 0,
