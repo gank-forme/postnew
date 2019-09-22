@@ -11,10 +11,10 @@
     <div class="swiperDiv" v-if='loadIndex==1'>
         <mt-swipe  :auto="0" :continuous='false' @change="swiperFun2">
 
-            <mt-swipe-item v-for='(i,index) in demo01_list' :key ='index'>
-              <img v-if='index<2' :src="i.img" alt="" >
+            <mt-swipe-item v-for='(i,index) in demo01_list1' :key ='index'>
+              <img v-if='index<demo01_list1.length-1' :src="i.img" alt="" >
               <v-touch v-else v-on:swipeleft='left' v-on:swiperight='right'>
-                <img :src="i.img" alt="" >
+                <img class="sd" :src="i.img" alt="" >
               </v-touch>
             </mt-swipe-item>
 
@@ -24,7 +24,17 @@
     </div>
     <div :class="homeList.length>0?'listIndex com':'listIndex'" v-if='loadIndex==2'>
       <div class="swi">
-        <swiper @click.native='toCon(index)' :auto='false' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper>
+        <mt-swipe  :auto="0" :continuous='false' >
+
+            <mt-swipe-item v-for='(i,index) in listIndex' :key ='index' @click.native='toCon(index)'>
+              <img v-if='index<demo01_list1.length-1' :src="i.img" alt="" >
+              <v-touch v-else v-on:swipeleft='left' v-on:swiperight='right'>
+                <img class="sd" :src="i.img" alt="" >
+              </v-touch>
+            </mt-swipe-item>
+
+        </mt-swipe>
+        <!-- <swiper  :auto='true' v-model='index'  :loop='false' :list="listIndex" height='100%' :show-desc-mask='false' dots-position='center'></swiper> -->
         <span class="upload" @click='liCli'>上传照片</span>
       </div>
       <div style="width:100%;height:62%;padding: 1% 0;">
@@ -104,6 +114,7 @@ export default {
       index:0,
       num:0,
       popupVisible:false,
+      demo01_list1:[],
       demo01_list:[{
           url: 'javascript:',
           img: banner1,
@@ -115,13 +126,8 @@ export default {
           img: banner3,
         }
       ],
-      listIndex:[{
-          url: 'javascript:',
-          img: list1,
-        }, {
-          url: 'javascript:',
-          img: list2,
-        }
+      listIndex:[
+
       ],
     }
   },
@@ -337,6 +343,51 @@ export default {
           }
        })
     },
+    getBanner(){
+      let that =this;
+      this.axios({
+         method: 'get',
+         url: '/api/rotation/list?openid='+localStorage.openid3+'&obj=index'
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           that.demo01_list1 = res.data.data.list
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
+    getTop(){
+      let that =this;
+      this.axios({
+         method: 'get',
+         url: '/api/rotation/list?openid='+localStorage.openid3+'&obj=top'
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           for (var i=0;i<res.data.data.list.length;i++){
+             that.listIndex.push({
+               url: 'javascript:',
+               img: res.data.data.list[i].img,
+             })
+           }
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+    },
     getData() {
       let that =this;
       if(that.page<=parseInt(that.pages)){
@@ -372,6 +423,8 @@ export default {
       }else{
         this.$refs.waterfall.waterfallOver()
       }
+      that.getBanner();
+      that.getTop();
     },
   },
   created:function(){
@@ -582,5 +635,8 @@ export default {
   font-size: 20px;
   color: #eee;
   font-weight: 600;
+}
+#load .mint-swipe-item img {
+  width: 100%;
 }
 </style>

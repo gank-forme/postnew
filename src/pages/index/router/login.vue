@@ -3,6 +3,7 @@
     <x-header :left-options="{backText: ''}">信息提交</x-header>
     <div class="registBox">
       <div class="userBox">
+        <h3>为保证兑奖流程的顺利，请您务必填写正确的手机号码</h3>
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
         <input readonly @click='showPlugin'  maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
@@ -193,7 +194,7 @@ export default {
   width: 100%;
   margin:0 auto;
   margin-top: 5px;
-
+  padding-top: 1px;
   /* background: linear-gradient(to bottom right, #a5dcc0 10%,#eee, #98d4b3); */
 }
 #login .userBox p{
@@ -229,7 +230,7 @@ export default {
   background: url('../assets/inp1.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 #number {
   background: url('../assets/inp2.png') no-repeat 5px center;
@@ -256,7 +257,15 @@ export default {
   margin: 0 auto;
   border-bottom: 1px solid #03764D;
 }
-
+#login .userBox h3 {
+  padding: 0 10px;
+  color: red;
+  background: #f7e2e1;
+  text-align: left;
+  margin: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
 #login .userBox h5 {
   width: 80%;
   margin: 0 auto;

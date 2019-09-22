@@ -6,7 +6,7 @@
         <img class="headImg" :src="icon" alt="">
         <p>{{name}}</p>
         <div class="infoBox">
-          <h1 class='clearfix'><span class="fl">{{area}}</span>  <span class="fr">{{sex}} {{age}}</span></h1>
+          <h1 class='clearfix'><span class="fl">{{area}}</span>  <span class="fr" @click='sex2=true'><img class="write" src="../assets/write1.png" alt=""> {{sex}} {{age}}</span></h1>
           <h2>希望每个人都可以在自己的分享中得到快乐</h2>
         </div>
       </div>
@@ -31,19 +31,34 @@
         <img @click='toDetail(i.id)' v-for='i in imgs'  :src="i.img" alt="">
       </div>
     </div>
-    <img id='my' src="../assets/my.png" @click='toMy' alt="">
+    <img id='my' src="../assets/tochange.png" @click='toMy' alt="">
     <img  id="rec" src="../assets/rec.png" @click='toRec' alt="">
     <app-footer message='zan'></app-footer>
 
     <div v-transfer-dom>
       <x-dialog v-model="show2" class="dialog-demo3">
-
         <div class="img1">
           <img width="80%" src="../assets/guide.png" alt="">
         </div>
         <p>将梦想分享给更多的人<br>Share your dreams with more people </p>
         <div class="img2">
           <img width="30px" @click = 'xLog2' src="../assets/gb1.png" alt="">
+        </div>
+      </x-dialog>
+    </div>
+
+    <div v-transfer-dom>
+      <x-dialog v-model="sex2" class="dialog-demo3" :hide-on-blur='true'>
+        <div class="sexWrap clearfix">
+          <h2>选择性别</h2>
+          <div class="fl">
+            <img :class='sexInd==1?"dis":"act"' @click='sexChange(1)' :src="sexInd==1?'../assets/nan1.png':'../assets/nv1.png'" alt="">
+            <p>男</p>
+          </div>
+          <div class="fr">
+            <img :class='sexInd==0?"dis":"act"' @click='sexChange(0)' src="" alt="">
+            <p>女</p>
+          </div>
         </div>
       </x-dialog>
     </div>
@@ -62,6 +77,8 @@ export default {
   name: 'app',
   data () {
     return {
+      sex2:false,
+      sexInd:0,
       show2:false,
       ind:1,
       area:'',
@@ -85,7 +102,7 @@ export default {
       })
     },
     toMy(){
-      location.href= 'http://Ycyh.fulizhongxin.net'
+      location.href= 'http://dj.fulizhongxin.net'
     },
     shareBtn(){
       this.show2 =true;
@@ -98,6 +115,30 @@ export default {
       this.$router.push({
         name:'detail'
       })
+    },
+    sexChange(e){
+      let that =this;
+      this.sexInd = e;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'PUT',
+         url: '/api/customer/sex?openid='+localStorage.openid3+'&sex='+e
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           that.sex2= false;
+           that.useINfo();
+         }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
+
     },
     wxShare(e){
       let that = this;
@@ -139,41 +180,49 @@ export default {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         console.log(res);
       });
+    },
+    useINfo(){
+      let that =this;
+      Indicator.open('加载中');
+      this.axios({
+         method: 'get',
+         url: '/api/customer/info?openid='+localStorage.openid3
+         //data: qs.stringify(data)
+       }).then(function (res) {
+
+         Indicator.close();
+         if(res.data.code==1){
+           if(res.data.data.status==0){
+             that.$router.push({
+               name:'login'
+             })
+           }else{
+             that.icon=res.data.data.icon;
+             that.name=res.data.data.name;
+             that.area=res.data.data.area;
+             that.sex=res.data.data.sex;
+             if(that.sex=='男'){
+               that.sexInd=1;
+             }else{
+               that.sexInd=0;
+             }
+             that.local_ranking=res.data.data.works.local_ranking;
+             that.total_ranking=res.data.data.works.total_ranking;
+             that.age=res.data.data.age;
+             that.imgs=res.data.data.works.list;
+           }
+          }else {
+            Indicator.close();
+            Toast({
+              message: res.data.msg,
+              duration: 1500
+            });
+          }
+       })
     }
   },
   created:function(){
-    let that =this;
-    Indicator.open('加载中');
-    this.axios({
-       method: 'get',
-       url: '/api/customer/info?openid='+localStorage.openid3
-       //data: qs.stringify(data)
-     }).then(function (res) {
-
-       Indicator.close();
-       if(res.data.code==1){
-         if(res.data.data.status==0){
-           that.$router.push({
-             name:'login'
-           })
-         }else{
-           that.icon=res.data.data.icon;
-           that.name=res.data.data.name;
-           that.area=res.data.data.area;
-           that.sex=res.data.data.sex;
-           that.local_ranking=res.data.data.works.local_ranking;
-           that.total_ranking=res.data.data.works.total_ranking;
-           that.age=res.data.data.age;
-           that.imgs=res.data.data.works.list;
-         }
-        }else {
-          Indicator.close();
-          Toast({
-            message: res.data.msg,
-            duration: 1500
-          });
-        }
-     })
+    this.useINfo();
   }
 }
 </script>
@@ -351,6 +400,13 @@ export default {
 #info .img1 {
   text-align: right;
 }
+#info .write {
+  width: 10px !important;
+  min-height: inherit !important;
+  height: 15px !important;
+  display: inline-block !important;
+  margin-top: 0px !important;
+}
 #info .img1 img{
   width: 60%;
   margin-right: 30px;
@@ -362,5 +418,52 @@ export default {
 }
 #info .img2 img {
   width: 40px;
+}
+#info .sexWrap {
+  background: #fff;
+  color: #000;
+  padding: 5px;
+}
+#info .sexWrap h2 {
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+#info .sexWrap div {
+  width: 50%;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  margin-top: 5px;
+}
+#info .sexWrap div img {
+  display: inline-block;
+  width: 60px;
+  /* background: #000; */
+  height: 60px;
+  border-radius: 60px;
+  margin-bottom: 5px;
+}
+#info .sexWrap div img.act {
+  /* background: #eee; */
+}
+#info .sexWrap .fl img.act {
+  background: url("../assets/nan2.png") no-repeat;
+  background-size: 100%;
+}
+#info .sexWrap .fl img.dis {
+  background: url("../assets/nan1.png") no-repeat;
+  background-size: 100%;
+  pointer-events: none;
+}
+#info .sexWrap .fr img.act {
+  background: url("../assets/nv1.png") no-repeat;
+  background-size: 100%;
+}
+#info .sexWrap .fr img.dis {
+  background: url("../assets/nv2.png") no-repeat;
+  background-size: 100%;
+  pointer-events: none;
 }
 </style>
