@@ -13,7 +13,7 @@
 
             <mt-swipe-item v-for='(i,index) in demo01_list1' :key ='index'>
               <img v-if='index<demo01_list1.length-1' :src="i.img" alt="" >
-              <v-touch v-else v-on:swipeleft='left' v-on:swiperight='right'>
+              <v-touch class="imgWrap" v-else v-on:swipeleft='left' v-on:swiperight='right'>
                 <img class="sd" :src="i.img" alt="" >
               </v-touch>
             </mt-swipe-item>
@@ -637,5 +637,10 @@ export default {
 }
 #load .mint-swipe-item img {
   width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+#load .imgWrap {
+  height: 100%;
 }
 </style>
