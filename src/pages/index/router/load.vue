@@ -27,10 +27,7 @@
         <mt-swipe  :auto="0" :continuous='false' >
 
             <mt-swipe-item v-for='(i,index) in listIndex' :key ='index' @click.native='toCon(index)'>
-              <img v-if='index<demo01_list1.length-1' :src="i.img" alt="" >
-              <v-touch v-else v-on:swipeleft='left' v-on:swiperight='right'>
-                <img class="sd" :src="i.img" alt="" >
-              </v-touch>
+              <img :src="i.img" alt="" >
             </mt-swipe-item>
 
         </mt-swipe>
@@ -364,7 +361,9 @@ export default {
        })
     },
     getTop(){
+
       let that =this;
+      that.listIndex=[];
       this.axios({
          method: 'get',
          url: '/api/rotation/list?openid='+localStorage.openid3+'&obj=top'
