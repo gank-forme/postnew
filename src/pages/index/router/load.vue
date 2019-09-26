@@ -26,7 +26,7 @@
       <div class="swi">
         <mt-swipe  :auto="0" :continuous='false' >
 
-            <mt-swipe-item v-for='(i,index) in listIndex' :key ='index' @click.native='toCon(index)'>
+            <mt-swipe-item v-for='(i,index) in listIndex' :key ='index' @click.native='toCon(i.dst_img,i.dst_title)'>
               <img :src="i.img" alt="" >
             </mt-swipe-item>
 
@@ -139,9 +139,9 @@ export default {
     right(){
       console.log('right');
     },
-    toCon(e){
-      console.log(e);
-      sessionStorage.conId=e;
+    toCon(m,n){
+      sessionStorage.conImg=m;
+      sessionStorage.conTit=n;
       this.$router.push({
         name:'content'
       })
@@ -376,6 +376,8 @@ export default {
              that.listIndex.push({
                url: 'javascript:',
                img: res.data.data.list[i].img,
+               dst_title: res.data.data.list[i].dst_title,
+               dst_img: res.data.data.list[i].dst_img
              })
            }
           }else {

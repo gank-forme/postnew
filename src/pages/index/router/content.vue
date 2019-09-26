@@ -3,7 +3,7 @@
     <x-header :left-options="{backText: ''}">{{title}}</x-header>
 
     <div class="content">
-      <img :src="result[index]" alt="">
+      <img :src="conSrc" alt="">
     </div>
   </div>
 </template>
@@ -22,8 +22,9 @@ export default {
   name: 'app',
   data () {
     return {
-      title:'',
-      index:sessionStorage.conId,
+      title:sessionStorage.conTit,
+      conSrc:sessionStorage.conImg,
+
       result:[
         info1,info2
       ]
@@ -33,11 +34,11 @@ export default {
 
   },
   created:function(){
-    if(this.index ==1){
-      this.title='《金晖杯老年摄影奖品设置》'
-    }else{
-      this.title='《金晖杯活动规则》'
-    }
+    // if(this.index ==1){
+    //   this.title='《金晖杯老年摄影奖品设置》'
+    // }else{
+    //   this.title='《金晖杯活动规则》'
+    // }
   }
 }
 </script>
@@ -50,6 +51,7 @@ export default {
 }
 #content .content{
   padding-top: 50px;
+  text-align: center;
 }
 
 </style>

@@ -6,6 +6,7 @@
         <h3>为保证兑奖流程的顺利，请您务必填写正确的手机号码</h3>
         <input @blur='inputBlur' v-model='username' id="name" type="text" placeholder="请输入您的真实姓名" name="" value="">
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
+        <input @blur='inputBlur' maxLength='18' v-model='idCard' id="idCard" type="text" placeholder="请输入您的身份证号" name="" value="">
         <input readonly @click='showPlugin'  maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
@@ -48,15 +49,18 @@ export default {
       year3: ['1'],
       usernum:'',
       username:'',
+      idCard:'',
       usercard:''
     }
   },
   methods: {
     toCon(e){
-      sessionStorage.conId=e;
+
       this.$router.push({
         name:'content'
-      })
+      });
+
+
     },
     selFun (){
       this.sel =!this.sel;
@@ -95,6 +99,7 @@ export default {
            openid:localStorage.openid3,
            area_id:that.year3[0],
            birthday:that.usercard,
+           certificate:that.idCard,
            is_read:that.sel?1:0
          }
        }).then(function (res) {
@@ -237,8 +242,13 @@ export default {
   background-size: 18px;
   border-radius: 0;
 }
+#idCard {
+  background: url('../assets/idCard.png') no-repeat 5px center;
+  background-size: 18px;
+  border-radius: 0;
+}
 #idcard {
-  background: url('../assets/inp3.png') no-repeat 5px center;
+  background: url('../assets/date.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
 }

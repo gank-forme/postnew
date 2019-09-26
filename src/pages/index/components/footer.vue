@@ -89,6 +89,8 @@ export default {
 
          Indicator.close();
          if(res.data.code==1){
+           sessionStorage.conImg=res.data.data.rule_img;
+           sessionStorage.conTit=res.data.data.rule_title;
            if(res.data.data.status==1){
              that.logFlag=true;
              sessionStorage.draw_limit=res.data.data.draw_limit;

@@ -20,7 +20,7 @@
       <p>3：凡在其他各类摄影大赛中已经获奖的作品(含收藏作品)，谢绝再次参评。</p>
       <p>4：本次活动所有参赛作品,邮储银行作为主办方,对所有参赛作品拥有商业使用权，作者享有署名权!</p>
       <div class="inpBox">
-        <input type="text" maxlength="8" v-model='titles' placeholder="请为照片命名  " name="" value="">
+        <input type="text" @blur='inputBlur'  maxlength="8" v-model='titles' placeholder="请为照片命名  " name="" value="">
         <p>照片命名长度控制在8个汉字内</p>
       </div>
       <div class="textareaBox inpBox">
