@@ -164,7 +164,7 @@ export default {
                  that.prizeNo = pri[res.data.data.id]; //<10中  >10空
                  that.priImg = res.data.data.img;
                  that.priName = res.data.data.name;
-                 sessionStorage.priId = res.data.data.id;
+                 sessionStorage.priId = res.data.data.record_id;
                 }else {
                   Indicator.close();
                   Toast({
@@ -298,6 +298,8 @@ export default {
   float: left;
 }
 #lottery .mint-popup li span {
+  width: 80px;
+  text-align: center;
   float: left;
   vertical-align: super;
 }
@@ -369,4 +371,5 @@ export default {
   font-size: 12px;
   padding-top: 10px;
 }
+
 </style>

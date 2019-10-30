@@ -100,3 +100,6 @@ html,body,div,span,object,embed,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,cite,code,del,d
         .weui-tabbar__label {
           color: #fff !important;
         }
+        .weui-toast,.mint-toast,.mint-indicator-wrapper  {
+          z-index: 5000001 !important;
+        }
