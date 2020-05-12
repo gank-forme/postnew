@@ -8,10 +8,13 @@
         <input @blur='inputBlur' maxLength='11' v-model='usernum' id="number" type="text" placeholder="请输入您的真实电话" name="" value="">
         <input @blur='inputBlur' maxLength='18' v-model='idCard' id="idCard" type="text" placeholder="请输入您的身份证号" name="" value="">
         <input readonly @click='showPlugin'  maxLength='18' v-model='usercard' id="idcard" type="text" placeholder="请填写您的出生年月日" name="" value="">
+        <input readonly @click='showAddress'  maxLength='18' v-model='address' id="address" type="text" placeholder="请填写地址" name="" >
+
         <input readonly id="loca" type="text" value="选择您所在的区域" name="" >
         <div class="pickBox">
           <picker :data='years' v-model='year3' @on-change='changeFun'></picker>
         </div>
+        <popup-picker @on-change='addChange' :show.sync="showPopupPicker" :data="list3" :columns="3" v-model="value3" ref="picker3"></popup-picker>
         <p>请填写真实信息</p>
         <div class="subBtn" @click='goHome'>确认提交</div>
         <h5 class="clearfix">
@@ -30,7 +33,7 @@
 import qs from 'qs'
 import axios from 'axios'
 import store from '../store.js'
-import { Datetime} from 'vux'
+import { Datetime,PopupPicker} from 'vux'
 import { MessageBox,Toast,Indicator } from 'mint-ui'
 
 let years = []
@@ -38,11 +41,13 @@ let years = []
 
 export default {
   components: {
-    Datetime
+    Datetime,PopupPicker
   },
   name: 'app',
   data () {
     return {
+      address:'',
+      showPopupPicker:false,
       sel:false,
       value1: '2015-11-12',
       years: [years],
@@ -50,17 +55,78 @@ export default {
       usernum:'',
       username:'',
       idCard:'',
-      usercard:''
+      usercard:'',
+      value3:[],
+      list3: [{
+        name: '中国',
+        value: 'china',
+        parent: 0
+      }, {
+        name: '美国',
+        value: 'USA',
+        parent: 0
+      }, {
+        name: '广东',
+        value: 'china001',
+        parent: 'china'
+      }, {
+        name: '广西',
+        value: 'china002',
+        parent: 'china'
+      }, {
+        name: '美国001',
+        value: 'usa001',
+        parent: 'USA'
+      }, {
+        name: '美国002',
+        value: 'usa002',
+        parent: 'USA'
+      }, {
+        name: '广州',
+        value: 'gz',
+        parent: 'china001'
+      }, {
+        name: '深圳',
+        value: 'sz',
+        parent: 'china001'
+      }, {
+        name: '广西001',
+        value: 'gx001',
+        parent: 'china002'
+      }, {
+        name: '广西002',
+        value: 'gx002',
+        parent: 'china002'
+      }, {
+        name: '美国001_001',
+        value: '0003',
+        parent: 'usa001'
+      }, {
+        name: '美国001_002',
+        value: '0004',
+        parent: 'usa001'
+      }, {
+        name: '美国002_001',
+        value: '0005',
+        parent: 'usa002'
+      }, {
+        name: '美国002_002',
+        value: '0006',
+        parent: 'usa002'
+      }],
     }
   },
   methods: {
+    addChange(e){
+      console.log(e);
+    },
+    showAddress(){
+      this.showPopupPicker=true;
+    },
     toCon(e){
-
       this.$router.push({
         name:'content'
       });
-
-
     },
     selFun (){
       this.sel =!this.sel;
@@ -156,7 +222,7 @@ export default {
     }
   },
   created:function(){
-    this.getList();
+     this.getList();
   }
 }
 </script>
@@ -239,6 +305,11 @@ export default {
 }
 #number {
   background: url('../assets/inp2.png') no-repeat 5px center;
+  background-size: 18px;
+  border-radius: 0;
+}
+#address {
+  background: url('../assets/idCard.png') no-repeat 5px center;
   background-size: 18px;
   border-radius: 0;
 }
