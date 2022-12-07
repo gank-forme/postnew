@@ -19,7 +19,7 @@
     "mint-ui": "^2.2.13",
     "picture-upload-qn": "^1.0.1",
     "px2rem-loader": "^0.1.9",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
     "vue-router": "^3.0.1",
